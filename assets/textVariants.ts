@@ -11,14 +11,6 @@
 900    Extra Black, Fat, Poster or Ultra Black
  */
 
-/** comic sans FUNSIES
-  light: 'ChalkboardSE-Light',
-  regular: 'ChalkboardSE-Regular',
-  medium: 'ChalkboardSE-Regular',
-  bold: 'ChalkboardSE-Bold',
-  semiBold: 'ChalkboardSE-Bold',
- */
-
 export const fontFamilies = {
   light: 'Barlow-Light',
   regular: 'Barlow-Regular',

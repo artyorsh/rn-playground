@@ -28,9 +28,21 @@ As an inspiration you can use these designs of our app taken from figma:
 - for the implementation you should not spend too much time, please keep it
   around 4 hours and prioritize the topics that are important for you
 
+- to submit the coding challenge please fork this repository and submit a pull
+  request with your solution
+
+## process after submission
+
+- we will have a closer look into the code and set up an appointment to discuss
+  the rsult
+- the discussion will be held in a video call and should start with a short
+  presentation of the solution
+- after the presentation the discussion will go deeper into the code to speak
+  about the implementation and decisions made, e.g. why some parts are
+  prioritized and what would be done differently with more time
+
+## hints
+
 - in the folder `./assets` you can find some icons used in the designs, and some
   files used in our design system to describe our colors, typography, shadows
   and other design elements
-
-- to submit the coding challenge please fork this repository and submit a pull
-  request with your solution

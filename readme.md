@@ -11,6 +11,8 @@ the endpoints to retrieve the data are:
   asset with the given ID
 - `https://api.timeless.investments/assets/{ID}/details` - a list of details
   specific to the asset with the given ID
+  
+or if you prefer working with graphql you can find the schema and playground on https://staging.graph.timeless-internal.net/graphql
 
 As an inspiration you can use these designs of our app taken from figma:
 

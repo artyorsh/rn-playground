@@ -1,6 +1,7 @@
 export const baseUnit = 4;
 
 const spacing = {
+  base: baseUnit,
   xxs: baseUnit,
   xs: baseUnit * 2,
   s: baseUnit * 4,

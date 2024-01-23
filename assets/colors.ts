@@ -5,6 +5,7 @@ const colors = {
   tlBlue300: '#6479AB',
   tlBlue200: '#A1ADCF',
   tlBlue100: '#D9DEED',
+  tlBlue50: '#F0F3FA',
   tlBlue: '#EDF6FF',
 
   primary900: '#141414',
@@ -16,6 +17,7 @@ const colors = {
   primary300: '#B1B1B1',
   primary200: '#E2E2E2',
   primary100: '#EEEEEE',
+  primary50: '#F9F9F9',
 
   disabledFillColorLight: '#F9F9F9',
 
@@ -46,10 +48,26 @@ const colors = {
   orange100: '#FFE0B5',
   orange50: '#FFF3E1',
 
+  purple900: '#4D0076',
+  purple800: '#6A0184',
+  purple700: '#7A058C',
+  purple600: '#8C0B93',
+  purple500: '#980F98',
+  purple400: '#A83AA7',
+  purple300: '#B85EB6',
+  purple200: '#CD8CCB',
+  purple100: '#E0BADF',
+  purple50: '#F3E3F2',
+
   black: '#000000',
+  blackTransparent: '#00000066',
+  blackTransparentLight: '#0000000F',
   white: '#FFFFFF',
 
   facebookBlue: '#1877F2',
+  petrol: '#14768C',
+
+  skeletonHighlight: '#ecebeb',
 };
 
 export default colors;

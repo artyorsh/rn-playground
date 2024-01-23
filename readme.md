@@ -4,23 +4,19 @@ To get an impression of how you are working with react-native we want you to
 spend some time to implement a simple app to show an overview and detail view of
 the assets currently hosted on timeless.investments.
 
-the endpoints to retrieve the data are:
+To load the asset data you can use our graphql endpoint at
+https://graph.cdn.timeless-internal.net/graphql. A playground with staging data
+is reachable at https://graph.staging.timeless-internal.net/graphql.
 
-- `https://api.timeless.investments/assets` - returns all assets
-- `https://api.timeless.investments/assets/{ID}` - the full dataset for the
-  asset with the given ID
-- `https://api.timeless.investments/assets/{ID}/details` - a list of details
-  specific to the asset with the given ID
-  
-or if you prefer working with graphql you can find the schema and playground on 
-https://staging.graph.timeless-internal.net/graphql and our production graphql endpoint 
-at https://graph.cdn.timeless-internal.net/graphql
+In the file ./queries.ts are two react hooks to use for asset list loading and
+asset detail loading.
 
 As an inspiration you can use these designs of our app taken from figma:
 
-![browse page](./documentation/browse.jpg)
-
-![product detail page](./documentation/product-detail-page.jpg)
+<div style="display:flex;width:766px;gap:16px;align-items:flex-start;">
+  <img src="./documentation/browse.png" style="flex-shrink:0; width:375px;" alt="browse page" width="375" />
+  <img src="./documentation/product-detail-page.png" style="flex-shrink:0; width:375px;" alt="detail page" width="375" />
+</div>
 
 ## expected scope
 
@@ -38,7 +34,7 @@ As an inspiration you can use these designs of our app taken from figma:
 ## process after submission
 
 - we will have a closer look into the code and set up an appointment to discuss
-  the rsult
+  the result
 - the discussion will be held in a video call and should start with a short
   presentation of the solution
 - after the presentation the discussion will go deeper into the code to speak

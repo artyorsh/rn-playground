@@ -20,13 +20,13 @@ export const ProductItem: React.FC<Props> = ({ vm, ...props }) => {
 
   return (
     <Card
-      style={[styles.container, props.style, { backgroundColor: vm.backgroundColor }]}
+      style={[styles.container, props.style]}
       onPress={vm.viewDetails}>
       <Image
         style={styles.image}
         source={vm.image}
       />
-      <View style={styles.detailsContainer}>
+      <View style={[styles.detailsContainer, { backgroundColor: vm.backgroundColor }]}>
         <Text category='heading'>
           {vm.title}
         </Text>
@@ -62,7 +62,6 @@ const styles = StyleSheet.create({
   },
   detailsContainer: {
     padding: 16,
-    backgroundColor: 'rgba(0, 0, 0, 0.24)'
   },
   priceContainer: {
     marginTop: 16,

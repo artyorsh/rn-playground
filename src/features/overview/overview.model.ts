@@ -1,9 +1,10 @@
 export interface IProduct {
-  id: number;
+  id: string;
   title: string;
   image_url: string;
   market_price: string;
   platform_price: string;
+  background_color: string;
 }
 
 export interface IOverview {

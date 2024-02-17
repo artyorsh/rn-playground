@@ -9,7 +9,6 @@ interface Props extends CardProps {
 
 export interface IProductItemVM {
   title: string;
-  backgroundColor: string;
   image: ImageSourcePropType;
   marketPrice: string;
   price: string;

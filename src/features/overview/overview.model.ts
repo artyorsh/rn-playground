@@ -4,7 +4,6 @@ export interface IProduct {
   image_url: string;
   market_price: string;
   platform_price: string;
-  background_color: string;
 }
 
 export interface IOverview {

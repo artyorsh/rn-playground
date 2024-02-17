@@ -1,45 +1,32 @@
 import React from 'react';
-import { Text as RNText, TextProps as RNTextProps, StyleSheet } from 'react-native';
+import { TextProps as RNTextProps, StyleSheet } from 'react-native';
+import { Text as RNPText } from 'react-native-paper';
 
 export interface TextProps extends RNTextProps {
-  category?:
+  category?: TextCategory;
+}
+
+type TextCategory =
     | 'heading'
     | 'subheading'
     | 'paragraph'
     | 'subparagraph'
-}
+    | 'label';
 
-export const Text: React.FC<TextProps> = ({ category, ...props }) => {
-  return (
-    <RNText 
-      {...props}
-      style={[styles[category!], props.style]}
-    />
-  );
-}; 
+const CATEGORY_VARIANT_MAP: Record<TextCategory, string> = {
+  'heading': 'headlineSmall',
+  'subheading': 'titleMedium',
+  'paragraph': 'bodyMedium',
+  'subparagraph': 'bodySmall',
+  'label': 'labelLarge',
+};
 
-const styles = StyleSheet.create({
-  heading: {
-    fontSize: 20,
-    fontWeight: '600',
-    lineHeight: 24,
-  },
-  subheading: {
-    fontSize: 18,
-    fontWeight: '600',
-    lineHeight: 20,
-  },
-  paragraph: {
-    fontSize: 15,
-    lineHeight: 18,
-    fontWeight: 'normal',
-  },
-  subparagraph: {
-    fontSize: 14,
-    lineHeight: 16,
-    fontWeight: '600',
-  },
-});
+export const Text: React.FC<TextProps> = ({ category, ...props }) => (
+  <RNPText
+    {...props}
+    variant={CATEGORY_VARIANT_MAP[category as TextCategory] as any}
+  />
+); 
 
 Text.defaultProps = {
   category: 'paragraph',

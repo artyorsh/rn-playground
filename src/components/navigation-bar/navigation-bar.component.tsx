@@ -1,7 +1,9 @@
 import React from 'react';
 import { StyleSheet, View, ViewProps } from 'react-native';
+import { Text } from '../text.component';
 
 interface Props extends ViewProps {
+  title?: string;
   accessoryLeft?: React.FC<ViewProps>;
   accessoryRight?: React.FC<ViewProps>;
 }
@@ -21,9 +23,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     height: 64,
+    paddingHorizontal: 6,
   },
   accessory: {
-    // width: 24,
-    // height: 24,
   },
 });

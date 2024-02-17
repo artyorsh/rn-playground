@@ -15,7 +15,7 @@ export class GrowthRateVM implements IGrowthRateVM {
   }
   
   public get dropPrice(): string {
-    return '99.950,00'
+    return '€99.950,00'
   }
 
   public viewDetails = (): void => {

@@ -1,11 +1,12 @@
 import React from 'react';
 import { observer } from 'mobx-react';
-import { ImageBackground, ImageSourcePropType, ScrollView, StyleSheet } from 'react-native';
+import { ImageBackground, ImageSourcePropType, ScrollView, StyleSheet, View } from 'react-native';
 import { Text } from '../../components/text.component';
 import { NavigationBar } from '../../components/navigation-bar/navigation-bar.component';
 import { NavigationBarBackAccessory, NavigationBarShareAccessory } from '../../components/navigation-bar/navigation-accessory.component';
 import { GrowthRate, IGrowthRateSectionId } from './components/growth-rate/growth-rate.component';
 import { FAQ, IFAQSectionId } from './components/faq/faq.component';
+import { SafeArea } from '../../components/safe-area.component';
 
 export interface IProductDetailsSection<VM = any> {
   id:
@@ -55,28 +56,36 @@ export const ProductDetails: React.FC<{ vm: IProductDetailsVM }> = observer(({ v
   }, []);
 
   return (
-    <ScrollView>
-      <ImageBackground 
-        style={styles.image}
-        source={vm.images[0]}>
-        <NavigationBar 
-          accessoryLeft={renderBackButton}
-          accessoryRight={renderShareButton}
-        />
-      </ImageBackground>
-      <Text category='heading'>
-        {vm.title}
-      </Text>
-      <Text category='paragraph'>
-        {vm.description}
-      </Text>
-      {vm.sections.map(renderSection)}
-    </ScrollView>
+    <SafeArea>
+      <ScrollView>
+        <ImageBackground
+          style={styles.image}
+          source={vm.images[0]}>
+          <NavigationBar
+            accessoryLeft={renderBackButton}
+            accessoryRight={renderShareButton}
+          />
+        </ImageBackground>
+        <View style={styles.detailsContainer}>
+          <Text category='heading'>
+            {vm.title}
+          </Text>
+          <Text category='paragraph'>
+            {vm.description}
+          </Text>
+        </View>
+        {vm.sections.map(renderSection)}
+      </ScrollView>
+    </SafeArea>
   );
 })
 
 const styles = StyleSheet.create({
   image: {
     height: 256,
+  },
+  detailsContainer: {
+    marginVertical: 12,
+    marginHorizontal: 16,
   },
 })

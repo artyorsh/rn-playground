@@ -1,15 +1,9 @@
 import React from 'react';
 import { StyleSheet, View, ViewProps } from 'react-native';
+import { Divider as RNPDivider } from 'react-native-paper';
 
 export const Divider: React.FC<ViewProps> = (props) => {
   return (
-    <View style={[styles.container, props.style]}/>
+    <RNPDivider {...props} />
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    borderColor: 'black',
-    borderWidth: 0.5,
-  },
-});

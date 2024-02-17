@@ -5,9 +5,10 @@
   "scripts": {
     "android": "react-native run-android",
     "ios": "react-native run-ios",
-    "lint": "eslint .",
+    "lint": "eslint ./src --cache",
     "start": "react-native start",
-    "test": "jest"
+    "test": "jest",
+    "prepare": "husky"
   },
   "dependencies": {
     "@apollo/client": "^3.9.5",
@@ -43,10 +44,13 @@
     "babel-plugin-transform-typescript-metadata": "^0.3.0",
     "eslint": "^8.19.0",
     "eslint-plugin-jest": "^27.9.0",
+    "eslint-plugin-simple-import-sort": "^10.0.0",
     "jest": "~29.7.0",
-    "prettier": "2.8.8",
     "react-dom": "^18.2.0",
     "react-test-renderer": "~18.2.0",
     "typescript": "~5.0.0"
+  },
+  "lint-staged": {
+    "*.ts?(x)": "npm run lint -- --fix"
   }
 }

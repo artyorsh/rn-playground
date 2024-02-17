@@ -1,6 +1,7 @@
 import React from 'react';
-import { IProductItemVM, ProductItem } from './product-item.component';
 import { FlatList, ListRenderItemInfo, StyleSheet } from 'react-native';
+
+import { IProductItemVM, ProductItem } from './product-item.component';
 
 export interface IProductListVM {
   products: IProductItemVM[];
@@ -17,7 +18,7 @@ export const ProductList: React.FC<{ vm: IProductListVM }> = ({ vm }) => {
   );
 
   return (
-    <FlatList 
+    <FlatList
       contentContainerStyle={styles.container}
       data={vm.products}
       renderItem={renderItem}

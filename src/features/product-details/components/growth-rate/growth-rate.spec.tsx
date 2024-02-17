@@ -1,5 +1,7 @@
-import { RenderAPI, render, fireEvent } from "@testing-library/react-native";
-import { IGrowthRateVM, GrowthRate } from "./growth-rate.component";
+import React from 'react';
+import { fireEvent, render, RenderAPI } from '@testing-library/react-native';
+
+import { GrowthRate, IGrowthRateVM } from './growth-rate.component';
 
 describe('Growth Rate Component', () => {
 
@@ -9,7 +11,7 @@ describe('Growth Rate Component', () => {
     dropDate: '01.02.2024',
     dropPrice: '100$',
     viewDetails: jest.fn(),
-  }; 
+  };
 
   it('is loading while does not have data', () => {
     const api: RenderAPI = render(<GrowthRate vm={vm} />);

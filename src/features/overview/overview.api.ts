@@ -1,7 +1,7 @@
-import {ApolloClient, InMemoryCache, gql} from '@apollo/client';
+import { ApolloClient, gql, InMemoryCache } from '@apollo/client';
 
-import { IOverview } from "./overview.model";
-import { IOverviewAPI } from "./overview.vm";
+import { IOverview } from './overview.model';
+import { IOverviewAPI } from './overview.vm';
 
 interface IAssetListResponse {
   assets: {
@@ -14,11 +14,11 @@ interface IAssetListResponse {
         type: string; // car
         dropDate: string; // "2024-02-13"
         actualPrice: number; // 70000000,
-        averageMarketPrice: number // 2000,
+        averageMarketPrice: number; // 2000,
         make: string;
         model: string;
         exitPrice: number;
-        exitDate: string | null,
+        exitDate: string | null;
         collectorsClubType: string; // "basic",
         status: string; // "open",
         countLikes: number;
@@ -51,13 +51,12 @@ export const ASSET_LIST_QUERY = gql`
   }
 `;
 
-
 export class OverviewAPI implements IOverviewAPI {
 
   private gqlClient = new ApolloClient({
     uri: 'https://graph.staging.timeless-internal.net/graphql',
     cache: new InMemoryCache(),
-  })
+  });
 
   public getOverview = (): Promise<IOverview> => {
     return this.gqlClient.query<IAssetListResponse>({ query: ASSET_LIST_QUERY }).then(response => {
@@ -70,7 +69,7 @@ export class OverviewAPI implements IOverviewAPI {
           platform_price: `€${edge.node.pricePerShare}`,
           background_color: edge.node.heroColour,
         })),
-      }
-    })
+      };
+    });
   };
 }

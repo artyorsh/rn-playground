@@ -6,7 +6,7 @@ import { StackNavigator } from './stack-navigator';
 
 export type RootRoute =
   | '/'
-  | '/home'
+  | '/home';
 
 export const RootScreens: Record<RootRoute, React.ComponentType<any>> = {
   // '/': SplashContainer,

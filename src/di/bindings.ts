@@ -1,8 +1,8 @@
 import { ContainerModule } from 'inversify';
 
-import { AppModule } from './container';
 import { INavigationService } from '../service/navigation/model';
 import { NavigationService } from '../service/navigation/navigation.service';
+import { AppModule } from './container';
 
 export const createModules = (): ContainerModule[] => {
 

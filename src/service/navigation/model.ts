@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { StackRoute } from './navigators/stack-navigator';
 
 export type IRoute =

@@ -1,5 +1,7 @@
-import { RenderAPI, render, fireEvent } from "@testing-library/react-native";
-import { FAQ, IFAQVM } from "./faq.component";
+import React from 'react';
+import { fireEvent, render, RenderAPI } from '@testing-library/react-native';
+
+import { FAQ, IFAQVM } from './faq.component';
 
 describe('FAQ Component', () => {
 
@@ -9,7 +11,7 @@ describe('FAQ Component', () => {
       { title: 'Question 2', viewAnswer: jest.fn() },
     ],
     viewMore: jest.fn(),
-  }; 
+  };
 
   it('renders given number of questions', () => {
     const api: RenderAPI = render(<FAQ vm={vm} />);
@@ -22,7 +24,7 @@ describe('FAQ Component', () => {
     fireEvent.press(api.queryAllByTestId('@faq/question')[0]);
     expect(vm.questions[0].viewAnswer).toHaveBeenCalled();
   });
-  
+
   it('pressing View More button invokes viewMore function', () => {
     const api: RenderAPI = render(<FAQ vm={vm} />);
     fireEvent.press(api.queryByTestId('@faq/view-more'));

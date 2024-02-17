@@ -1,7 +1,9 @@
+import React from 'react';
 import { fireEvent, render, RenderAPI } from '@testing-library/react-native';
-import { IProductDetailsVM, ProductDetails } from './product-details.component';
-import { GrowthRateVM } from './components/growth-rate/growth-rate.vm';
+
 import { FAQVM } from './components/faq/faq.vm';
+import { GrowthRateVM } from './components/growth-rate/growth-rate.vm';
+import { IProductDetailsVM, ProductDetails } from './product-details.component';
 
 describe('Product Details Component', () => {
 

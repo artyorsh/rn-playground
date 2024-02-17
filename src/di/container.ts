@@ -4,7 +4,7 @@ import getDecorators from 'inversify-inject-decorators';
 import { makeLazyInject } from './inject';
 
 export enum AppModule {
-  NAVIGATION = 'navigation',
+  NAVIGATION = 'navigation'
 }
 
 export const container = new Container({ defaultScope: 'Singleton' });

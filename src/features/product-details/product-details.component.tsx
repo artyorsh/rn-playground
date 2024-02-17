@@ -4,13 +4,24 @@ import { ImageBackground, ImageSourcePropType, ScrollView, StyleSheet } from 're
 import { Text } from '../../components/text.component';
 import { NavigationBar } from '../../components/navigation-bar/navigation-bar.component';
 import { NavigationBarBackAccessory, NavigationBarShareAccessory } from '../../components/navigation-bar/navigation-accessory.component';
+import { GrowthRate, IGrowthRateSectionId } from './components/growth-rate/growth-rate.component';
+import { FAQ, IFAQSectionId } from './components/faq/faq.component';
+
+export interface IProductDetailsSection<VM = any> {
+  id:
+    | IGrowthRateSectionId
+    | IFAQSectionId;
+  vm: VM;
+}
 
 export interface IProductDetailsVM {
   images: ImageSourcePropType[];
   title: string;
   description: string;
+  sections: IProductDetailsSection[];
   share(): void;
   goBack(): void;
+  handleError(message: string): void;
 }
 
 export const ProductDetails: React.FC<{ vm: IProductDetailsVM }> = observer(({ vm }) => {
@@ -29,6 +40,20 @@ export const ProductDetails: React.FC<{ vm: IProductDetailsVM }> = observer(({ v
     />
   ), []);
 
+  const renderSection = React.useCallback((section: IProductDetailsSection, index: number) => {
+    switch(section.id) {
+      case '@product-details/growth-rate':
+        return React.createElement(GrowthRate, { vm: section.vm, key: index });
+
+      case '@product-details/faq':
+        return React.createElement(FAQ, { vm: section.vm, key: index });
+
+      default:
+        vm.handleError(`Unable to identify section ${section.id}`)
+        return null;
+    }
+  }, []);
+
   return (
     <ScrollView>
       <ImageBackground 
@@ -45,6 +70,7 @@ export const ProductDetails: React.FC<{ vm: IProductDetailsVM }> = observer(({ v
       <Text category='paragraph'>
         {vm.description}
       </Text>
+      {vm.sections.map(renderSection)}
     </ScrollView>
   );
 })

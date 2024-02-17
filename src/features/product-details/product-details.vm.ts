@@ -1,8 +1,10 @@
 import { computed } from 'mobx';
 import { ImageSourcePropType } from "react-native";
-import { IProductDetailsVM } from "./product-details.component";
+import { IProductDetailsSection, IProductDetailsVM } from "./product-details.component";
 import { AppModule, lazyInject } from '../../di/container';
 import { INavigationService } from '../../service/navigation/model';
+import { GrowthRateVM } from './components/growth-rate/growth-rate.vm';
+import { FAQVM } from './components/faq/faq.vm';
 
 export class ProductDetailsVM implements IProductDetailsVM {
 
@@ -22,6 +24,13 @@ export class ProductDetailsVM implements IProductDetailsVM {
     return 'E-TYPE ROADSTER'
   }
 
+  @computed public get sections(): IProductDetailsSection[] {
+    return [
+      { id: '@product-details/growth-rate', vm: new GrowthRateVM() },
+      { id: '@product-details/faq', vm: new FAQVM() }
+    ];
+  }
+
   public share = (): void => {
     console.log('SHARE')
   }
@@ -30,4 +39,8 @@ export class ProductDetailsVM implements IProductDetailsVM {
     this.navigation.goBack();
   }
   
+  public handleError = (message: string): void => {
+    console.error('Product Details', message)
+  }
+
 }

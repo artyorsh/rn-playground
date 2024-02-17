@@ -43,13 +43,9 @@ export class OverviewVM implements IOverviewVM {
       image: { uri: product.image_url },
       marketPrice: product.market_price,
       price: product.platform_price,
-      backgroundColor: this.getProductColor(product),
+      backgroundColor: product.background_color,
       viewDetails: () => this.navigation.goTo('/product-details', { productId: product.id }),
     };
-  };
-
-  private getProductColor = (product: IProduct): string => {
-    return 'purple';
   };
 
 }

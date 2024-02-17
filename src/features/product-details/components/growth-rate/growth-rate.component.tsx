@@ -17,26 +17,29 @@ export interface IGrowthRateVM {
 
 export const GrowthRate: React.FC<{ vm: IGrowthRateVM }> = ({ vm }) => {
   return (
-    <Card disabled={true}>
+    <Card
+      style={styles.container}
+      disabled={true}>
       <View style={styles.section}>
         <Text category='heading'>CAGR</Text>
-        <Text category='heading'>{vm.rate}</Text>
+        <Text category='subheading'>{vm.rate}</Text>
       </View>
       <View style={styles.section}>
-        <Text category='subparagraph'>Compound Annual Growth Rate</Text>
-        <Text category='subparagraph'>{vm.growthPeriod}</Text>
+        <Text>Annual Growth Rate</Text>
+        <Text>{vm.growthPeriod}</Text>
       </View>
       <Divider />
       <View style={styles.section}>
-        <Text category='heading'>Drop-Date</Text>
-        <Text category='heading'>{vm.dropDate}</Text>
+        <Text category='paragraph'>Drop-Date</Text>
+        <Text category='paragraph'>{vm.dropDate}</Text>
       </View>
       <View style={styles.section}>
-        <Text category='heading'>Drop-Price</Text>
-        <Text category='heading'>{vm.dropPrice}</Text>
+        <Text category='paragraph'>Drop-Price</Text>
+        <Text category='paragraph'>{vm.dropPrice}</Text>
       </View>
       <Divider />
-      <Button 
+      <Button
+        style={styles.viewDetailsButton}
         title='View Details'
         onPress={vm.viewDetails}
       />
@@ -45,9 +48,19 @@ export const GrowthRate: React.FC<{ vm: IGrowthRateVM }> = ({ vm }) => {
 };
 
 const styles = StyleSheet.create({
+  container: {
+    marginTop: 12,
+    paddingVertical: 12,
+    marginHorizontal: 16,
+  },
   section: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+    marginVertical: 6,
+    paddingHorizontal: 16,
+  },
+  viewDetailsButton: {
+    marginTop: 12,
   },
 })

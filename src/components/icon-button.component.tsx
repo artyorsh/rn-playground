@@ -1,28 +1,24 @@
 import React from 'react';
-import { StyleSheet, TouchableOpacity, TouchableOpacityProps, ViewProps } from 'react-native';
+import { TouchableOpacityProps } from 'react-native';
+import { IconButton as RNPIconButton } from 'react-native-paper';
+import { Icon, IconName } from './icon.component';
 
 export interface IconButtonProps extends TouchableOpacityProps {
-  icon: React.FC<ViewProps>;
+  icon: IconName;
 }
 
 export const IconButton: React.FC<IconButtonProps> = ({ icon, ...props }) => {
+
+  const renderIcon = (iconProps): React.ReactElement => (
+    <Icon {...iconProps} name={icon} />
+  );
+
   return (
-    <TouchableOpacity 
+    <RNPIconButton
       {...props}
-      style={[styles.container, props.style]}>
-      {icon({ style: styles.icon })}
-    </TouchableOpacity>
+      mode='contained'
+      icon={renderIcon}
+    />
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    padding: 8,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  icon: {
-    width: 24,
-    height: 24,
-  },
-});

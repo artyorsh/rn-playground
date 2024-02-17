@@ -1,22 +1,10 @@
 import React from 'react';
-import { StyleSheet, TouchableOpacity, TouchableOpacityProps } from 'react-native';
+import { TouchableOpacityProps } from 'react-native';
+import { Card as RNPCard } from 'react-native-paper';
 
 export interface CardProps extends TouchableOpacityProps {
-
 }
 
-export const Card: React.FC<CardProps> = (props) => {
-  return (
-    <TouchableOpacity 
-      {...props}
-      activeOpacity={0.85}
-      style={[styles.container, props.style]}
-    />
-  );
-};
-
-const styles = StyleSheet.create({
-  container: {
-    borderRadius: 8,
-  },
-});
+export const Card: React.FC<CardProps> = (props) => (
+  <RNPCard {...props} />
+);

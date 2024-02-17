@@ -12,10 +12,7 @@ export interface IFAQQuestion {
 }
 
 export interface IFAQVM {
-  questions: Array<{
-    title: string;
-    viewAnswer(): void;
-  }>;
+  questions: IFAQQuestion[];
   viewMore(): void;
 }
 
@@ -23,7 +20,6 @@ export const FAQ: React.FC<{ vm: IFAQVM }> = ({ vm }) => {
 
   const renderQuestion = React.useCallback((question: IFAQQuestion, index: number) => (
     <TouchableOpacity 
-      style={styles.question}
       activeOpacity={0.75}
       key={index}
       onPress={question.viewAnswer}>
@@ -40,6 +36,7 @@ export const FAQ: React.FC<{ vm: IFAQVM }> = ({ vm }) => {
     <View style={styles.container}>
       {vm.questions.map(renderQuestion)}
       <Button 
+        style={styles.viewMoreButton}
         title='View More'
         onPress={vm.viewMore}
       />
@@ -50,11 +47,12 @@ export const FAQ: React.FC<{ vm: IFAQVM }> = ({ vm }) => {
 const styles = StyleSheet.create({
   container: {
     marginTop: 24,
-  },
-  question: {
-    minHeight: 80,
+    marginHorizontal: 16,
   },
   questionTitle: {
     marginVertical: 12,
+  },
+  viewMoreButton: {
+    marginTop: 12,
   },
 });

@@ -30,6 +30,7 @@ export const ProductDetails: React.FC<{ vm: IProductDetailsVM }> = observer(({ v
   const renderBackButton = React.useCallback((props) => (
     <NavigationBarBackAccessory 
       {...props}
+      testID='@product-details/back'
       onPress={vm.goBack}
     />
   ), []);
@@ -37,6 +38,7 @@ export const ProductDetails: React.FC<{ vm: IProductDetailsVM }> = observer(({ v
   const renderShareButton = React.useCallback((props) => (
     <NavigationBarShareAccessory 
       {...props}
+      testID='@product-details/share'
       onPress={vm.share}
     />
   ), []);
@@ -44,10 +46,10 @@ export const ProductDetails: React.FC<{ vm: IProductDetailsVM }> = observer(({ v
   const renderSection = React.useCallback((section: IProductDetailsSection, index: number) => {
     switch(section.id) {
       case '@product-details/growth-rate':
-        return React.createElement(GrowthRate, { vm: section.vm, key: index });
+        return React.createElement(GrowthRate, { vm: section.vm, key: index, testID: '@product-details/section' });
 
       case '@product-details/faq':
-        return React.createElement(FAQ, { vm: section.vm, key: index });
+        return React.createElement(FAQ, { vm: section.vm, key: index, testID: '@product-details/section' });
 
       default:
         vm.handleError(`Unable to identify section ${section.id}`)

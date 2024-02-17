@@ -10,6 +10,7 @@ export const ProductList: React.FC<{ vm: IProductListVM }> = ({ vm }) => {
 
   const renderItem = (info: ListRenderItemInfo<IProductItemVM>): React.ReactElement => (
     <ProductItem
+      testID='@overview/product-item'
       style={styles.item}
       vm={info.item}
     />

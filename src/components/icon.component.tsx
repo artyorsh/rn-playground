@@ -1,3 +1,4 @@
+import React from 'react';
 import { ViewProps } from 'react-native';
 import MCIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 
@@ -14,14 +15,12 @@ export const ICON_MAP: Record<IconName, string> = {
 };
 
 export interface IconProps extends ViewProps {
-  name: IconName; 
+  name: IconName;
 }
 
-export const Icon: React.FC<IconProps> = ({ name, ...props }) => {
-  return (
-    <MCIcon 
-      {...props}
-      name={ICON_MAP[name]}
-    />
-  );
-};
+export const Icon: React.FC<IconProps> = ({ name, ...props }) => (
+  <MCIcon
+    {...props}
+    name={ICON_MAP[name]}
+  />
+);

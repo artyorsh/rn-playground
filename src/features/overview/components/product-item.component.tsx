@@ -1,7 +1,8 @@
 import React from 'react';
-import { Image, ImageSourcePropType, StyleSheet, TouchableOpacity, View } from 'react-native';
-import { Text } from '../../../components/text.component';
+import { Image, ImageSourcePropType, StyleSheet, View } from 'react-native';
+
 import { Card, CardProps } from '../../../components/card.component';
+import { Text } from '../../../components/text.component';
 
 interface Props extends CardProps {
   vm: IProductItemVM;
@@ -12,7 +13,7 @@ export interface IProductItemVM {
   image: ImageSourcePropType;
   marketPrice: string;
   price: string;
-  viewDetails: () => void;
+  viewDetails(): void;
 }
 
 export const ProductItem: React.FC<Props> = ({ vm, ...props }) => (
@@ -30,7 +31,7 @@ export const ProductItem: React.FC<Props> = ({ vm, ...props }) => (
       <View style={styles.priceContainer}>
         <View>
           <Text>
-            Drop Market Value
+            {'Drop Market Value'}
           </Text>
           <Text category='label'>
             {vm.marketPrice}
@@ -38,7 +39,7 @@ export const ProductItem: React.FC<Props> = ({ vm, ...props }) => (
         </View>
         <View>
           <Text>
-            Our Drop Price
+            {'Our Drop Price'}
           </Text>
           <Text category='label'>
             {vm.price}
@@ -62,4 +63,4 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
-})
+});

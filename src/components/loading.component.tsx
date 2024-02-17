@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text } from './text.component';
+
 import { ProgressBar } from './progress-bar.component';
 
 interface Props {
@@ -7,10 +7,8 @@ interface Props {
   children: React.ReactNode;
 }
 
-export const Loading: React.FC<Props> = ({ loading, children }) => {
-  return (
-    <>
-      {loading ? <ProgressBar /> : children}
-    </>
-  );
-};
+export const Loading: React.FC<Props> = ({ loading, children }) => (
+  <>
+    {loading ? <ProgressBar /> : children}
+  </>
+);

@@ -1,8 +1,9 @@
 import React from 'react';
 import { StyleSheet, TouchableOpacity, View, ViewProps } from 'react-native';
-import { Text } from '../../../../components/text.component';
-import { Divider } from '../../../../components/divider.component';
+
 import { Button } from '../../../../components/button.component';
+import { Divider } from '../../../../components/divider.component';
+import { Text } from '../../../../components/text.component';
 
 export type IFAQSectionId = '@product-details/faq';
 
@@ -23,26 +24,26 @@ export interface IFAQVM {
 export const FAQ: React.FC<Props> = ({ vm, ...props }) => {
 
   const renderQuestion = React.useCallback((question: IFAQQuestion, index: number) => (
-    <TouchableOpacity 
+    <TouchableOpacity
       testID='@faq/question'
       activeOpacity={0.75}
       key={index}
       onPress={question.viewAnswer}>
-      <Text 
+      <Text
         style={styles.questionTitle}
         category='subheading'>
         {question.title}
       </Text>
       <Divider />
     </TouchableOpacity>
-  ), [])
+  ), []);
 
   return (
     <View
       {...props}
       style={[styles.container, props.style]}>
       {vm.questions.map(renderQuestion)}
-      <Button 
+      <Button
         testID='@faq/view-more'
         style={styles.viewMoreButton}
         title='View More'
@@ -50,7 +51,7 @@ export const FAQ: React.FC<Props> = ({ vm, ...props }) => {
       />
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {

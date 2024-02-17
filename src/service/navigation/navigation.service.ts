@@ -29,16 +29,16 @@ export class NavigationService implements INavigationService {
     } catch {
       console.error('NavigationService', `Unable to navigate to ${route} with ${parent}. Current route ${this.currentRoute}`);
     }
-  }
+  };
 
   public replace = (route: IRoute, params?: IRouteParams | undefined): void => {
     this.rootNavigator.current?.dispatch(StackActions.pop());
     this.goTo(route, params);
-  }
+  };
 
   public goBack = (): void => {
     this.rootNavigator.current?.goBack();
-  }
+  };
 
   private onNavigationStateChange = (): void => {
     const nextRoute = this.rootNavigator.current?.getCurrentRoute();
@@ -47,7 +47,7 @@ export class NavigationService implements INavigationService {
       console.log('NavigationService', 'Moving from', this.currentRoute, 'to', nextRoute.name);
       this.currentRoute = nextRoute.name;
     }
-  };  
+  };
 
   private findRouteParent = (route: IRoute): string | undefined => {
     return Object.keys(NAVIGATION_MAP).find((navigator) => {

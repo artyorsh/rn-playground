@@ -1,5 +1,5 @@
 import React from 'react';
-import { TextProps as RNTextProps, StyleSheet } from 'react-native';
+import { TextProps as RNTextProps } from 'react-native';
 import { Text as RNPText } from 'react-native-paper';
 
 export interface TextProps extends RNTextProps {
@@ -26,7 +26,7 @@ export const Text: React.FC<TextProps> = ({ category, ...props }) => (
     {...props}
     variant={CATEGORY_VARIANT_MAP[category as TextCategory] as any}
   />
-); 
+);
 
 Text.defaultProps = {
   category: 'paragraph',

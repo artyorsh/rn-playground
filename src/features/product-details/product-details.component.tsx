@@ -1,17 +1,18 @@
 import React from 'react';
-import { observer } from 'mobx-react';
 import { ImageBackground, ImageSourcePropType, ScrollView, StyleSheet, View } from 'react-native';
-import { Text } from '../../components/text.component';
-import { NavigationBar } from '../../components/navigation-bar/navigation-bar.component';
+import { observer } from 'mobx-react';
+
 import { NavigationBarBackAccessory, NavigationBarShareAccessory } from '../../components/navigation-bar/navigation-accessory.component';
-import { GrowthRate, IGrowthRateSectionId } from './components/growth-rate/growth-rate.component';
-import { FAQ, IFAQSectionId } from './components/faq/faq.component';
+import { NavigationBar } from '../../components/navigation-bar/navigation-bar.component';
 import { SafeArea } from '../../components/safe-area.component';
+import { Text } from '../../components/text.component';
+import { FAQ, IFAQSectionId } from './components/faq/faq.component';
+import { GrowthRate, IGrowthRateSectionId } from './components/growth-rate/growth-rate.component';
 
 export interface IProductDetailsSection<VM = any> {
   id:
-    | IGrowthRateSectionId
-    | IFAQSectionId;
+  | IGrowthRateSectionId
+  | IFAQSectionId;
   vm: VM;
 }
 
@@ -28,7 +29,7 @@ export interface IProductDetailsVM {
 export const ProductDetails: React.FC<{ vm: IProductDetailsVM }> = observer(({ vm }) => {
 
   const renderBackButton = React.useCallback((props) => (
-    <NavigationBarBackAccessory 
+    <NavigationBarBackAccessory
       {...props}
       testID='@product-details/back'
       onPress={vm.goBack}
@@ -36,7 +37,7 @@ export const ProductDetails: React.FC<{ vm: IProductDetailsVM }> = observer(({ v
   ), []);
 
   const renderShareButton = React.useCallback((props) => (
-    <NavigationBarShareAccessory 
+    <NavigationBarShareAccessory
       {...props}
       testID='@product-details/share'
       onPress={vm.share}
@@ -44,7 +45,7 @@ export const ProductDetails: React.FC<{ vm: IProductDetailsVM }> = observer(({ v
   ), []);
 
   const renderSection = React.useCallback((section: IProductDetailsSection, index: number) => {
-    switch(section.id) {
+    switch (section.id) {
       case '@product-details/growth-rate':
         return React.createElement(GrowthRate, { vm: section.vm, key: index, testID: '@product-details/section' });
 
@@ -52,7 +53,8 @@ export const ProductDetails: React.FC<{ vm: IProductDetailsVM }> = observer(({ v
         return React.createElement(FAQ, { vm: section.vm, key: index, testID: '@product-details/section' });
 
       default:
-        vm.handleError(`Unable to identify section ${section.id}`)
+        vm.handleError(`Unable to identify section ${section.id}`);
+
         return null;
     }
   }, []);
@@ -80,7 +82,7 @@ export const ProductDetails: React.FC<{ vm: IProductDetailsVM }> = observer(({ v
       </ScrollView>
     </SafeArea>
   );
-})
+});
 
 const styles = StyleSheet.create({
   image: {
@@ -90,4 +92,4 @@ const styles = StyleSheet.create({
     marginVertical: 12,
     marginHorizontal: 16,
   },
-})
+});

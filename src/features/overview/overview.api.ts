@@ -1,29 +1,9 @@
-import { IOverview } from './overview.model';
+import { IOverview, IProduct } from './overview.model';
 import { IOverviewAPI } from './overview.vm';
 
 interface IAssetListResponse {
   assets: {
-    edges: Array<{
-      node: {
-        id: string;
-        label: string;
-        heroColour: string; // "#eb0000"
-        heroImage: string;
-        type: string; // car
-        dropDate: string; // "2024-02-13"
-        actualPrice: number; // 70000000,
-        averageMarketPrice: number; // 2000,
-        make: string;
-        model: string;
-        exitPrice: number;
-        exitDate: string | null;
-        collectorsClubType: string; // "basic",
-        status: string; // "open",
-        countLikes: number;
-        price: number; // 60000000,
-        pricePerShare: number; // 1000
-      };
-    }>;
+    edges: Array<{ node: IProduct }>;
   };
 }
 
@@ -53,14 +33,7 @@ export class OverviewAPI implements IOverviewAPI {
 
   public getOverview = (): Promise<IOverview> => {
     return this.runQuery().then(response => ({
-      products: response.data.assets.edges.map(edge => ({
-        id: edge.node.id,
-        title: edge.node.label,
-        image_url: edge.node.heroImage,
-        market_price: `€${edge.node.averageMarketPrice}`,
-        platform_price: `€${edge.node.pricePerShare}`,
-        background_color: edge.node.heroColour,
-      })),
+      products: response.data.assets.edges.map(edge => edge.node),
     }));
   };
 

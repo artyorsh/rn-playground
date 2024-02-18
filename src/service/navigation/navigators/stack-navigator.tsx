@@ -19,7 +19,7 @@ const createScreen = (name: string, index: number): React.ReactElement => (
   <Stack.Screen
     key={index}
     name={name}
-    component={StackScreens[name]}
+    component={StackScreens[name as StackRoute]}
   />
 );
 

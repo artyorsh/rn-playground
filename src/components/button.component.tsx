@@ -1,28 +1,33 @@
 import React from 'react';
-import { ButtonProps as RNButtonProps } from 'react-native';
+import { TouchableOpacityProps } from 'react-native';
 import { Button as RNPButton } from 'react-native-paper';
 
 import { Icon, IconName } from './icon.component';
 
-export interface ButtonProps extends RNButtonProps {
-  type:
+export interface ButtonProps extends TouchableOpacityProps {
+  type?:
   | 'filled'
   | 'ghost';
-  icon: IconName;
+  title?: string;
+  icon?: IconName;
 }
 
-export const Button: React.FC<RNButtonProps> = ({ title, icon, ...props }) => {
+type RNPIconProps = { color: string };
 
-  const renderIcon = (iconProps): React.ReactElement => (
+type RNPButtonProps = React.ComponentProps<typeof RNPButton>;
+
+export const Button: React.FC<ButtonProps> = ({ title, icon, ...props }) => {
+
+  const renderIcon = (iconProps: RNPIconProps): React.ReactElement => (
     <Icon
       {...iconProps}
-      name={icon}
+      name={icon as IconName}
     />
   );
 
   return (
     <RNPButton
-      {...props}
+      {...props as RNPButtonProps}
       icon={renderIcon}>
       {title}
     </RNPButton>

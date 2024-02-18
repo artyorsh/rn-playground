@@ -5,11 +5,9 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { StackNavigator } from './stack-navigator';
 
 export type RootRoute =
-  | '/'
   | '/home';
 
 export const RootScreens: Record<RootRoute, React.ComponentType<any>> = {
-  // '/': SplashContainer,
   '/home': StackNavigator,
 };
 
@@ -21,7 +19,7 @@ const createScreen = (name: string, index: number): React.ReactElement => (
   <Stack.Screen
     key={index}
     name={name}
-    component={RootScreens[name]}
+    component={RootScreens[name as RootRoute]}
   />
 );
 

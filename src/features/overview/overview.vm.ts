@@ -30,7 +30,9 @@ export class OverviewVM implements IOverviewVM {
 
   @computed public get products(): IProductListVM {
     return {
-      products: this.model?.products.map(this.createProductVM) || [],
+      products: this.model?.products
+        .filter(p => !!p.heroImage)
+        .map(this.createProductVM) || [],
     };
   }
 
@@ -40,10 +42,10 @@ export class OverviewVM implements IOverviewVM {
 
   private createProductVM = (product: IProduct): IProductItemVM => {
     return {
-      title: product.title,
-      image: { uri: product.image_url },
-      marketPrice: product.market_price,
-      price: product.platform_price,
+      title: product.label,
+      image: { uri: product.heroImage },
+      marketPrice: `€${product.averageMarketPrice}`,
+      price: `€${product.pricePerShare}`,
       viewDetails: () => this.navigation.goTo('/product-details', { productId: product.id }),
     };
   };

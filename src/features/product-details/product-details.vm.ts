@@ -11,6 +11,10 @@ export class ProductDetailsVM implements IProductDetailsVM {
 
   @lazyInject(AppModule.NAVIGATION) private navigation!: INavigationService;
 
+  constructor(private productId: string) {
+
+  }
+
   @computed public get images(): ImageSourcePropType[] {
     return [{ uri: 'https://documents.timeless.investments/assets/338340c4-152e-406d-a9bc-20f7f12f8cca/documents/13cc7bab-7b74-4116-89ea-4785d865614e-1704.jpeg' }];
   }
@@ -20,7 +24,7 @@ export class ProductDetailsVM implements IProductDetailsVM {
   }
 
   @computed public get description(): string {
-    return 'E-TYPE ROADSTER';
+    return `E-TYPE ROADSTER\n${this.productId}`;
   }
 
   @computed public get sections(): IProductDetailsSection[] {

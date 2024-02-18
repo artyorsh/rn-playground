@@ -1,5 +1,3 @@
-import { ApolloClient, gql, InMemoryCache } from '@apollo/client';
-
 import { IOverview } from './overview.model';
 import { IOverviewAPI } from './overview.vm';
 
@@ -29,7 +27,7 @@ interface IAssetListResponse {
   };
 }
 
-export const ASSET_LIST_QUERY = gql`
+export const ASSET_LIST_QUERY: string = `
   query {
     assets(pagination: {first: 10}) {
       edges {
@@ -53,23 +51,24 @@ export const ASSET_LIST_QUERY = gql`
 
 export class OverviewAPI implements IOverviewAPI {
 
-  private gqlClient = new ApolloClient({
-    uri: 'https://graph.staging.timeless-internal.net/graphql',
-    cache: new InMemoryCache(),
-  });
-
   public getOverview = (): Promise<IOverview> => {
-    return this.gqlClient.query<IAssetListResponse>({ query: ASSET_LIST_QUERY }).then(response => {
-      return {
-        products: response.data.assets.edges.map(edge => ({
-          id: edge.node.id,
-          title: edge.node.label,
-          image_url: edge.node.heroImage,
-          market_price: `€${edge.node.averageMarketPrice}`,
-          platform_price: `€${edge.node.pricePerShare}`,
-          background_color: edge.node.heroColour,
-        })),
-      };
-    });
+    return this.runQuery().then(response => ({
+      products: response.data.assets.edges.map(edge => ({
+        id: edge.node.id,
+        title: edge.node.label,
+        image_url: edge.node.heroImage,
+        market_price: `€${edge.node.averageMarketPrice}`,
+        platform_price: `€${edge.node.pricePerShare}`,
+        background_color: edge.node.heroColour,
+      })),
+    }));
+  };
+
+  private runQuery = (): Promise<{ data: IAssetListResponse }> => {
+    return fetch('https://graph.staging.timeless-internal.net/graphql', {
+      method: 'POST',
+      body: JSON.stringify({ query: ASSET_LIST_QUERY }),
+      headers: { 'Content-Type': 'application/json' },
+    }).then(response => response.json());
   };
 }

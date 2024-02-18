@@ -12,7 +12,7 @@ export class NavigationService implements INavigationService {
 
   private rootNavigator = React.createRef<NavigationContainerRef<{}>>();
 
-  private currentRoute: IRoute = '/';
+  private currentRoute: IRoute = '/overview';
 
   public get navigator(): React.FC<RootNavigatorProps> {
     return () => React.createElement(RootNavigator, <RootNavigatorProps>{
@@ -45,7 +45,7 @@ export class NavigationService implements INavigationService {
 
     if (nextRoute && nextRoute.name !== this.currentRoute) {
       console.log('NavigationService', 'Moving from', this.currentRoute, 'to', nextRoute.name);
-      this.currentRoute = nextRoute.name;
+      this.currentRoute = nextRoute.name as IRoute;
     }
   };
 

@@ -1,9 +1,15 @@
 import React from 'react';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
 import { IProductDetailsVM, ProductDetails } from '../../features/product-details/product-details.component';
 import { ProductDetailsVM } from '../../features/product-details/product-details.vm';
+import { ScreenProps } from '../../service/navigation/model';
 
-export class ProductDetailsContainer extends React.Component {
+interface RouteParams {
+  productId: string;
+}
+
+export class ProductDetailsContainer extends React.Component<ScreenProps<RouteParams>> {
 
   private get productId(): string {
     return this.props.route.params.productId;

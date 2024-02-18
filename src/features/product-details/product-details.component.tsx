@@ -1,5 +1,5 @@
 import React from 'react';
-import { ImageBackground, ImageSourcePropType, ScrollView, StyleSheet, View } from 'react-native';
+import { ImageBackground, ImageSourcePropType, ScrollView, StyleSheet, View, ViewProps } from 'react-native';
 import { observer } from 'mobx-react';
 
 import { NavigationBarBackAccessory, NavigationBarShareAccessory } from '../../components/navigation-bar/navigation-accessory.component';
@@ -28,7 +28,7 @@ export interface IProductDetailsVM {
 
 export const ProductDetails: React.FC<{ vm: IProductDetailsVM }> = observer(({ vm }) => {
 
-  const renderBackButton = React.useCallback((props) => (
+  const renderBackButton = React.useCallback((props: ViewProps) => (
     <NavigationBarBackAccessory
       {...props}
       testID='@product-details/back'
@@ -36,7 +36,7 @@ export const ProductDetails: React.FC<{ vm: IProductDetailsVM }> = observer(({ v
     />
   ), []);
 
-  const renderShareButton = React.useCallback((props) => (
+  const renderShareButton = React.useCallback((props: ViewProps) => (
     <NavigationBarShareAccessory
       {...props}
       testID='@product-details/share'

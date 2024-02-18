@@ -8,9 +8,11 @@ export interface IconButtonProps extends TouchableOpacityProps {
   icon: IconName;
 }
 
+type RNPIconProps = { color: string };
+
 export const IconButton: React.FC<IconButtonProps> = ({ icon, ...props }) => {
 
-  const renderIcon = (iconProps): React.ReactElement => (
+  const renderIcon = (iconProps: RNPIconProps): React.ReactElement => (
     <Icon
       {...iconProps}
       name={icon}

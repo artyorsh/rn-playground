@@ -48,10 +48,10 @@ describe('Overview VM', () => {
     products: [
       {
         id: '@overview/product-id-0',
-        title: 'Product title 1',
-        image_url: 'https://',
-        market_price: '100$',
-        platform_price: '50$',
+        label: 'Product title 1',
+        heroImage: 'https://',
+        averageMarketPrice: 100,
+        pricePerShare: 50,
       },
     ],
   };

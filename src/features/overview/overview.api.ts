@@ -14,9 +14,7 @@ export const ASSET_LIST_QUERY: string = `
         node {
           id
           label
-          heroColour
           heroImage
-          type
           averageMarketPrice
           pricePerShare
         }

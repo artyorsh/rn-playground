@@ -5,7 +5,11 @@ import { ProductDetailsVM } from '../../features/product-details/product-details
 
 export class ProductDetailsContainer extends React.Component {
 
-  private vm: IProductDetailsVM = new ProductDetailsVM();
+  private get productId(): string {
+    return this.props.route.params.productId;
+  }
+
+  private vm: IProductDetailsVM = new ProductDetailsVM(this.productId);
 
   public render(): React.ReactElement {
     return (

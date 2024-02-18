@@ -7,15 +7,12 @@
     "ios": "react-native run-ios",
     "lint": "eslint ./src --cache",
     "start": "react-native start",
-    "test": "jest",
-    "prepare": "husky"
+    "test": "jest"
   },
   "dependencies": {
-    "@apollo/client": "^3.9.5",
     "@react-navigation/native": "^6.1.0",
     "@react-navigation/native-stack": "^6.9.0",
     "core-js": "~3.24.0",
-    "graphql": "^16.8.1",
     "inversify": "^6.0.2",
     "inversify-inject-decorators": "^3.1.0",
     "mobx": "^6.12.0",

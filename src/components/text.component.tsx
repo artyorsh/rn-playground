@@ -21,14 +21,10 @@ const CATEGORY_VARIANT_MAP: Record<TextCategory, string> = {
   'label': 'labelLarge',
 };
 
-export const Text: React.FC<TextProps> = ({ children, category, ...props }) => (
+export const Text: React.FC<TextProps> = ({ children, category = 'paragraph', ...props }) => (
   <RNPText
     {...props}
     variant={CATEGORY_VARIANT_MAP[category as TextCategory] as any}>
     {children}
   </RNPText>
 );
-
-Text.defaultProps = {
-  category: 'paragraph',
-};

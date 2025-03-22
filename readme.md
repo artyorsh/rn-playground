@@ -1,4 +1,4 @@
-# Timeless react-native coding challenge
+# rnapp
 
 - [![react-native](https://img.shields.io/badge/react--native-0.76-blue)](https://github.com/facebook/react-native/releases)
 - [![react-navigation](https://img.shields.io/badge/react--navigation-7.0-blue)](https://github.com/react-navigation/react-navigation/releases)

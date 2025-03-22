@@ -1,9 +1,8 @@
 import React from 'react';
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
-import { IProductDetailsVM, ProductDetails } from '../../features/product-details/product-details.component';
-import { ProductDetailsVM } from '../../features/product-details/product-details.vm';
 import { ScreenProps } from '../../service/navigation/model';
+import { IProductDetailsVM, ProductDetails } from './product-details.component';
+import { ProductDetailsVM } from './product-details.vm';
 
 interface RouteParams {
   productId: string;

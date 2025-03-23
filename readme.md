@@ -37,3 +37,7 @@ Run the app
 yarn ios
 # or yarn android
 ```
+
+## Building
+
+See [Fastlane README](fastlane/README.md)

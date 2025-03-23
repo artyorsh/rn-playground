@@ -16,8 +16,7 @@ yarn
 ```
 
 ```bash
-npx pod-install ios
-# or pod install --project-directory=ios
+bundle exec pod install --project-directory=ios
 ```
 
 ```bash

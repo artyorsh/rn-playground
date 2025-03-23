@@ -1,5 +1,6 @@
 import('./defaults.rb')
 import('./android.rb')
+import('./ios.rb')
 import('./utils.rb')
 import('./tools/codesign.rb')
 import('./tools/hermes.rb')
@@ -46,5 +47,6 @@ desc "- source maps"
 lane :native do |options|
 
   proxy_sh('android native', options)
+  proxy_sh('ios native', options)
 
 end

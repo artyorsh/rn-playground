@@ -1,5 +1,14 @@
 platform :android do
 
+  desc "Builds .apk or .aab and stores it in the `./build` folder"
+  desc "Important: the .apk/.aab is not installable on a real device unless signed with non-debug .keystore"
+  desc "See https://developer.android.com/studio/publish/app-signing#generate-key"
+  desc ""
+  desc "Parameters:"
+  desc "- build_number - build number"
+  desc "Output:"
+  desc "The result of the command is a `./build/android` folder in the project root containing build artifacts:"
+  desc "- .apk or .aab, .bundle and sourcemaps (.bundle.map)"
   lane :native do |options|
 
     artifacts = build(options)
@@ -36,7 +45,7 @@ platform :android do
       project_dir: ANDROID_DIR,
       task: ENV['RNAPP_ANDROID_BUILD_TASK'],
       flavor: ENV['RNAPP_BUILD_SCHEME'],
-      build_type: ENV['RNAPP_ANDROID_BUILD_TYPE'],
+      build_type: ENV['RNAPP_BUILD_TYPE'],
       properties: android_codesign_properties(options),
       print_command: debug_logging_enabled,
       print_command_output: verbose_logging_enabled,

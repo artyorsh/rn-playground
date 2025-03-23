@@ -46,12 +46,65 @@ The result of the command is a `./build/android` folder in the project root cont
 [bundle exec] fastlane android native
 ```
 
+Builds .apk or .aab and stores it in the `./build` folder
 
+Important: the .apk/.aab is not installable on a real device unless signed with non-debug .keystore
+
+See https://developer.android.com/studio/publish/app-signing#generate-key
+
+
+
+Parameters:
+
+- build_number - build number
+
+Output:
+
+The result of the command is a `./build/android` folder in the project root containing build artifacts:
+
+- .apk or .aab, .bundle and sourcemaps (.bundle.map)
 
 ### android version
 
 ```sh
 [bundle exec] fastlane android version
+```
+
+
+
+----
+
+
+## iOS
+
+### ios native
+
+```sh
+[bundle exec] fastlane ios native
+```
+
+Builds .ipa and stores it in the `./build` folder
+
+Important: the .ipa is not installable without configuring code signing identity:
+
+.xcworkspace > Target > Signing & Capabilities > Automatically manage signing
+
+
+
+Parameters:
+
+- build_number - build number
+
+Output:
+
+The result of the command is a `./build/ios` folder in the project root containing build artifacts:
+
+- .ipa, .jsbundle and sourcemaps (.jsbnudle.map)
+
+### ios version
+
+```sh
+[bundle exec] fastlane ios version
 ```
 
 

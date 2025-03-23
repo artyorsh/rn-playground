@@ -20,6 +20,10 @@ npx pod-install ios
 # or pod install --project-directory=ios
 ```
 
+```bash
+cp .env.example .env
+```
+
 ## Running
 
 Start the Metro bundler

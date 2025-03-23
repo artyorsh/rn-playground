@@ -3,6 +3,7 @@ import { NavigationContainerRef, Route, StackActions } from '@react-navigation/n
 
 import { INavigationService, IRoute, IRouteParams } from './model';
 import { RootNavigator, RootNavigatorProps } from './navigators/root-navigator';
+import { ILogService } from '../log/model';
 
 const NAVIGATION_MAP: Record<string, () => Record<IRoute, any>> = {
   '/home': () => require('./navigators/stack-navigator').StackScreens,
@@ -13,6 +14,8 @@ export class NavigationService implements INavigationService {
   private rootNavigator = React.createRef<NavigationContainerRef<{}>>();
 
   private currentRoute: IRoute = '/overview';
+
+  constructor(private log: ILogService) {}
 
   public get navigator(): React.FC<RootNavigatorProps> {
     return () => React.createElement(RootNavigator, <RootNavigatorProps>{
@@ -27,7 +30,7 @@ export class NavigationService implements INavigationService {
       // @ts-ignore
       this.rootNavigator.current?.navigate(parent, { screen: route, params });
     } catch {
-      console.error('NavigationService', `Unable to navigate to ${route} with ${parent}. Current route ${this.currentRoute}`);
+      this.log.error('NavigationService', `Unable to navigate to ${route} with ${parent}. Current route ${this.currentRoute}`);
     }
   };
 
@@ -44,7 +47,7 @@ export class NavigationService implements INavigationService {
     const nextRoute = this.rootNavigator.current?.getCurrentRoute() as Route<IRoute> | undefined;
 
     if (nextRoute && nextRoute.name !== this.currentRoute) {
-      console.log('NavigationService', 'Moving from', this.currentRoute, 'to', nextRoute.name);
+      this.log.debug('NavigationService', `Moving from ${this.currentRoute} to ${nextRoute.name}`);
       this.currentRoute = nextRoute.name as IRoute;
     }
   };

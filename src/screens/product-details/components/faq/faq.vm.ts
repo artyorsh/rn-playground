@@ -1,3 +1,5 @@
+import { AppModule, lazyInject } from '../../../../di/container';
+import { ILogService } from '../../../../service/log/model';
 import { IFAQQuestion, IFAQVM } from './faq.component';
 
 const QUESTIONS = [
@@ -9,14 +11,16 @@ const QUESTIONS = [
 
 export class FAQVM implements IFAQVM {
 
+  @lazyInject(AppModule.LOG) private log!: ILogService;
+
   public get questions(): IFAQQuestion[] {
     return QUESTIONS.map(question => ({
       title: question.title,
-      viewAnswer: () => console.log('FAQVM', 'View Answer', question.url),
+      viewAnswer: () => this.log.info('ProductDetailsVM', 'Pressed FAQ Answer', { url: question.url }),
     }));
   }
 
   public viewMore = (): void => {
-    console.log('FAQVM', 'View More');
+    this.log.info('FAQVM', 'Pressed View More FAQs');
   };
 }

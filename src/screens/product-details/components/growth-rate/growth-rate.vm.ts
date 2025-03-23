@@ -1,6 +1,10 @@
+import { lazyInject, AppModule } from '../../../../di/container';
+import { ILogService } from '../../../../service/log/model';
 import { IGrowthRateVM } from './growth-rate.component';
 
 export class GrowthRateVM implements IGrowthRateVM {
+
+  @lazyInject(AppModule.LOG) private log!: ILogService;
 
   public get rate(): string {
     return '17,67%';
@@ -19,6 +23,6 @@ export class GrowthRateVM implements IGrowthRateVM {
   }
 
   public viewDetails = (): void => {
-    console.log('Growth Rate', 'View Details');
+    this.log.info('ProductDetailsVM', 'Pressed View Growth Rate');
   };
 }

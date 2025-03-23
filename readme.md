@@ -16,6 +16,10 @@ yarn
 ```
 
 ```bash
+bundle install
+```
+
+```bash
 bundle exec pod install --project-directory=ios
 ```
 

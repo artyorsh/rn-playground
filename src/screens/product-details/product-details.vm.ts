@@ -6,10 +6,12 @@ import { INavigationService } from '../../service/navigation/model';
 import { FAQVM } from './components/faq/faq.vm';
 import { GrowthRateVM } from './components/growth-rate/growth-rate.vm';
 import { IProductDetailsSection, IProductDetailsVM } from './product-details.component';
+import { ILogService } from '../../service/log/model';
 
 export class ProductDetailsVM implements IProductDetailsVM {
 
   @lazyInject(AppModule.NAVIGATION) private navigation!: INavigationService;
+  @lazyInject(AppModule.LOG) private log!: ILogService;
 
   constructor(private productId: string) {
 
@@ -35,7 +37,7 @@ export class ProductDetailsVM implements IProductDetailsVM {
   }
 
   public share = (): void => {
-    console.log('SHARE');
+    this.log.info('ProductDetailsVM', 'Sharing product details', { productId: this.productId });
   };
 
   public goBack = (): void => {

@@ -6,22 +6,21 @@ import { IProductItemVM } from './components/product-item.component';
 import { IProductListVM } from './components/product-list.component';
 import { IOverviewVM } from './overview.component';
 import { IOverview, IProduct } from './overview.model';
+import { INavigationScreenLifecycle, INavigationScreenLifecycleListener } from '../../service/navigation/components/navigation-screen.container';
 
 export interface IOverviewAPI {
   getOverview(): Promise<IOverview>;
 }
 
-export class OverviewVM implements IOverviewVM {
+export class OverviewVM implements IOverviewVM, INavigationScreenLifecycleListener {
 
   @observable private model?: IOverview;
 
   @lazyInject(AppModule.NAVIGATION) private navigation!: INavigationService;
 
-  constructor(private api: IOverviewAPI) {
+  constructor(lifecycle: INavigationScreenLifecycle, private api: IOverviewAPI) {
     makeAutoObservable(this);
-
-    this.api.getOverview()
-      .then(overview => this.setProducts(overview));
+    lifecycle.subscribe(this);
   }
 
   @computed public get loading(): boolean {
@@ -34,6 +33,11 @@ export class OverviewVM implements IOverviewVM {
         .filter(p => !!p.heroImage)
         .map(this.createProductVM) || [],
     };
+  }
+
+  public onMount = (): void => {
+    this.api.getOverview()
+      .then(overview => this.setProducts(overview));
   }
 
   @action private setProducts = (overview: IOverview): void => {

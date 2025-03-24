@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "android": "react-native run-android",
-    "ios": "react-native run-ios",
+    "ios": "react-native run-ios --scheme Staging",
     "lint": "eslint ./src --cache",
     "build": "tsc -p ./tsconfig.json",
     "start": "react-native start",

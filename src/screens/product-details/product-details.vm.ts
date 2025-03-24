@@ -7,13 +7,14 @@ import { FAQVM } from './components/faq/faq.vm';
 import { GrowthRateVM } from './components/growth-rate/growth-rate.vm';
 import { IProductDetailsSection, IProductDetailsVM } from './product-details.component';
 import { ILogService } from '../../service/log/model';
+import { INavigationScreenLifecycle } from '../../service/navigation/components/navigation-screen.container';
 
 export class ProductDetailsVM implements IProductDetailsVM {
 
   @lazyInject(AppModule.NAVIGATION) private navigation!: INavigationService;
   @lazyInject(AppModule.LOG) private log!: ILogService;
 
-  constructor(private productId: string) {
+  constructor(_lifecycle: INavigationScreenLifecycle, private productId: string) {
 
   }
 

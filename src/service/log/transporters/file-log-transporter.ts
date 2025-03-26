@@ -12,9 +12,10 @@ export class FileLogTransporter implements ILogTransporter {
 
   public readonly id: string = '@log/file';
 
-  public destination: string;
+  private destination: string;
 
   private writeStream: ReactNativeBlobUtilWriteStream | null = null;
+
   private logQueue: ILogMessage[] = [];
   
   constructor(filename: string) {

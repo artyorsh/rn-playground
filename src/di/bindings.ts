@@ -7,6 +7,7 @@ import { ILogService } from '../service/log/model';
 import { LogService } from '../service/log/log.service';
 import { ConsoleLogTransporter } from '../service/log/transporters/console-log-transporter';
 import { FileLogTransporter } from '../service/log/transporters/file-log-transporter';
+import { GrafanaLogTransporter } from '../service/log/transporters/grafana-log-transporter';
 
 export const createModules = (): ContainerModule[] => {
 
@@ -15,6 +16,7 @@ export const createModules = (): ContainerModule[] => {
       transporters: [
         new ConsoleLogTransporter(),
         new FileLogTransporter('app.log'),
+        new GrafanaLogTransporter({ hostUrl: 'http://localhost:3100' }),
       ],
     });
 

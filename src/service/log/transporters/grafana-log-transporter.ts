@@ -14,7 +14,7 @@ export class GrafanaLogTransporter implements ILogTransporter {
     LogBox.ignoreAllLogs();
   }
 
-  public transport = (tag: string, message: string, _options?: ILogOptions): void => {
+  public transport = (tag: string, message: string, options?: ILogOptions): void => {
     const timestampNs: number = Date.now() * 1000000;
 
     fetch(`${this.options.hostUrl}/loki/api/v1/push`, {
@@ -25,7 +25,7 @@ export class GrafanaLogTransporter implements ILogTransporter {
       body: JSON.stringify({
         streams: [
           {
-            stream: { app: 'rnapp', tag },
+            stream: { app: 'rnapp', tag, level: options?.level || 'debug' },
             values: [[timestampNs.toString(), `[${tag}] ${message}`]],
           },
         ],

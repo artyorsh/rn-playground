@@ -16,7 +16,10 @@ export const createModules = (): ContainerModule[] => {
       transporters: [
         new ConsoleLogTransporter(),
         new FileLogTransporter('app.log'),
-        new GrafanaLogTransporter({ hostUrl: 'http://localhost:3100' }),
+        new GrafanaLogTransporter({
+          hostUrl: 'http://localhost:3100',
+          labels: { app: 'rnapp' },
+        }),
       ],
     });
 

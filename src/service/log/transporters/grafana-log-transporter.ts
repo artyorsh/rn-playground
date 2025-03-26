@@ -1,9 +1,8 @@
-import { LogBox } from 'react-native';
-
 import { ILogOptions, ILogTransporter } from '../model';
 
 interface IGrafanaLogTransporterOptions {
   hostUrl: string;
+  labels: Record<string, string>;
 }
 
 export class GrafanaLogTransporter implements ILogTransporter {
@@ -11,7 +10,6 @@ export class GrafanaLogTransporter implements ILogTransporter {
   public readonly id: string = '@log/grafana';
 
   constructor(private options: IGrafanaLogTransporterOptions) {
-    LogBox.ignoreAllLogs();
   }
 
   public transport = (tag: string, message: string, options?: ILogOptions): void => {
@@ -25,7 +23,7 @@ export class GrafanaLogTransporter implements ILogTransporter {
       body: JSON.stringify({
         streams: [
           {
-            stream: { app: 'rnapp', tag, level: options?.level || 'debug' },
+            stream: { ...this.options.labels, tag, level: options?.level || 'debug' },
             values: [[timestampNs.toString(), `[${tag}] ${message}`]],
           },
         ],

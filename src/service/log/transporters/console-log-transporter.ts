@@ -14,7 +14,6 @@ export class ConsoleLogTransporter implements ILogTransporter {
   }
 
   public readonly id: string = '@log/console';
-  public readonly destination: string = '';
 
   constructor() {
     LogBox.ignoreAllLogs();

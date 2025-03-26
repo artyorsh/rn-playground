@@ -12,7 +12,6 @@ export type ILogPayload = Record<string, string>;
 
 export interface ILogTransporter {
   readonly id: string;
-  readonly destination: string;
   transport(tag: string, message: string, options?: ILogOptions): void;
   flush(): void;
 }

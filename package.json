@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "android": "react-native run-android",
+    "android": "react-native run-android --mode stagingDebug",
     "ios": "react-native run-ios --scheme Staging",
     "lint": "eslint ./src --cache",
     "build": "tsc -p ./tsconfig.json",
@@ -21,6 +21,7 @@
     "react": "~18.3.0",
     "react-native": "~0.76.0",
     "react-native-blob-util": "^0.21.2",
+    "react-native-config": "^1.5.5",
     "react-native-device-info": "^14.0.4",
     "react-native-paper": "^5.12.0",
     "react-native-safe-area-context": "^5.1.0",

@@ -2,6 +2,13 @@ apply plugin: "com.android.application"
 apply plugin: "org.jetbrains.kotlin.android"
 apply plugin: "com.facebook.react"
 
+apply from: project(':react-native-config').projectDir.getPath() + "/dotenv.gradle"
+
+project.ext.envConfigFiles = [
+    staging: '.env',
+    production: '.env'
+]
+
 react {
     autolinkLibrariesWithApp()
 }
@@ -15,11 +22,12 @@ android {
 
     namespace "me.artyorsh.rnapp"
     defaultConfig {
-        applicationId "me.artyorsh.rnapp"
+        applicationId project.env.get("RNAPP_APP_ID")
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 15
         versionName "0.0.1"
+        resValue "string", "build_config_package", project.env.get("RNAPP_APP_ID")
     }
 
     flavorDimensions = ["env"]

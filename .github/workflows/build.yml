@@ -16,6 +16,9 @@ on:
       - 'tsconfig*'
 
 env:
+  RNAPP_ENV_NAME: ${{ vars.RNAPP_ENV_NAME }}
+  RNAPP_APP_ID: ${{ vars.RNAPP_APP_ID }}
+  RNAPP_GRAFANA_HOST: ${{ vars.RNAPP_GRAFANA_HOST }}
   RNAPP_BUILD_SCHEME: ${{ vars.RNAPP_BUILD_SCHEME }}
   RNAPP_BUILD_TYPE: ${{ vars.RNAPP_BUILD_TYPE }}
   RNAPP_ANDROID_BUILD_TASK: ${{ vars.RNAPP_ANDROID_BUILD_TASK }}
@@ -36,6 +39,11 @@ jobs:
       - uses: actions/checkout@v4
 
       - uses: ./.github/workflows/actions/prepare
+
+      - name: Create .env file
+        run: |
+          # Only export environment variables with "RNAPP_" prefix
+          env | grep '^RNAPP_' > .env
 
       - name: Checkout codesign repository
         uses: actions/checkout@v4

@@ -1,3 +1,4 @@
+import Config from 'react-native-config';
 import { Platform } from 'react-native';
 import RNDeviceInfo from 'react-native-device-info';
 import { ContainerModule } from 'inversify';
@@ -14,6 +15,8 @@ import { ILogService } from '../service/log/model';
 export const createModules = (): ContainerModule[] => {
 
   const mainModule = new ContainerModule(bind => {
+    const grafanaAppId: string = `rnapp_${Platform.OS}_${Config.RNAPP_ENV_NAME}`;
+
     const deviceName: string = RNDeviceInfo.getDeviceNameSync();
     const deviceModel: string = RNDeviceInfo.getModel();
     const deviceBrand: string = RNDeviceInfo.getBrand();
@@ -25,9 +28,9 @@ export const createModules = (): ContainerModule[] => {
         new ConsoleLogTransporter(),
         new FileLogTransporter('app.log'),
         new GrafanaLogTransporter({
-          hostUrl: 'http://localhost:3100',
+          hostUrl: Config.RNAPP_GRAFANA_HOST || '',
           labels: {
-            app: 'rnapp',
+            app: grafanaAppId,
             version: appVersion,
             runtime: `${deviceName}/${Platform.OS}/${systemVersion}/${deviceBrand}/${deviceModel}`,
           },

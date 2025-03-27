@@ -16,7 +16,7 @@ LOG_LEVEL_VERBOSE = 1
 LOG_LEVEL_DEBUG = 2
 
 def get_log_level()
-  (ENV['RNAPP_CI_LOG_LEVEL'] || LOG_LEVEL_SILENT).to_i
+  (ENV['FASTLANE_CI_LOG_LEVEL'] || LOG_LEVEL_SILENT).to_i
 end
 
 def verbose_logging_enabled()

@@ -47,9 +47,9 @@ platform :ios do
     gym(
       clean: true,
       workspace: "#{IOS_DIR}/#{PROJECT_NAME}.xcworkspace",
-      scheme: ENV['RNAPP_BUILD_SCHEME'],
-      configuration: ENV['RNAPP_BUILD_TYPE'],
-      export_method: ENV['RNAPP_IOS_EXPORT_METHOD'],
+      scheme: ENV['FASTLANE_BUILD_SCHEME'],
+      configuration: ENV['FASTLANE_BUILD_TYPE'],
+      export_method: ENV['FASTLANE_IOS_EXPORT_METHOD'],
       output_directory: BUILD_TMP_DIR,
       verbose: verbose_logging_enabled(),
     )

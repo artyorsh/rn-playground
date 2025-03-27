@@ -15,6 +15,12 @@ on:
       - '**.spec'
       - 'tsconfig*'
 
+  workflow_dispatch:
+    inputs:
+      environment:
+        type: environment
+        description: 'Environment to build. See https://github.com/artyorsh/rnapp/settings/environments.'
+
 env:
   RNAPP_ENV_NAME: ${{ vars.RNAPP_ENV_NAME }}
   RNAPP_APP_ID: ${{ vars.RNAPP_APP_ID }}
@@ -33,7 +39,7 @@ jobs:
 
   build:
     runs-on: macos-latest
-    environment: staging
+    environment: ${{ inputs.environment || 'staging' }}
 
     steps:
       - uses: actions/checkout@v4

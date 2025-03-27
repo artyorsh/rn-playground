@@ -43,15 +43,15 @@ platform :android do
 
     gradle(
       project_dir: ANDROID_DIR,
-      task: ENV['RNAPP_ANDROID_BUILD_TASK'],
-      flavor: ENV['RNAPP_BUILD_SCHEME'],
-      build_type: ENV['RNAPP_BUILD_TYPE'],
+      task: ENV['FASTLANE_ANDROID_BUILD_TASK'],
+      flavor: ENV['FASTLANE_BUILD_SCHEME'],
+      build_type: ENV['FASTLANE_BUILD_TYPE'],
       properties: android_codesign_properties(options),
       print_command: debug_logging_enabled,
       print_command_output: verbose_logging_enabled,
     )
 
-    is_aab = ENV['RNAPP_ANDROID_BUILD_TASK'] == 'bundle'
+    is_aab = ENV['FASTLANE_ANDROID_BUILD_TASK'] == 'bundle'
 
     app_path = is_aab ? SharedValues::GRADLE_AAB_OUTPUT_PATH : SharedValues::GRADLE_APK_OUTPUT_PATH
     sourcemaps = hermes_sourcemap(os: 'android')

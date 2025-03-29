@@ -14,7 +14,7 @@ export class NavigationService implements INavigationService {
 
   private rootNavigator = React.createRef<NavigationContainerRef<{}>>();
 
-  private currentRoute: IRoute = '/overview';
+  private currentRoute: IRoute = '/';
 
   constructor(private log: ILogService) {}
 

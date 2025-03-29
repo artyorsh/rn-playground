@@ -1,29 +1,25 @@
 
 import { AppModule, lazyInject } from '../../di/container';
 import { INavigationService } from '../../service/navigation/model';
-import { ILoginVM } from './login.component';
+import { IRegisterVM } from './register.component';
 import { ILogService } from '../../service/log/model';
 import { INavigationScreenLifecycle } from '../../service/navigation/components/navigation-screen.container';
-import { ILoginFormValues } from './components/login-form.component';
+import { IRegisterFormValues } from './components/register-form.component';
 
-export class LoginVM implements ILoginVM {
+export class RegisterVM implements IRegisterVM {
 
   @lazyInject(AppModule.NAVIGATION) private navigation!: INavigationService;
   @lazyInject(AppModule.LOG) private log!: ILogService;
 
-  public readonly title = 'Login';
-
-  public readonly initialValues: ILoginFormValues = {
-    email: '',
-    password: '',
-  };
+  public readonly title = 'Register';
 
   constructor(_lifecycle: INavigationScreenLifecycle) {
 
   }
+
   
-  public submit = (values: ILoginFormValues): void => {
-    this.log.info('LoginVM', 'submit');
+  public submit = (values: IRegisterFormValues): void => {
+    this.log.info('RegisterVM', 'submit');
     this.navigation.replace('/overview');
   }
 

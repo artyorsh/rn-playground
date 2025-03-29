@@ -9,6 +9,7 @@ import { Text } from '../../components/text.component';
 export interface IWelcomeVM {
   title: string;
   login(): void;
+  register(): void;
 }
 
 export const Welcome: React.FC<{ vm: IWelcomeVM }> = observer(({ vm }) => {
@@ -21,6 +22,10 @@ export const Welcome: React.FC<{ vm: IWelcomeVM }> = observer(({ vm }) => {
           category='heading'>
           {vm.title}
         </Text>
+        <Button
+          title='Register'
+          onPress={() => vm.register()}
+        />
         <Button
           title='Login'
           onPress={() => vm.login()}

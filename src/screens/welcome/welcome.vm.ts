@@ -16,4 +16,8 @@ export class WelcomeVM implements IWelcomeVM {
   public login = (): void => {
     this.navigation.goTo('/login');
   }
+
+  public register = (): void => {
+    this.navigation.goTo('/register');
+  }
 }

@@ -1,24 +1,24 @@
 import React from 'react';
 
-import { ILoginVM, Login } from './login.component';
-import { LoginVM } from './login.vm';
+import { IWelcomeVM, Welcome } from './welcome.component';
+import { WelcomeVM } from './welcome.vm';
 import { NavigationScreenContainer, NavigationScreenProps } from '../../service/navigation/components/navigation-screen.container';
 
 interface RouteParams {
 }
 
-export class LoginContainer extends NavigationScreenContainer<RouteParams> {
+export class WelcomeContainer extends NavigationScreenContainer<RouteParams> {
 
-  private vm: ILoginVM;
+  private vm: IWelcomeVM;
 
   constructor(props: NavigationScreenProps<RouteParams>) {
     super(props);
-    this.vm = new LoginVM(this.lifecycle);
+    this.vm = new WelcomeVM(this.lifecycle);
   }
 
   public render(): React.ReactElement {
     return (
-      <Login vm={this.vm} />
+      <Welcome vm={this.vm} />
     );
   }
 }

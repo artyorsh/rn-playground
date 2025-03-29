@@ -2,11 +2,14 @@ import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import { LoginContainer } from '../../../screens/login/login.container';
+import { WelcomeContainer } from '../../../screens/welcome/welcome.container';
 
 export type AuthRoute =
+  | '/welcome'
   | '/login';
 
 export const AuthScreens: Record<AuthRoute, React.ComponentType<any>> = {
+  '/welcome': WelcomeContainer,
   '/login': LoginContainer,
 };
 

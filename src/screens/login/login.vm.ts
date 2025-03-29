@@ -25,4 +25,8 @@ export class LoginVM implements ILoginVM {
     this.navigation.replace('/overview');
   }
 
+  public goBack = (): void => {
+    this.navigation.goBack();
+  }
+
 }

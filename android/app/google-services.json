@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "4409606261",
+    "project_id": "rn-playground-8818d",
+    "storage_bucket": "rn-playground-8818d.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:4409606261:android:4d1796cca6683218b9783c",
+        "android_client_info": {
+          "package_name": "me.artyorsh.rnapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDbrj-LGwm_n8DGMXPdPNBv73FiRJPgxNM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

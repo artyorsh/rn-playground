@@ -19,6 +19,7 @@ module.exports = {
     '<rootDir>/src/service/navigation/navigation.service.mock.ts',
     '<rootDir>/src/service/session/session.service.mock.ts',
     '<rootDir>/src/service/user/user.service.mock.ts',
+    '<rootDir>/src/service/push-notification/push-notification.service.mock.ts',
   ],
   moduleNameMapper: pathsToModuleNameMapper(tscPaths, { prefix: '<rootDir>' }),
   transformIgnorePatterns: [`node_modules/(?!${esModules.join('|')})`],

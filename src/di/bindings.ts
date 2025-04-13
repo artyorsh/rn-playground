@@ -3,6 +3,15 @@ import Config from 'react-native-config';
 import RNDeviceInfo from 'react-native-device-info';
 import { ContainerModule } from 'inversify';
 
+import { NotificationPermissionController } from '@service/permission/controller/notification-permission-controller';
+import { IPermissionService } from '@service/permission/model';
+import { PermissionService } from '@service/permission/permission.service';
+import { NavigationNotificationHandler } from '@service/push-notification/handlers/navigation-notification-handler';
+import { NotificationRemoveHandler } from '@service/push-notification/handlers/notification-remove-handler';
+import { IPushNotificationService } from '@service/push-notification/model';
+import { PushNotificationService } from '@service/push-notification/push-notification.service';
+import { RNFBPushServiceProvider } from '@service/push-notification/rnfb-push-service-provider';
+
 import { LogService } from '../service/log/log.service';
 import { ILogService } from '../service/log/model';
 import { ConsoleLogTransporter } from '../service/log/transporters/console-log-transporter';
@@ -45,7 +54,9 @@ export const createModules = (): ContainerModule[] => {
       ],
     });
 
-    bind<INavigationService>(AppModule.NAVIGATION).toConstantValue(new NavigationService(logService));
+    const navigationService: INavigationService = new NavigationService(logService);
+
+    bind<INavigationService>(AppModule.NAVIGATION).toConstantValue(navigationService);
 
     bind<ILogService>(AppModule.LOG).toConstantValue(logService);
 
@@ -65,6 +76,30 @@ export const createModules = (): ContainerModule[] => {
       userRepository: new UserApi(),
       logger: logService,
     }));
+
+    const permissionService: IPermissionService = new PermissionService(logService, {
+      notification: new NotificationPermissionController([
+        'alert',
+        'badge',
+        'sound',
+      ]),
+    });
+
+    const pushNotificationService: IPushNotificationService = new PushNotificationService({
+      provider: new RNFBPushServiceProvider({
+        initialNotificationPollInterval: 1000,
+        shouldHandleInitialNotification: () => true,
+      }),
+      handlers: [
+        new NavigationNotificationHandler(navigationService),
+        new NotificationRemoveHandler(),
+      ],
+      sessionService: sessionService,
+      permissionService: permissionService,
+      logService: logService,
+    });
+
+    bind<IPushNotificationService>(AppModule.PUSH_NOTIFICATION).toConstantValue(pushNotificationService);
   });
 
   return [mainModule];

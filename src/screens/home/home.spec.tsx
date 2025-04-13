@@ -25,6 +25,7 @@ describe('Home', () => {
       session: jest.requireMock('@service/session/session.service').SessionService(),
       navigation: jest.requireMock('@service/navigation/navigation.service').NavigationService(),
       user: jest.requireMock('@service/user/user.service').UserService(),
+      pushNotificationService: jest.requireMock('@service/push-notification/push-notification.service').PushNotificationService(),
       api: dataProvider,
       logger: jest.requireMock('@service/log/log.service').LogService(),
     };
@@ -49,6 +50,13 @@ describe('Home', () => {
     await waitFor(() => {
       expect(deps.navigation.replace).toHaveBeenCalledWith('/welcome');
     });
+  });
+
+  it('should authorize push notifications', () => {
+    const api = render(<Home vm={vm} />);
+    fireEvent.press(api.getByTestId('notifications-button'));
+
+    expect(deps.pushNotificationService.authorize).toHaveBeenCalled();
   });
 
   it('should not navigate if logout is unsuccessful', async () => {

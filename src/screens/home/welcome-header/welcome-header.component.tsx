@@ -10,6 +10,7 @@ interface Props extends ViewProps {
 
 export interface IWelcomeHeaderVM {
   title: string;
+  viewNotifications(): void;
   logout(): void;
 }
 
@@ -18,11 +19,18 @@ export const WelcomeHeader: React.FC<Props> = ({ vm, ...props }) => (
     <Text category='heading'>
       {vm.title}
     </Text>
-    <Button
-      testID='logout-button'
-      title='Logout'
-      onPress={vm.logout}
-    />
+    <View style={styles.actionsContainer}>
+      <Button
+        testID='notifications-button'
+        title='Notifications'
+        onPress={vm.viewNotifications}
+      />
+      <Button
+        testID='logout-button'
+        title='Logout'
+        onPress={vm.logout}
+      />
+    </View>
   </View>
 );
 
@@ -33,5 +41,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingLeft: 16,
     paddingRight: 8,
+  },
+  actionsContainer: {
+    flexDirection: 'row',
   },
 });

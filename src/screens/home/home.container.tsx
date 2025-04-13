@@ -16,6 +16,7 @@ export class HomeContainer extends NavigationScreenContainer {
     this.vm = new HomeVM(this.lifecycle, {
       session: container.get(AppModule.SESSION),
       navigation: container.get(AppModule.NAVIGATION),
+      pushNotificationService: container.get(AppModule.PUSH_NOTIFICATION),
       user: container.get(AppModule.USER),
       logger: container.get(AppModule.LOG),
       api: new HomeAPI(),

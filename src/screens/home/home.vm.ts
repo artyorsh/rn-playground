@@ -3,6 +3,7 @@ import { computed, makeAutoObservable, observable } from 'mobx';
 import { ILogService } from '@service/log/model';
 import { INavigationScreenLifecycle, INavigationScreenLifecycleListener } from '@service/navigation/components/navigation-screen.container';
 import { INavigationService } from '@service/navigation/model';
+import { IPushNotificationService } from '@service/push-notification/model';
 import { ISessionService } from '@service/session/model';
 import { IUserService } from '@service/user/model';
 
@@ -15,6 +16,7 @@ import { IWelcomeHeaderVM } from './welcome-header/welcome-header.component';
 export interface IHomeOptions extends IPostsListOptions {
   session: ISessionService;
   navigation: INavigationService;
+  pushNotificationService: IPushNotificationService;
   user: IUserService;
   api: IHomeAPI;
 }
@@ -28,6 +30,7 @@ export class HomeVM implements IHomeVM, INavigationScreenLifecycleListener {
   private sessionService: ISessionService;
   private userService: IUserService;
   private navigationService: INavigationService;
+  private pushNotificationService: IPushNotificationService;
   private logService: ILogService;
 
   private api: IHomeAPI;
@@ -41,6 +44,7 @@ export class HomeVM implements IHomeVM, INavigationScreenLifecycleListener {
   @computed public get welcomeHeader(): IWelcomeHeaderVM {
     return {
       title: `Hello, ${this.userService.getUser().name}`,
+      viewNotifications: this.viewNotifications,
       logout: this.logout,
     };
   }
@@ -48,6 +52,7 @@ export class HomeVM implements IHomeVM, INavigationScreenLifecycleListener {
   constructor(lifecycle: INavigationScreenLifecycle, options: IHomeOptions) {
     this.sessionService = options.session;
     this.userService = options.user;
+    this.pushNotificationService = options.pushNotificationService;
     this.navigationService = options.navigation;
     this.logService = options.logger;
     this.api = options.api;
@@ -67,5 +72,9 @@ export class HomeVM implements IHomeVM, INavigationScreenLifecycleListener {
     }).catch(() => {
       /* no-op */
     });
+  };
+
+  private viewNotifications = (): void => {
+    this.pushNotificationService.authorize();
   };
 }

@@ -3,8 +3,8 @@ import { StyleSheet, View, ViewProps } from 'react-native';
 
 interface Props extends ViewProps {
   title?: string;
-  accessoryLeft?: React.FC<ViewProps>;
-  accessoryRight?: React.FC<ViewProps>;
+  accessoryLeft?(props: ViewProps): React.ReactNode;
+  accessoryRight?(props: ViewProps): React.ReactNode;
 }
 
 export const NavigationBar: React.FC<Props> = ({ accessoryLeft, accessoryRight }) => (

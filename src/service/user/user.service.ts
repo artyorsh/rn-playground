@@ -1,24 +1,17 @@
-import { ILogService } from '../log/model';
-import { ISession, ISessionModule, ISessionService } from '../session/model';
+import { ILogService } from '@service/log/model';
+import { ISession, ISessionInitializer } from '@service/session/model';
+
 import { IUser, IUserService } from './model';
 
 export interface IUserRepository {
   getUser(userId: string): Promise<IUser>;
 }
 
-export interface IUserServiceOptions {
-  sessionService: ISessionService;
-  userRepository: IUserRepository;
-  logger: ILogService;
-}
-
-export class UserService implements IUserService, ISessionModule {
+export class UserService implements IUserService, ISessionInitializer {
 
   private user: IUser | null = null;
 
-  constructor(private options: IUserServiceOptions) {
-    this.options.sessionService.addModule(this);
-  }
+  constructor(private userRepository: IUserRepository, private logService: ILogService) {}
 
   public getUser = (): IUser => {
     if (!this.user) {
@@ -29,9 +22,9 @@ export class UserService implements IUserService, ISessionModule {
   };
 
   public initialize = (session: ISession): Promise<void> => {
-    return this.options.userRepository.getUser(session.userId).then(user => {
+    return this.userRepository.getUser(session.userId).then(user => {
       this.user = user;
-      this.options.logger.addLabel('user_id', user.id);
+      this.logService.addLabel('user_id', user.id);
     });
   };
 

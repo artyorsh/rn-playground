@@ -1,10 +1,11 @@
 import React from 'react';
 import { fireEvent, render, waitFor } from '@testing-library/react-native';
 
-import { INavigationScreenLifecycle } from '@service/navigation/components/navigation-screen.container';
+import { INavigationService } from '@service/navigation/model';
+import { ISessionService } from '@service/session/model';
 
 import { IRegisterVM, Register } from './register.component';
-import { IRegisterOptions, RegisterVM } from './register.vm';
+import { RegisterVM } from './register.vm';
 
 describe('Register Component', () => {
 
@@ -46,41 +47,36 @@ describe('Register Component', () => {
 });
 
 describe('Register VM', () => {
-  let vm: IRegisterVM;
-
-  const lifecycle: INavigationScreenLifecycle = {
-    subscribe: jest.fn(listener => listener.onMount?.()),
-  };
-
-  const deps: IRegisterOptions = {
-    session: jest.requireMock('@service/session/session.service').SessionService(),
-    navigation: jest.requireMock('@service/navigation/navigation.service').NavigationService(),
-  };
+  let navigationService: INavigationService;
+  let sessionService: ISessionService;
 
   beforeEach(() => {
-    vm = new RegisterVM(lifecycle, deps);
+    navigationService = jest.requireMock('@service/navigation/navigation.service').NavigationService();
+    sessionService = jest.requireMock('@service/session/session.service').SessionService();
   });
 
   afterEach(() => {
-    jest.resetAllMocks();
+    jest.clearAllMocks();
   });
 
   it('should navigate to home screen if registration is successful', async () => {
+    const vm: IRegisterVM = new RegisterVM(navigationService, sessionService);
+
     vm.submit({ email: 'test@test.com', password: 'password' });
 
     await waitFor(() => {
-      expect(deps.navigation.replace).toHaveBeenCalledWith('/home');
+      expect(navigationService.replace).toHaveBeenCalledWith('/home');
     });
   });
 
   it('should not navigate if registration is unsuccessful', async () => {
-    deps.session.register = jest.fn(() => Promise.reject());
-    vm = new RegisterVM(lifecycle, deps);
+    sessionService.register = jest.fn(() => Promise.reject());
+    const vm: IRegisterVM = new RegisterVM(navigationService, sessionService);
 
     vm.submit({ email: 'test@test.com', password: 'password' });
 
     await waitFor(() => {
-      expect(deps.navigation.replace).not.toHaveBeenCalled();
+      expect(navigationService.replace).not.toHaveBeenCalled();
     });
   });
 });

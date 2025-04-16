@@ -1,8 +1,7 @@
 import { computed, makeAutoObservable, observable } from 'mobx';
 
 import { ILogService } from '@service/log/model';
-import { INavigationScreenLifecycle, INavigationScreenLifecycleListener } from '@service/navigation/components/navigation-screen.container';
-import { INavigationService } from '@service/navigation/model';
+import { INavigationLifecycleListener, INavigationService } from '@service/navigation/model';
 import { IPushNotificationService } from '@service/push-notification/model';
 import { ISessionService } from '@service/session/model';
 import { IUserService } from '@service/user/model';
@@ -10,30 +9,14 @@ import { IUserService } from '@service/user/model';
 import { IHomeVM } from './home.component';
 import { IPost } from './posts-list/model';
 import { IPostsListVM } from './posts-list/posts-list.component';
-import { IPostsListOptions, PostsListVM } from './posts-list/posts-list.vm';
+import { PostsListVM } from './posts-list/posts-list.vm';
 import { IWelcomeHeaderVM } from './welcome-header/welcome-header.component';
-
-export interface IHomeOptions extends IPostsListOptions {
-  session: ISessionService;
-  navigation: INavigationService;
-  pushNotificationService: IPushNotificationService;
-  user: IUserService;
-  api: IHomeAPI;
-}
 
 export interface IHomeAPI {
   getPosts(): Promise<IPost[]>;
 }
 
-export class HomeVM implements IHomeVM, INavigationScreenLifecycleListener {
-
-  private sessionService: ISessionService;
-  private userService: IUserService;
-  private navigationService: INavigationService;
-  private pushNotificationService: IPushNotificationService;
-  private logService: ILogService;
-
-  private api: IHomeAPI;
+export class HomeVM implements IHomeVM, INavigationLifecycleListener {
 
   @observable public posts!: IPostsListVM;
 
@@ -49,21 +32,26 @@ export class HomeVM implements IHomeVM, INavigationScreenLifecycleListener {
     };
   }
 
-  constructor(lifecycle: INavigationScreenLifecycle, options: IHomeOptions) {
-    this.sessionService = options.session;
-    this.userService = options.user;
-    this.pushNotificationService = options.pushNotificationService;
-    this.navigationService = options.navigation;
-    this.logService = options.logger;
-    this.api = options.api;
+  constructor(
+    private sessionService: ISessionService,
+    private userService: IUserService,
+    private pushNotificationService: IPushNotificationService,
+    private navigationService: INavigationService,
+    private logService: ILogService,
+    private api: IHomeAPI,
+  ) {
 
-    lifecycle.subscribe(this);
+    navigationService.subscribe('/home', this);
     makeAutoObservable(this);
   }
 
-  public onMount = async (): Promise<void> => {
+  public onFocus = async (): Promise<void> => {
     const posts = await this.api.getPosts();
     this.posts = new PostsListVM(posts, { logger: this.logService });
+  };
+
+  public onBlur = (): void => {
+    /* no-op */
   };
 
   public logout = (): void => {

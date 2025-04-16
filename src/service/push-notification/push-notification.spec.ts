@@ -1,9 +1,8 @@
 import { ILogService } from '@service/log/model';
 import { IPermissionService } from '@service/permission/model';
-import { ISessionService } from '@service/session/model';
 
 import { IPushNotificationService } from './model';
-import { IPushNotificationHandler, IPushNotificationServiceOptions, IPushServiceProvider, PushNotificationService } from './push-notification.service';
+import { IPushNotificationHandler, IPushServiceProvider, PushNotificationService } from './push-notification.service';
 
 jest.unmock('./push-notification.service');
 
@@ -12,19 +11,9 @@ describe('PushNotificationService', () => {
   let pushServiceProvider: IPushServiceProvider;
   let permissionService: IPermissionService;
   let notificationHandlers: IPushNotificationHandler[] = [];
-  let sessionService: ISessionService;
   let logService: ILogService;
 
-  const createPushNotificationService = (options: Partial<IPushNotificationServiceOptions>): IPushNotificationService => {
-    return new PushNotificationService({
-      provider: pushServiceProvider,
-      handlers: notificationHandlers,
-      sessionService: sessionService,
-      permissionService: permissionService,
-      logService: logService,
-      ...options,
-    });
-  };
+  let pushNotificationService: IPushNotificationService;
 
   beforeEach(() => {
     pushServiceProvider = {
@@ -58,8 +47,14 @@ describe('PushNotificationService', () => {
       },
     ];
 
-    sessionService = jest.requireMock('@service/session/session.service').SessionService();
     logService = jest.requireMock('@service/log/log.service').LogService();
+
+    pushNotificationService = new PushNotificationService(
+      pushServiceProvider,
+      notificationHandlers,
+      permissionService,
+      logService,
+    );
   });
 
   afterEach(() => {
@@ -67,8 +62,6 @@ describe('PushNotificationService', () => {
   });
 
   it('should resolve authorize if permission is granted', async () => {
-    const pushNotificationService = createPushNotificationService({});
-
     await expect(pushNotificationService.authorize())
       .resolves
       .toEqual(undefined);
@@ -76,7 +69,13 @@ describe('PushNotificationService', () => {
 
   it('should reject authorize with permission denied error', async () => {
     permissionService.request = jest.fn(() => Promise.reject(new Error('Permission denied')));
-    const pushNotificationService = createPushNotificationService({ permissionService });
+
+    pushNotificationService = new PushNotificationService(
+      pushServiceProvider,
+      notificationHandlers,
+      permissionService,
+      logService,
+    );
 
     await expect(pushNotificationService.authorize())
       .rejects
@@ -93,7 +92,12 @@ describe('PushNotificationService', () => {
       });
     });
 
-    createPushNotificationService({ provider: pushServiceProvider });
+    pushNotificationService = new PushNotificationService(
+      pushServiceProvider,
+      notificationHandlers,
+      permissionService,
+      logService,
+    );
 
     expect(notificationHandlers[0].handleForeground).toHaveBeenCalled();
   });
@@ -108,7 +112,12 @@ describe('PushNotificationService', () => {
       });
     });
 
-    createPushNotificationService({ provider: pushServiceProvider });
+    pushNotificationService = new PushNotificationService(
+      pushServiceProvider,
+      notificationHandlers,
+      permissionService,
+      logService,
+    );
 
     expect(notificationHandlers[1].handleBackground).toHaveBeenCalled();
   });
@@ -123,7 +132,12 @@ describe('PushNotificationService', () => {
       });
     });
 
-    createPushNotificationService({ provider: pushServiceProvider });
+    pushNotificationService = new PushNotificationService(
+      pushServiceProvider,
+      notificationHandlers,
+      permissionService,
+      logService,
+    );
 
     expect(notificationHandlers[2].handleOpen).toHaveBeenCalled();
   });
@@ -142,10 +156,12 @@ describe('PushNotificationService', () => {
     notificationHandlers[1].handleForeground = jest.fn(() => true);
     notificationHandlers[2].handleForeground = jest.fn(() => false);
 
-    createPushNotificationService({
-      provider: pushServiceProvider,
-      handlers: notificationHandlers,
-    });
+    pushNotificationService = new PushNotificationService(
+      pushServiceProvider,
+      notificationHandlers,
+      permissionService,
+      logService,
+    );
 
     expect(notificationHandlers[0].handleForeground).toHaveBeenCalled();
     expect(notificationHandlers[1].handleForeground).toHaveBeenCalled();
@@ -162,10 +178,12 @@ describe('PushNotificationService', () => {
       });
     });
 
-    createPushNotificationService({
-      provider: pushServiceProvider,
-      handlers: [],
-    });
+    pushNotificationService = new PushNotificationService(
+      pushServiceProvider,
+      [],
+      permissionService,
+      logService,
+    );
 
     expect(logService.error).toHaveBeenCalledWith(
       expect.anything(),

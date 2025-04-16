@@ -1,6 +1,6 @@
 import { ILogService } from '@service/log/model';
 import { IPermissionService } from '@service/permission/model';
-import { ISessionModule, ISessionService } from '@service/session/model';
+import { ISession, ISessionInitializer } from '@service/session/model';
 
 import { IPushNotificationService, MODULE_IDENTIFIER } from './model';
 
@@ -37,29 +37,15 @@ export interface IPushServiceProvider {
   getToken(): Promise<IPushNotificationToken>;
 }
 
-export interface IPushNotificationServiceOptions {
-  provider: IPushServiceProvider;
-  handlers: IPushNotificationHandler[];
-  sessionService: ISessionService;
-  permissionService: IPermissionService;
-  logService: ILogService;
-}
+export class PushNotificationService implements IPushNotificationService, IPushNotificationHandler, ISessionInitializer {
 
-export class PushNotificationService implements IPushNotificationService, IPushNotificationHandler, ISessionModule {
-
-  private provider: IPushServiceProvider;
-  private handlers: IPushNotificationHandler[];
-  private permissionService: IPermissionService;
-  private logService: ILogService;
-
-  constructor(options: IPushNotificationServiceOptions) {
-    this.provider = options.provider;
-    this.handlers = options.handlers;
-    this.permissionService = options.permissionService;
-    this.logService = options.logService;
-
+  constructor(
+    private provider: IPushServiceProvider,
+    private handlers: IPushNotificationHandler[],
+    private permissionService: IPermissionService,
+    private logService: ILogService,
+  ) {
     this.provider.subscribe(this);
-    options.sessionService.addModule(this);
   }
 
   public authorize = (): Promise<void> => {
@@ -97,9 +83,9 @@ export class PushNotificationService implements IPushNotificationService, IPushN
     return !!handler;
   };
 
-  // ISessionModule
+  // ISessionInitializer
 
-  public initialize = (): Promise<void> => {
+  public initialize = (_session: ISession): Promise<void> => {
     return this.permissionService.isGranted('notification').then(granted => {
       if (granted) {
         return this.authorize();

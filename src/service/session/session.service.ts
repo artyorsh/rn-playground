@@ -1,5 +1,5 @@
 import { ILogService } from '../log/model';
-import { ISession, ISessionModule, ISessionService } from './model';
+import { ISession, ISessionInitializer, ISessionService } from './model';
 
 export interface IAuthenticationToken<Payload> {
   provider: string;
@@ -31,12 +31,11 @@ export interface ISessionServiceOptions<Provider extends AnyAuthenticationProvid
   tokenRefreshThresholdMinutes: number;
   authenticationProvider: Provider;
   authenticationStorage: Storage;
+  initializers?: ISessionInitializer[];
   logger?: ILogService;
 }
 
 export class SessionService implements ISessionService {
-
-  private modules: ISessionModule[] = [];
 
   constructor(private options: ISessionServiceOptions<AnyAuthenticationProvider, AnyAuthenticationStorage>) {
   }
@@ -125,18 +124,14 @@ export class SessionService implements ISessionService {
     });
   };
 
-  public addModule = (module: ISessionModule): void => {
-    this.modules.push(module);
-  };
-
   private createSession = (token: AnyAuthenticationToken): ISession => {
     return { userId: token.userId, secret: token.secret };
   };
 
   private initializeModules = (session: ISession): Promise<void> => {
-    const moduleInitPromises = this.modules.map(module => module.initialize(session));
+    const initializerPromizes = this.options.initializers?.map(initializer => initializer.initialize(session));
 
-    return Promise.all(moduleInitPromises)
+    return Promise.all(initializerPromizes || [])
       .then(() => {/** no-op */})
       .catch(error => {
         this.options.logger?.error('SessionService', `Failed to initialize modules: ${error.message}`);
@@ -146,9 +141,9 @@ export class SessionService implements ISessionService {
   };
 
   private destroyModules = (): Promise<void> => {
-    const moduleDestroyPromises = this.modules.map(module => module.destroy());
+    const destroyerPromises = this.options.initializers?.map(initializer => initializer.destroy());
 
-    return Promise.all(moduleDestroyPromises)
+    return Promise.all(destroyerPromises || [])
       .then(() => {/** no-op */})
       .catch(error => {
         this.options.logger?.error('SessionService', `Failed to destroy modules: ${error.message}`);

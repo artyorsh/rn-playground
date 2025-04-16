@@ -4,7 +4,6 @@
     "baseUrl": "./",
     "experimentalDecorators": true,
     "paths": {
-      "@di/*": ["./src/di/*"],
       "@components/*": ["./src/components/*"],
       "@service/*": ["./src/service/*"],
       "@screens/*": ["./src/screens/*"]

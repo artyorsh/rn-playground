@@ -1,4 +1,4 @@
-import { ISessionModule } from './model';
+import { ISessionInitializer } from './model';
 import { AnyAuthenticationProvider, AnyAuthenticationStorage, SessionService } from './session.service';
 import { AnyAuthenticationToken } from './session.service';
 
@@ -128,12 +128,17 @@ describe('SessionService', () => {
   });
 
   it('should initialize modules on login', async () => {
-    const module: ISessionModule = {
+    const module: ISessionInitializer = {
       initialize: jest.fn(() => Promise.resolve()),
       destroy: jest.fn(() => Promise.resolve()),
     };
 
-    sessionService.addModule(module);
+    sessionService = new SessionService({
+      authenticationProvider,
+      authenticationStorage,
+      initializers: [module],
+      tokenRefreshThresholdMinutes: 1,
+    });
 
     await sessionService.login('test@test.com', 'password');
 
@@ -142,12 +147,17 @@ describe('SessionService', () => {
   });
 
   it('should initialize modules on register', async () => {
-    const module: ISessionModule = {
+    const module: ISessionInitializer = {
       initialize: jest.fn(() => Promise.resolve()),
       destroy: jest.fn(() => Promise.resolve()),
     };
 
-    sessionService.addModule(module);
+    sessionService = new SessionService({
+      authenticationProvider,
+      authenticationStorage,
+      initializers: [module],
+      tokenRefreshThresholdMinutes: 1,
+    });
 
     await sessionService.register('test@test.com', 'password');
 
@@ -156,21 +166,20 @@ describe('SessionService', () => {
   });
 
   it('should initialize modules on refresh', async () => {
+    const module: ISessionInitializer = {
+      initialize: jest.fn(() => Promise.resolve()),
+      destroy: jest.fn(() => Promise.resolve()),
+    };
+
     sessionService = new SessionService({
       authenticationProvider,
       authenticationStorage: {
         ...authenticationStorage,
         getToken: () => Promise.resolve(createToken(TWO_MINUTES_MS)),
       },
+      initializers: [module],
       tokenRefreshThresholdMinutes: 1,
     });
-
-    const module: ISessionModule = {
-      initialize: jest.fn(() => Promise.resolve()),
-      destroy: jest.fn(() => Promise.resolve()),
-    };
-
-    sessionService.addModule(module);
 
     await sessionService.refresh();
 
@@ -179,21 +188,20 @@ describe('SessionService', () => {
   });
 
   it('should initialize modules on restore', async () => {
+    const module: ISessionInitializer = {
+      initialize: jest.fn(() => Promise.resolve()),
+      destroy: jest.fn(() => Promise.resolve()),
+    };
+
     sessionService = new SessionService({
       authenticationProvider,
       authenticationStorage: {
         ...authenticationStorage,
         getToken: () => Promise.resolve(createToken(TWO_MINUTES_MS)),
       },
+      initializers: [module],
       tokenRefreshThresholdMinutes: 1,
     });
-
-    const module: ISessionModule = {
-      initialize: jest.fn(() => Promise.resolve()),
-      destroy: jest.fn(() => Promise.resolve()),
-    };
-
-    sessionService.addModule(module);
 
     await sessionService.restore();
 
@@ -202,12 +210,17 @@ describe('SessionService', () => {
   });
 
   it('should reject if modules fail to initialize', async () => {
-    const module: ISessionModule = {
+    const module: ISessionInitializer = {
       initialize: jest.fn(() => Promise.reject(new Error('Test error'))),
       destroy: jest.fn(() => Promise.resolve()),
     };
 
-    sessionService.addModule(module);
+    sessionService = new SessionService({
+      authenticationProvider,
+      authenticationStorage,
+      initializers: [module],
+      tokenRefreshThresholdMinutes: 1,
+    });
 
     await expect(sessionService.login('test@test.com', 'password'))
       .rejects
@@ -215,12 +228,17 @@ describe('SessionService', () => {
   });
 
   it('should destroy modules on logout', async () => {
-    const module: ISessionModule = {
+    const module: ISessionInitializer = {
       initialize: jest.fn(() => Promise.resolve()),
       destroy: jest.fn(() => Promise.resolve()),
     };
 
-    sessionService.addModule(module);
+    sessionService = new SessionService({
+      authenticationProvider,
+      authenticationStorage,
+      initializers: [module],
+      tokenRefreshThresholdMinutes: 1,
+    });
 
     await sessionService.logout();
 
@@ -229,12 +247,17 @@ describe('SessionService', () => {
   });
 
   it('should reject if modules fail to destroy', async () => {
-    const module: ISessionModule = {
+    const module: ISessionInitializer = {
       initialize: jest.fn(() => Promise.resolve()),
       destroy: jest.fn(() => Promise.reject(new Error('Test error'))),
     };
 
-    sessionService.addModule(module);
+    sessionService = new SessionService({
+      authenticationProvider,
+      authenticationStorage,
+      initializers: [module],
+      tokenRefreshThresholdMinutes: 1,
+    });
 
     await expect(sessionService.logout())
       .rejects

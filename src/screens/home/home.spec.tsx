@@ -1,35 +1,44 @@
 import React from 'react';
 import { fireEvent, render, waitFor } from '@testing-library/react-native';
 
-import { INavigationScreenLifecycle } from '@service/navigation/components/navigation-screen.container';
+import { ILogService } from '@service/log/model';
+import { INavigationService } from '@service/navigation/model';
+import { IPushNotificationService } from '@service/push-notification/model';
+import { ISessionService } from '@service/session/model';
+import { IUserService } from '@service/user/model';
 
 import { Home, IHomeVM } from './home.component';
-import { IHomeAPI, IHomeOptions } from './home.vm';
+import { IHomeAPI } from './home.vm';
 import { HomeVM } from './home.vm';
 
 describe('Home', () => {
 
   let vm: IHomeVM;
-  let deps: IHomeOptions;
-
-  const lifecycle: INavigationScreenLifecycle = {
-    subscribe: jest.fn(listener => listener.onMount?.()),
-  };
+  let navigationService: INavigationService;
+  let sessionService: ISessionService;
+  let userService: IUserService;
+  let pushNotificationService: IPushNotificationService;
+  let logService: ILogService;
 
   const dataProvider: IHomeAPI = {
     getPosts: jest.fn(() => Promise.resolve([])),
   };
 
   beforeEach(() => {
-    deps = {
-      session: jest.requireMock('@service/session/session.service').SessionService(),
-      navigation: jest.requireMock('@service/navigation/navigation.service').NavigationService(),
-      user: jest.requireMock('@service/user/user.service').UserService(),
-      pushNotificationService: jest.requireMock('@service/push-notification/push-notification.service').PushNotificationService(),
-      api: dataProvider,
-      logger: jest.requireMock('@service/log/log.service').LogService(),
-    };
-    vm = new HomeVM(lifecycle, deps);
+    navigationService = jest.requireMock('@service/navigation/navigation.service').NavigationService();
+    sessionService = jest.requireMock('@service/session/session.service').SessionService();
+    userService = jest.requireMock('@service/user/user.service').UserService();
+    pushNotificationService = jest.requireMock('@service/push-notification/push-notification.service').PushNotificationService();
+    logService = jest.requireMock('@service/log/log.service').LogService();
+
+    vm = new HomeVM(
+      sessionService,
+      userService,
+      pushNotificationService,
+      navigationService,
+      logService,
+      dataProvider,
+    );
   });
 
   afterEach(() => {
@@ -37,8 +46,6 @@ describe('Home', () => {
   });
 
   it('should render with user name in title', () => {
-    deps.user.getUser = jest.fn(() => ({ id: '1', name: 'Test User' }));
-
     const api = render(<Home vm={vm} />);
     expect(api.findByText(/Test User/)).toBeTruthy();
   });
@@ -48,7 +55,7 @@ describe('Home', () => {
     fireEvent.press(api.getByTestId('logout-button'));
 
     await waitFor(() => {
-      expect(deps.navigation.replace).toHaveBeenCalledWith('/welcome');
+      expect(navigationService.replace).toHaveBeenCalledWith('/welcome');
     });
   });
 
@@ -56,17 +63,26 @@ describe('Home', () => {
     const api = render(<Home vm={vm} />);
     fireEvent.press(api.getByTestId('notifications-button'));
 
-    expect(deps.pushNotificationService.authorize).toHaveBeenCalled();
+    expect(pushNotificationService.authorize).toHaveBeenCalled();
   });
 
   it('should not navigate if logout is unsuccessful', async () => {
-    deps.session.logout = jest.fn(() => Promise.reject());
+    sessionService.logout = jest.fn(() => Promise.reject());
+
+    vm = new HomeVM(
+      sessionService,
+      userService,
+      pushNotificationService,
+      navigationService,
+      logService,
+      dataProvider,
+    );
 
     const api = render(<Home vm={vm} />);
     fireEvent.press(api.getByTestId('logout-button'));
 
     await waitFor(() => {
-      expect(deps.navigation.replace).not.toHaveBeenCalled();
+      expect(navigationService.replace).not.toHaveBeenCalled();
     });
   });
 });

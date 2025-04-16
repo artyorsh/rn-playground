@@ -7,7 +7,6 @@ jest.mock('./session.service', () => {
     refresh: jest.fn(() => Promise.resolve({ userId: '1', secret: '123' })),
     restore: jest.fn(() => Promise.resolve({ userId: '1', secret: '123' })),
     logout: jest.fn(() => Promise.resolve()),
-    addModule: jest.fn(),
   };
 
   return {

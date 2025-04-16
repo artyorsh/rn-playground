@@ -3,7 +3,7 @@ export interface ISession {
   secret: string;
 }
 
-export interface ISessionModule {
+export interface ISessionInitializer {
   initialize(session: ISession): Promise<void>;
   destroy(): Promise<void>;
 }
@@ -14,5 +14,4 @@ export interface ISessionService {
   refresh(): Promise<ISession>;
   restore(): Promise<ISession>;
   logout(): Promise<void>;
-  addModule(module: ISessionModule): void;
 }

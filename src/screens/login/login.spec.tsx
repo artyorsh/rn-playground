@@ -1,10 +1,11 @@
 import React from 'react';
 import { fireEvent, render, waitFor } from '@testing-library/react-native';
 
-import { INavigationScreenLifecycle } from '@service/navigation/components/navigation-screen.container';
+import { INavigationService } from '@service/navigation/model';
+import { ISessionService } from '@service/session/model';
 
 import { ILoginVM, Login } from './login.component';
-import { ILoginOptions, LoginVM } from './login.vm';
+import { LoginVM } from './login.vm';
 
 describe('Login Component', () => {
 
@@ -68,41 +69,36 @@ describe('Login Component', () => {
 });
 
 describe('Login VM', () => {
-  const lifecycle: INavigationScreenLifecycle = {
-    subscribe: jest.fn(listener => listener.onMount?.()),
-  };
-
-  let vm: ILoginVM;
-
-  const deps: ILoginOptions = {
-    session: jest.requireMock('@service/session/session.service').SessionService(),
-    navigation: jest.requireMock('@service/navigation/navigation.service').NavigationService(),
-  };
+  let navigationService: INavigationService;
+  let sessionService: ISessionService;
 
   beforeEach(() => {
-    vm = new LoginVM(lifecycle, deps);
+    navigationService = jest.requireMock('@service/navigation/navigation.service').NavigationService();
+    sessionService = jest.requireMock('@service/session/session.service').SessionService();
   });
 
   afterEach(() => {
-    jest.resetAllMocks();
+    jest.clearAllMocks();
   });
 
   it('should navigate to home screen if login is successful', async () => {
+    const vm: ILoginVM = new LoginVM(navigationService, sessionService);
+
     vm.submit({ email: 'test@test.com', password: 'password' });
 
     await waitFor(() => {
-      expect(deps.navigation.replace).toHaveBeenCalledWith('/home');
+      expect(navigationService.replace).toHaveBeenCalledWith('/home');
     });
   });
 
   it('should not navigate if login is unsuccessful', async () => {
-    deps.session.login = jest.fn(() => Promise.reject());
-    vm = new LoginVM(lifecycle, deps);
+    sessionService.login = jest.fn(() => Promise.reject());
+    const vm: ILoginVM = new LoginVM(navigationService, sessionService);
 
     vm.submit({ email: 'test@test.com', password: 'password' });
 
     await waitFor(() => {
-      expect(deps.navigation.replace).not.toHaveBeenCalled();
+      expect(navigationService.replace).not.toHaveBeenCalled();
     });
   });
 

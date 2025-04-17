@@ -17,13 +17,13 @@ export class NavigationService implements INavigationService {
   private navigationListeners: Map<IRoute, INavigationLifecycleListener> = new Map();
 
   constructor(private navigationMapFactory: INavigationMapFactory, private log: ILogService) {
-
   }
 
   public get navigator(): React.FC<RootNavigatorProps> {
     return () => React.createElement(RootNavigator, <RootNavigatorProps>{
       ref: this.rootNavigator,
       navigationMap: this.navigationMapFactory(this),
+      onReady: this.onNavigationReady,
       onStateChange: this.onNavigationStateChange,
     });
   }
@@ -40,6 +40,10 @@ export class NavigationService implements INavigationService {
 
   public goBack = (): void => {
     this.rootNavigator.current?.goBack();
+  };
+
+  private onNavigationReady = (): void => {
+    this.navigationListeners.get(this.currentRoute)?.onFocus();
   };
 
   private onNavigationStateChange = (): void => {
@@ -64,10 +68,6 @@ export class NavigationService implements INavigationService {
    * @see {onNavigationStateChange}
    */
   public subscribe = (route: IRoute, listener: INavigationLifecycleListener): Function => {
-    if (this.currentRoute === route) {
-      listener.onFocus();
-    }
-
     this.navigationListeners.set(route, listener);
 
     return () => {

@@ -1,5 +1,5 @@
 import { ISession, ISessionInitializer } from '@/auth/session';
-import { ILogService } from '@/log/model';
+import { ILogService } from '@/log';
 import { IPermissionService } from '@/permission/model';
 
 import { IPushNotificationService, MODULE_IDENTIFIER } from './model';

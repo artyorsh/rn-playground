@@ -1,4 +1,4 @@
-import { ILogService } from '@/log/model';
+import { ILogService } from '@/log';
 
 import { IPermissionId, IPermissionService, MODULE_IDENTIFIER } from './model';
 

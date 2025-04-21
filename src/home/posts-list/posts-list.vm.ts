@@ -1,6 +1,6 @@
 import { computed } from 'mobx';
 
-import { ILogService } from '@/log/model';
+import { ILogService } from '@/log';
 
 import { IPost } from './model';
 import { IPostVM } from './post-item.component';

@@ -1,6 +1,6 @@
 import RNFetchBlob, { ReactNativeBlobUtilWriteStream } from 'react-native-blob-util';
 
-import { ILogOptions, ILogTransporter } from '../model';
+import { ILogOptions, ILogTransporter } from '../log.service';
 
 interface ILogMessage {
   timestamp: number;

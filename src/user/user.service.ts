@@ -1,5 +1,5 @@
 import { ISession, ISessionInitializer } from '@/auth/session';
-import { ILogService } from '@/log/model';
+import { ILogService } from '@/log';
 
 import { IUser, IUserService } from './model';
 

@@ -1,5 +1,5 @@
-import { LogService } from './log.service';
-import { ILogService, ILogTransporter } from './model';
+import { ILogService } from '.';
+import { ILogTransporter, LogService } from './log.service';
 import { ConsoleLogTransporter } from './transporters/console-log-transporter';
 
 jest.unmock('./log.service');

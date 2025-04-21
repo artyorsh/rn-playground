@@ -1,6 +1,6 @@
 import { LogBox } from 'react-native';
 
-import { ILogOptions, ILogTransporter } from '../model';
+import { ILogOptions, ILogTransporter } from '../log.service';
 
 export class ConsoleLogTransporter implements ILogTransporter {
 

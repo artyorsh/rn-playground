@@ -3,7 +3,7 @@ import { View } from 'react-native';
 import { ReactNavigationRouter } from './react-navigation-router';
 import { render, waitFor } from '@testing-library/react-native';
 
-import { ILogService } from '@/log/model';
+import { ILogService } from '@/log';
 
 import { IRouter } from '../model';
 

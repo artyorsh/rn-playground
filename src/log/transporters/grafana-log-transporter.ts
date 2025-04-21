@@ -1,4 +1,4 @@
-import { ILogOptions, ILogTransporter } from '../model';
+import { ILogOptions, ILogTransporter } from '../log.service';
 
 interface IGrafanaLogTransporterOptions {
   hostUrl: string;

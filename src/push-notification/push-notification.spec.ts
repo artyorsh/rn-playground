@@ -1,4 +1,4 @@
-import { ILogService } from '@/log/model';
+import { ILogService } from '@/log';
 import { IPermissionService } from '@/permission/model';
 
 import { IPushNotificationService } from './model';

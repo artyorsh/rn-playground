@@ -5,11 +5,29 @@ import { ContainerModule } from 'inversify';
 
 import { AppModule } from '@/di/model';
 
-import { LogService } from './log.service';
-import { ILogService, ILogTransporter } from './model';
+import { ILogTransporter, LogService } from './log.service';
 import { ConsoleLogTransporter } from './transporters/console-log-transporter';
 import { FileLogTransporter } from './transporters/file-log-transporter';
 import { GrafanaLogTransporter } from './transporters/grafana-log-transporter';
+
+export type ILogLevel =
+ | 'debug'
+ | 'info'
+ | 'warn'
+ | 'error';
+
+export type ILogPayload = Record<string, string>;
+
+export interface ILogService {
+  log(tag: string, message: string, level: ILogLevel, payload?: ILogPayload): void;
+  debug(tag: string, message: string, payload?: ILogPayload): void;
+  info(tag: string, message: string, payload?: ILogPayload): void;
+  warn(tag: string, message: string, payload?: ILogPayload): void;
+  error(tag: string, message: string, payload?: ILogPayload): void;
+  addLabel(key: string, value: string): void;
+  removeLabel(key: string): void;
+  flush(): void;
+}
 
 export const LogModule = new ContainerModule(bind => {
   const grafanaAppId: string = `rnapp_${Platform.OS}_${Config.RNAPP_ENV_NAME}`;

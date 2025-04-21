@@ -1,7 +1,7 @@
 import { ContainerModule } from 'inversify';
 
 import { AppModule } from '@/di/model';
-import { ILogService } from '@/log/model';
+import { ILogService } from '@/log';
 import { IPermissionService } from '@/permission/model';
 import { IRouter } from '@/router/model';
 

@@ -1,9 +1,19 @@
-import { ILogLevel, ILogPayload, ILogService, ILogTransporter } from './model';
+import { ILogLevel, ILogPayload, ILogService } from '.';
 
 export interface ILogServiceOptions {
   flushInterval?: number;
   transporters?: ILogTransporter[];
   defaultLabels?: ILogPayload;
+}
+
+export interface ILogOptions {
+  level: ILogLevel;
+}
+
+export interface ILogTransporter {
+  readonly id: string;
+  transport(tag: string, message: string, options?: ILogOptions): void;
+  flush(): void;
 }
 
 export class LogService implements ILogService {

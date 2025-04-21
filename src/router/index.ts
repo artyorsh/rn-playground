@@ -2,7 +2,7 @@ import { IRouteMap, ReactNavigationRouter } from './react-navigation/react-navig
 import { ContainerModule } from 'inversify';
 
 import { AppModule } from '@/di/model';
-import { ILogService } from '@/log/model';
+import { ILogService } from '@/log';
 
 import { IRouter } from './model';
 

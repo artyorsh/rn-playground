@@ -1,4 +1,4 @@
-import { ContainerModule } from 'inversify';
+import { ContainerModule, interfaces } from 'inversify';
 
 import { AppModule } from '@/di/model';
 import { ILogService } from '@/log';
@@ -19,26 +19,30 @@ export interface IPushNotificationService {
 }
 
 export const PushNotificationModule = new ContainerModule(bind => {
-  bind<IPushNotificationService>(AppModule.PUSH_NOTIFICATION).toDynamicValue(context => {
-    const router: IRouter = context.container.get(AppModule.ROUTER);
-    const permissionService: IPermissionService = context.container.get(AppModule.PERMISSION);
-    const logService: ILogService = context.container.get(AppModule.LOG);
-
-    const pushServiceProvider: IPushServiceProvider = new RNFBPushServiceProvider({
-      initialNotificationPollInterval: 1000,
-      shouldHandleInitialNotification: () => true,
-    });
-
-    const handlers: IPushNotificationHandler[] = [
-      new NavigationNotificationHandler(router),
-      new NotificationRemoveHandler(),
-    ];
-
-    return new PushNotificationService(
-      pushServiceProvider,
-      handlers,
-      permissionService,
-      logService,
-    );
-  }).inSingletonScope();
+  bind<IPushNotificationService>(AppModule.PUSH_NOTIFICATION)
+    .toDynamicValue(context => createPushNotificationService(context))
+    .inSingletonScope();
 });
+
+const createPushNotificationService = (context: interfaces.Context): IPushNotificationService => {
+  const router: IRouter = context.container.get(AppModule.ROUTER);
+  const permissionService: IPermissionService = context.container.get(AppModule.PERMISSION);
+  const logService: ILogService = context.container.get(AppModule.LOG);
+
+  const pushServiceProvider: IPushServiceProvider = new RNFBPushServiceProvider({
+    initialNotificationPollInterval: 1000,
+    shouldHandleInitialNotification: () => true,
+  });
+
+  const handlers: IPushNotificationHandler[] = [
+    new NavigationNotificationHandler(router),
+    new NotificationRemoveHandler(),
+  ];
+
+  return new PushNotificationService(
+    pushServiceProvider,
+    handlers,
+    permissionService,
+    logService,
+  );
+};

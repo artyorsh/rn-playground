@@ -1,7 +1,7 @@
 import { Platform } from 'react-native';
 import Config from 'react-native-config';
 import RNDeviceInfo from 'react-native-device-info';
-import { ContainerModule } from 'inversify';
+import { ContainerModule, interfaces } from 'inversify';
 
 import { AppModule } from '@/di/model';
 
@@ -30,6 +30,12 @@ export interface ILogService {
 }
 
 export const LogModule = new ContainerModule(bind => {
+  bind<ILogService>(AppModule.LOG)
+    .toDynamicValue(context => createLogger(context))
+    .inSingletonScope();
+});
+
+const createLogger = (_context: interfaces.Context): ILogService => {
   const grafanaAppId: string = `rnapp_${Platform.OS}_${Config.RNAPP_ENV_NAME}`;
 
   const deviceName: string = RNDeviceInfo.getDeviceNameSync();
@@ -44,7 +50,7 @@ export const LogModule = new ContainerModule(bind => {
     hostUrl: Config.RNAPP_GRAFANA_HOST || '',
   });
 
-  const logService = new LogService({
+  return new LogService({
     defaultLabels: {
       app: grafanaAppId,
       version: appVersion,
@@ -52,6 +58,4 @@ export const LogModule = new ContainerModule(bind => {
     },
     transporters: [consoleTransporter, fileTransporter, grafanaTransporter],
   });
-
-  bind<ILogService>(AppModule.LOG).toConstantValue(logService);
-});
+};

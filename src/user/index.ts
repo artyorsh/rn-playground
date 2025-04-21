@@ -1,4 +1,4 @@
-import { ContainerModule } from 'inversify';
+import { ContainerModule, interfaces } from 'inversify';
 
 import { AppModule } from '@/di/model';
 import { ILogService } from '@/log';
@@ -16,10 +16,14 @@ export interface IUserService {
 }
 
 export const UserModule = new ContainerModule(bind => {
-  bind<IUserService>(AppModule.USER).toDynamicValue(context => {
-    const logService = context.container.get<ILogService>(AppModule.LOG);
-    const userApi: IUserRepository = new UserApi();
-
-    return new UserService(userApi, logService);
-  }).inSingletonScope();
+  bind<IUserService>(AppModule.USER)
+    .toDynamicValue(context => createUserService(context))
+    .inSingletonScope();
 });
+
+const createUserService = (context: interfaces.Context): IUserService => {
+  const logService: ILogService = context.container.get(AppModule.LOG);
+  const userApi: IUserRepository = new UserApi();
+
+  return new UserService(userApi, logService);
+};

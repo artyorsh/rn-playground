@@ -1,4 +1,4 @@
-import { ContainerModule } from 'inversify';
+import { ContainerModule, interfaces } from 'inversify';
 
 import { AppModule } from '@/di/model';
 import { ILogService } from '@/log';
@@ -22,17 +22,21 @@ export interface IPermissionService {
 }
 
 export const PermissionModule = new ContainerModule(bind => {
-  bind<IPermissionService>(AppModule.PERMISSION).toDynamicValue(context => {
-    const logService: ILogService = context.container.get(AppModule.LOG);
-
-    const notificationPermissionController = new NotificationPermissionController([
-      'alert',
-      'badge',
-      'sound',
-    ]);
-
-    return new PermissionService(logService, {
-      notification: notificationPermissionController,
-    });
-  }).inSingletonScope();
+  bind<IPermissionService>(AppModule.PERMISSION)
+    .toDynamicValue(context => createPermissionService(context))
+    .inSingletonScope();
 });
+
+const createPermissionService = (context: interfaces.Context): IPermissionService => {
+  const logService: ILogService = context.container.get(AppModule.LOG);
+
+  const notificationPermissionController = new NotificationPermissionController([
+    'alert',
+    'badge',
+    'sound',
+  ]);
+
+  return new PermissionService(logService, {
+    notification: notificationPermissionController,
+  });
+};

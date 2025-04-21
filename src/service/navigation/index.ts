@@ -9,21 +9,15 @@ export const NavigationModule = new ContainerModule(bind => {
   bind<INavigationService>('navigation').toDynamicValue(context => {
     const logService: ILogService = context.container.get('log');
 
-    const SplashScreen: React.FC = context.container.get('SplashScreen');
-    const WelcomeScreen: React.FC = context.container.get('WelcomeScreen');
-    const LoginScreen: React.FC = context.container.get('LoginScreen');
-    const RegisterScreen: React.FC = context.container.get('RegisterScreen');
-    const HomeScreen: React.FC = context.container.get('HomeScreen');
-
-    const createNavigationMap: INavigationMap = {
-      '/': SplashScreen,
-      '/welcome': WelcomeScreen,
-      '/login': LoginScreen,
-      '/register': RegisterScreen,
-      '/home': HomeScreen,
+    const navigationMap: INavigationMap = {
+      '/': context.container.get('SplashScreen'),
+      '/welcome': context.container.get('WelcomeScreen'),
+      '/login': context.container.get('LoginScreen'),
+      '/register': context.container.get('RegisterScreen'),
+      '/home': context.container.get('HomeScreen'),
     };
 
-    return new NavigationService(createNavigationMap, logService);
+    return new NavigationService(navigationMap, logService);
   }).inSingletonScope();
 });
 

@@ -29,8 +29,9 @@ export class NavigationService implements INavigationService {
   public getWindow(): React.ReactElement {
     const Stack = createNativeStackNavigator();
 
-    const createScreen = ([route, component]: [string, React.ComponentType]): React.ReactElement => (
+    const createScreen = ([route, component]: [string, React.ComponentType], index: number): React.ReactElement => (
       <Stack.Screen
+        key={index}
         name={route}
         component={component}
       />

@@ -11,8 +11,9 @@ export type ILoginRoute = '/login';
 
 export const LoginScreenModule = new ContainerModule(bind => {
   bind<interfaces.Factory<React.FC>>('LoginScreen').toFactory(context => {
-    return (navigationService: INavigationService) => {
+    return () => {
       return () => {
+        const navigationService: INavigationService = context.container.get('navigation');
         const sessionService: ISessionService = context.container.get('session');
 
         const vm: ILoginVM = new LoginVM(navigationService, sessionService);

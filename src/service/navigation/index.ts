@@ -5,7 +5,7 @@ import { ILogService } from '@service/log/model';
 import { INavigationService } from './model';
 import { INavigationMapFactory, NavigationService } from './navigation.service';
 
-type IScreenFactory = (navigationService: INavigationService) => React.FC;
+type IScreenFactory = () => React.FC;
 
 export const NavigationModule = new ContainerModule(bind => {
   bind<INavigationService>('navigation').toDynamicValue(context => {
@@ -17,12 +17,12 @@ export const NavigationModule = new ContainerModule(bind => {
     const RegisterScreen: IScreenFactory = context.container.get('RegisterScreen');
     const HomeScreen: IScreenFactory = context.container.get('HomeScreen');
 
-    const createNavigationMap: INavigationMapFactory = (navigationService: INavigationService) => ({
-      '/': SplashScreen(navigationService),
-      '/welcome': WelcomeScreen(navigationService),
-      '/login': LoginScreen(navigationService),
-      '/register': RegisterScreen(navigationService),
-      '/home': HomeScreen(navigationService),
+    const createNavigationMap: INavigationMapFactory = (_navigationService: INavigationService) => ({
+      '/': SplashScreen(),
+      '/welcome': WelcomeScreen(),
+      '/login': LoginScreen(),
+      '/register': RegisterScreen(),
+      '/home': HomeScreen(),
     });
 
     return new NavigationService(createNavigationMap, logService);

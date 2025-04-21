@@ -11,8 +11,9 @@ export type ISplashRoute = '/';
 
 export const SplashScreenModule = new ContainerModule(bind => {
   bind<interfaces.Factory<React.FC>>('SplashScreen').toFactory(context => {
-    return (navigationService: INavigationService) => {
+    return () => {
       return () => {
+        const navigationService: INavigationService = context.container.get('navigation');
         const sessionService: ISessionService = context.container.get('session');
 
         const vm: ISplashVM = new SplashVM(navigationService, sessionService);

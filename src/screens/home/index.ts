@@ -15,8 +15,9 @@ export type IHomeRoute = '/home';
 
 export const HomeScreenModule = new ContainerModule(bind => {
   bind<interfaces.Factory<React.FC>>('HomeScreen').toFactory(context => {
-    return (navigationService: INavigationService) => {
+    return () => {
       return () => {
+        const navigationService: INavigationService = context.container.get('navigation');
         const sessionService: ISessionService = context.container.get('session');
         const userService: IUserService = context.container.get('user');
         const pushNotificationService: IPushNotificationService = context.container.get('push_notification');

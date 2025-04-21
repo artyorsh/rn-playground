@@ -12,14 +12,12 @@ export type IRegisterRoute = '/register';
 export const RegisterScreenModule = new ContainerModule(bind => {
   bind<interfaces.Factory<React.FC>>('RegisterScreen').toFactory(context => {
     return () => {
-      return () => {
-        const navigationService: INavigationService = context.container.get('navigation');
-        const sessionService: ISessionService = context.container.get('session');
+      const navigationService: INavigationService = context.container.get('navigation');
+      const sessionService: ISessionService = context.container.get('session');
 
-        const vm: IRegisterVM = new RegisterVM(navigationService, sessionService);
+      const vm: IRegisterVM = new RegisterVM(navigationService, sessionService);
 
-        return React.createElement(Register, { vm });
-      };
+      return React.createElement(Register, { vm });
     };
   });
 });

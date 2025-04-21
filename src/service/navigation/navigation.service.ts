@@ -6,8 +6,6 @@ import { ILogService } from '@service/log/model';
 import { INavigationLifecycleListener, INavigationService, IRoute, IRouteParams } from './model';
 import { INavigationMap, RootNavigator, RootNavigatorProps } from './root-navigator';
 
-export type INavigationMapFactory = (navigationService: INavigationService) => INavigationMap;
-
 export class NavigationService implements INavigationService {
 
   private rootNavigator = React.createRef<NavigationContainerRef<{}>>();
@@ -16,13 +14,13 @@ export class NavigationService implements INavigationService {
 
   private navigationListeners: Map<IRoute, INavigationLifecycleListener> = new Map();
 
-  constructor(private navigationMapFactory: INavigationMapFactory, private log: ILogService) {
+  constructor(private navigationMap: INavigationMap, private log: ILogService) {
   }
 
   public getWindow(): React.ReactElement {
     return React.createElement(RootNavigator, <RootNavigatorProps>{
       ref: this.rootNavigator,
-      navigationMap: this.navigationMapFactory(this),
+      navigationMap: this.navigationMap,
       onReady: this.onNavigationReady,
       onStateChange: this.onNavigationStateChange,
     });

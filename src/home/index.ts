@@ -5,7 +5,7 @@ import { AppModule } from '@/di/model';
 import { ISessionService } from '@/auth/session';
 import { ILogService } from '@/log';
 import { IPushNotificationService } from '@/push-notification/model';
-import { IRouter } from '@/router/model';
+import { IRouter } from '@/router';
 import { IUserService } from '@/user/model';
 
 import { HomeAPI } from './home.api';

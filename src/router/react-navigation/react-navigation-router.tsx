@@ -4,7 +4,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import { ILogService } from '@/log';
 
-import { INavigationLifecycleListener, IRoute, IRouteParams, IRouter } from '../model';
+import { INavigationLifecycleListener, IRoute, IRouteParams, IRouter } from '..';
 
 export type IRouteMap = Record<IRoute, React.ComponentType>;
 

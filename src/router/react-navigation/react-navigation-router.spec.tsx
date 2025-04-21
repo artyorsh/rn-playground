@@ -5,7 +5,7 @@ import { render, waitFor } from '@testing-library/react-native';
 
 import { ILogService } from '@/log';
 
-import { IRouter } from '../model';
+import { IRouter } from '..';
 
 jest.unmock('./react-navigation-router');
 

@@ -2,7 +2,7 @@ import React from 'react';
 import { render, waitFor } from '@testing-library/react-native';
 
 import { ISessionService } from '@/auth/session';
-import { IRouter } from '@/router/model';
+import { IRouter } from '@/router';
 
 import { ISplashVM, Splash } from './splash.component';
 import { SplashVM } from './splash.vm';

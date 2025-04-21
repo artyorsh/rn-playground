@@ -1,4 +1,4 @@
-import { IRouter } from '@/router/model';
+import { IRouter } from '@/router';
 
 import { IWelcomeVM } from './welcome.component';
 

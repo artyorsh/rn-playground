@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { AppModule } from '@/di/model';
-import { IRouter } from '@/router/model';
+import { IRouter } from '@/router';
 
 import { container } from './di';
 

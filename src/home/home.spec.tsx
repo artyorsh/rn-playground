@@ -4,7 +4,7 @@ import { fireEvent, render, waitFor } from '@testing-library/react-native';
 import { ISessionService } from '@/auth/session';
 import { ILogService } from '@/log';
 import { IPushNotificationService } from '@/push-notification/model';
-import { IRouter } from '@/router/model';
+import { IRouter } from '@/router';
 import { IUserService } from '@/user/model';
 
 import { Home, IHomeVM } from './home.component';

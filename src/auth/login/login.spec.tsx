@@ -2,7 +2,7 @@ import React from 'react';
 import { fireEvent, render, waitFor } from '@testing-library/react-native';
 
 import { ISessionService } from '@/auth/session';
-import { IRouter } from '@/router/model';
+import { IRouter } from '@/router';
 
 import { ILoginVM, Login } from './login.component';
 import { LoginVM } from './login.vm';

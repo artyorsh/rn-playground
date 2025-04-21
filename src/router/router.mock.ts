@@ -1,4 +1,4 @@
-import { INavigationLifecycleListener, IRoute, IRouter } from './model';
+import { INavigationLifecycleListener, IRoute, IRouter } from '.';
 
 jest.mock('./react-navigation/react-navigation-router', () => {
   const routerService: IRouter = {

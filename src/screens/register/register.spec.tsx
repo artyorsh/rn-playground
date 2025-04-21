@@ -47,11 +47,11 @@ describe('Register Component', () => {
 });
 
 describe('Register VM', () => {
-  let navigationService: IRouter;
+  let router: IRouter;
   let sessionService: ISessionService;
 
   beforeEach(() => {
-    navigationService = jest.requireMock('@service/router/router.service').RouterService();
+    router = jest.requireMock('@service/router/react-navigation/react-navigation-router').RouterService();
     sessionService = jest.requireMock('@service/session/session.service').SessionService();
   });
 
@@ -60,23 +60,23 @@ describe('Register VM', () => {
   });
 
   it('should navigate to home screen if registration is successful', async () => {
-    const vm: IRegisterVM = new RegisterVM(navigationService, sessionService);
+    const vm: IRegisterVM = new RegisterVM(router, sessionService);
 
     vm.submit({ email: 'test@test.com', password: 'password' });
 
     await waitFor(() => {
-      expect(navigationService.replace).toHaveBeenCalledWith('/home');
+      expect(router.replace).toHaveBeenCalledWith('/home');
     });
   });
 
   it('should not navigate if registration is unsuccessful', async () => {
     sessionService.register = jest.fn(() => Promise.reject());
-    const vm: IRegisterVM = new RegisterVM(navigationService, sessionService);
+    const vm: IRegisterVM = new RegisterVM(router, sessionService);
 
     vm.submit({ email: 'test@test.com', password: 'password' });
 
     await waitFor(() => {
-      expect(navigationService.replace).not.toHaveBeenCalled();
+      expect(router.replace).not.toHaveBeenCalled();
     });
   });
 });

@@ -8,19 +8,19 @@ export class RegisterVM implements IRegisterVM {
 
   public readonly title = 'Register';
 
-  constructor(private navigationService: IRouter, private sessionService: ISessionService) {
+  constructor(private router: IRouter, private sessionService: ISessionService) {
   }
 
   public submit = (values: IRegisterFormValues): void => {
     this.sessionService.register(values.email, values.password).then(() => {
-      this.navigationService.replace('/home');
+      this.router.replace('/home');
     }).catch(() => {
       /* no-op */
     });
   };
 
   public goBack = (): void => {
-    this.navigationService.goBack();
+    this.router.goBack();
   };
 
 }

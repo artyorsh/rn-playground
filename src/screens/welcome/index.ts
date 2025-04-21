@@ -10,9 +10,9 @@ import { WelcomeVM } from './welcome.vm';
 export type IWelcomeRoute = '/welcome';
 
 const createWelcomeVM = (context: interfaces.Context): IWelcomeVM => {
-  const navigationService: IRouter = context.container.get(AppModule.ROUTER);
+  const router: IRouter = context.container.get(AppModule.ROUTER);
 
-  return new WelcomeVM(navigationService);
+  return new WelcomeVM(router);
 };
 
 export const WelcomeScreenModule = new ContainerModule(bind => {

@@ -7,15 +7,15 @@ export class SplashVM implements ISplashVM, INavigationLifecycleListener {
 
   public readonly title = 'Hello';
 
-  constructor(private navigation: IRouter, private session: ISessionService) {
-    navigation.subscribe('/', this);
+  constructor(private router: IRouter, private session: ISessionService) {
+    router.subscribe('/', this);
   }
 
   public onFocus = (): void => {
     this.session.restore().then(() => {
-      this.navigation.replace('/home');
+      this.router.replace('/home');
     }).catch(() => {
-      this.navigation.replace('/welcome');
+      this.router.replace('/welcome');
     });
   };
 

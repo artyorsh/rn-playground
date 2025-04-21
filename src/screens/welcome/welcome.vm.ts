@@ -6,14 +6,14 @@ export class WelcomeVM implements IWelcomeVM {
 
   public readonly title = 'Welcome';
 
-  constructor(private navigationService: IRouter) {
+  constructor(private router: IRouter) {
   }
 
   public login = (): void => {
-    this.navigationService.navigate('/login');
+    this.router.navigate('/login');
   };
 
   public register = (): void => {
-    this.navigationService.navigate('/register');
+    this.router.navigate('/register');
   };
 }

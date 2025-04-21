@@ -25,7 +25,7 @@ describe('Home', () => {
   };
 
   beforeEach(() => {
-    router = jest.requireMock('@service/router/router.service').RouterService();
+    router = jest.requireMock('@service/router/react-navigation/react-navigation-router').RouterService();
     sessionService = jest.requireMock('@service/session/session.service').SessionService();
     userService = jest.requireMock('@service/user/user.service').UserService();
     pushNotificationService = jest.requireMock('@service/push-notification/push-notification.service').PushNotificationService();

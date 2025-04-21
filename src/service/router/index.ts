@@ -1,16 +1,16 @@
+import { IRouteMap, ReactNavigationRouter } from './react-navigation/react-navigation-router';
 import { ContainerModule } from 'inversify';
 
 import { AppModule } from '@di/model';
 import { ILogService } from '@service/log/model';
 
 import { IRouter } from './model';
-import { IRouteMap, ReactNavigationRouter } from './router.service';
 
 export const RouterModule = new ContainerModule(bind => {
   bind<IRouter>(AppModule.ROUTER).toDynamicValue(context => {
     const logService: ILogService = context.container.get(AppModule.LOG);
 
-    const navigationMap: IRouteMap = {
+    const routeMap: IRouteMap = {
       '/': context.container.get(AppModule.SPLASH_SCREEN),
       '/welcome': context.container.get(AppModule.WELCOME_SCREEN),
       '/login': context.container.get(AppModule.LOGIN_SCREEN),
@@ -18,7 +18,7 @@ export const RouterModule = new ContainerModule(bind => {
       '/home': context.container.get(AppModule.HOME_SCREEN),
     };
 
-    return new ReactNavigationRouter(navigationMap, logService);
+    return new ReactNavigationRouter(routeMap, logService);
   }).inSingletonScope();
 });
 

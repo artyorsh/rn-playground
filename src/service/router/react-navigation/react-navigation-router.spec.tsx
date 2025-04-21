@@ -1,14 +1,14 @@
 import React from 'react';
 import { View } from 'react-native';
+import { ReactNavigationRouter } from './react-navigation-router';
 import { render, waitFor } from '@testing-library/react-native';
 
 import { LogService } from '@service/log/log.service';
 import { ILogService } from '@service/log/model';
 
-import { IRouter } from './model';
-import { ReactNavigationRouter } from './router.service';
+import { IRouter } from '../model';
 
-jest.unmock('./router.service');
+jest.unmock('./react-navigation-router');
 
 const NAVIGATION_EVENT_DEBOUNCE_MS = 10;
 

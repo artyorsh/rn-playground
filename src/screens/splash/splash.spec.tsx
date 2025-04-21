@@ -9,11 +9,11 @@ import { SplashVM } from './splash.vm';
 
 describe('Splash', () => {
 
-  let navigationService: IRouter;
+  let router: IRouter;
   let sessionService: ISessionService;
 
   beforeEach(() => {
-    navigationService = jest.requireMock('@service/router/router.service').RouterService();
+    router = jest.requireMock('@service/router/react-navigation/react-navigation-router').RouterService();
     sessionService = jest.requireMock('@service/session/session.service').SessionService();
   });
 
@@ -22,23 +22,23 @@ describe('Splash', () => {
   });
 
   it('should navigate to home screen if session is restored', async () => {
-    const vm: ISplashVM = new SplashVM(navigationService, sessionService);
+    const vm: ISplashVM = new SplashVM(router, sessionService);
 
     render(<Splash vm={vm} />);
 
     await waitFor(() => {
-      return expect(navigationService.replace).toHaveBeenCalledWith('/home');
+      return expect(router.replace).toHaveBeenCalledWith('/home');
     });
   });
 
   it('should navigate to welcome screen if session is not restored', async () => {
     sessionService.restore = jest.fn(() => Promise.reject());
-    const vm: ISplashVM = new SplashVM(navigationService, sessionService);
+    const vm: ISplashVM = new SplashVM(router, sessionService);
 
     render(<Splash vm={vm} />);
 
     await waitFor(() => {
-      return expect(navigationService.replace).toHaveBeenCalledWith('/welcome');
+      return expect(router.replace).toHaveBeenCalledWith('/welcome');
     });
   });
 });

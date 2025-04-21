@@ -15,7 +15,7 @@ import { HomeVM } from './home.vm';
 export type IHomeRoute = '/home';
 
 const createHomeVM = (context: interfaces.Context): IHomeVM => {
-  const navigationService: IRouter = context.container.get(AppModule.ROUTER);
+  const router: IRouter = context.container.get(AppModule.ROUTER);
   const sessionService: ISessionService = context.container.get(AppModule.SESSION);
   const userService: IUserService = context.container.get(AppModule.USER);
   const pushNotificationService: IPushNotificationService = context.container.get(AppModule.PUSH_NOTIFICATION);
@@ -25,7 +25,7 @@ const createHomeVM = (context: interfaces.Context): IHomeVM => {
     sessionService,
     userService,
     pushNotificationService,
-    navigationService,
+    router,
     logService,
     new HomeAPI(),
   );

@@ -4,13 +4,13 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import { ILogService } from '@service/log/model';
 
-import { INavigationLifecycleListener, IRoute, IRouteParams, IRouter } from './model';
+import { INavigationLifecycleListener, IRoute, IRouteParams, IRouter } from '../model';
 
 export type IRouteMap = Record<IRoute, React.ComponentType>;
 
 export class ReactNavigationRouter implements IRouter {
 
-  private rootNavigator = React.createRef<NavigationContainerRef<{}>>();
+  private navigationContainerRef = React.createRef<NavigationContainerRef<{}>>();
 
   private currentRoute: IRoute = '/';
 
@@ -39,7 +39,7 @@ export class ReactNavigationRouter implements IRouter {
 
     return (
       <NavigationContainer
-        ref={this.rootNavigator}
+        ref={this.navigationContainerRef}
         onReady={this.onNavigationReady}
         onStateChange={this.onNavigationStateChange}>
         <Stack.Navigator screenOptions={{ headerShown: false, gestureEnabled: false }}>
@@ -51,16 +51,16 @@ export class ReactNavigationRouter implements IRouter {
 
   public navigate = (route: IRoute, params?: IRouteParams): void => {
     // @ts-ignore: surpress IRoute not assignable to type never
-    this.rootNavigator.current?.navigate(route, params);
+    this.navigationContainerRef.current?.navigate(route, params);
   };
 
   public replace = (route: IRoute, params?: IRouteParams): void => {
-    this.rootNavigator.current?.dispatch(StackActions.pop());
+    this.navigationContainerRef.current?.dispatch(StackActions.pop());
     this.navigate(route, params);
   };
 
   public goBack = (): void => {
-    this.rootNavigator.current?.goBack();
+    this.navigationContainerRef.current?.goBack();
   };
 
   private onNavigationReady = (): void => {
@@ -68,7 +68,7 @@ export class ReactNavigationRouter implements IRouter {
   };
 
   private onNavigationStateChange = (): void => {
-    const nextRoute = this.rootNavigator.current?.getCurrentRoute() as Route<IRoute> | undefined;
+    const nextRoute = this.navigationContainerRef.current?.getCurrentRoute() as Route<IRoute> | undefined;
 
     if (nextRoute && nextRoute.name !== this.currentRoute) {
       this.log.info('RouterService', `Moving from ${this.currentRoute} to ${nextRoute.name}`);

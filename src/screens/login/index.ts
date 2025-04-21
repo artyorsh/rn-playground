@@ -11,10 +11,10 @@ import { LoginVM } from './login.vm';
 export type ILoginRoute = '/login';
 
 const createLoginVM = (context: interfaces.Context): ILoginVM => {
-  const navigationService: IRouter = context.container.get(AppModule.ROUTER);
+  const router: IRouter = context.container.get(AppModule.ROUTER);
   const sessionService: ISessionService = context.container.get(AppModule.SESSION);
 
-  return new LoginVM(navigationService, sessionService);
+  return new LoginVM(router, sessionService);
 };
 
 export const LoginScreenModule = new ContainerModule(bind => {

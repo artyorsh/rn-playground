@@ -11,7 +11,7 @@ type INavigationNotification = IPushNotification<INavigationNotificationPayload>
 
 export class NavigationNotificationHandler implements IPushNotificationHandler {
 
-  constructor(private navigationService: IRouter) {
+  constructor(private router: IRouter) {
   }
 
   public getName = (): string => {
@@ -44,7 +44,7 @@ export class NavigationNotificationHandler implements IPushNotificationHandler {
 
     const { route, ...params } = notification.data;
 
-    this.navigationService.navigate(route as IRoute, params);
+    this.router.navigate(route as IRoute, params);
 
     return true;
   }

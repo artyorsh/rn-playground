@@ -13,7 +13,7 @@ import { RNFBPushServiceProvider } from './rnfb-push-service-provider';
 
 export const PushNotificationModule = new ContainerModule(bind => {
   bind<IPushNotificationService>(AppModule.PUSH_NOTIFICATION).toDynamicValue(context => {
-    const navigationService: IRouter = context.container.get(AppModule.ROUTER);
+    const router: IRouter = context.container.get(AppModule.ROUTER);
     const permissionService: IPermissionService = context.container.get(AppModule.PERMISSION);
     const logService: ILogService = context.container.get(AppModule.LOG);
 
@@ -23,7 +23,7 @@ export const PushNotificationModule = new ContainerModule(bind => {
     });
 
     const handlers: IPushNotificationHandler[] = [
-      new NavigationNotificationHandler(navigationService),
+      new NavigationNotificationHandler(router),
       new NotificationRemoveHandler(),
     ];
 

@@ -11,10 +11,10 @@ import { SplashVM } from './splash.vm';
 export type ISplashRoute = '/';
 
 const createSplashVM = (context: interfaces.Context): ISplashVM => {
-  const navigationService: IRouter = context.container.get(AppModule.ROUTER);
+  const router: IRouter = context.container.get(AppModule.ROUTER);
   const sessionService: ISessionService = context.container.get(AppModule.SESSION);
 
-  return new SplashVM(navigationService, sessionService);
+  return new SplashVM(router, sessionService);
 };
 
 export const SplashScreenModule = new ContainerModule(bind => {

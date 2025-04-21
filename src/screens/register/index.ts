@@ -11,10 +11,10 @@ import { RegisterVM } from './register.vm';
 export type IRegisterRoute = '/register';
 
 const createRegisterVM = (context: interfaces.Context): IRegisterVM => {
-  const navigationService: IRouter = context.container.get(AppModule.ROUTER);
+  const router: IRouter = context.container.get(AppModule.ROUTER);
   const sessionService: ISessionService = context.container.get(AppModule.SESSION);
 
-  return new RegisterVM(navigationService, sessionService);
+  return new RegisterVM(router, sessionService);
 };
 
 export const RegisterScreenModule = new ContainerModule(bind => {

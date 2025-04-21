@@ -2,8 +2,8 @@ import React from 'react';
 import { ContainerModule, interfaces } from 'inversify';
 
 import { AppModule } from '@di/model';
+import { ISessionService } from '@auth/session/model';
 import { IRouter } from '@service/router/model';
-import { ISessionService } from '@service/session/model';
 
 import { ILoginVM, Login } from './login.component';
 import { LoginVM } from './login.vm';

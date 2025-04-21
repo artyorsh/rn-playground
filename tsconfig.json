@@ -4,6 +4,7 @@
     "baseUrl": "./",
     "experimentalDecorators": true,
     "paths": {
+      "@auth/*": ["./src/auth/*"],
       "@components/*": ["./src/components/*"],
       "@di/*": ["./src/di/*"],
       "@service/*": ["./src/service/*"],

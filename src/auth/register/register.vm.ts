@@ -1,5 +1,5 @@
+import { ISessionService } from '@auth/session/model';
 import { IRouter } from '@service/router/model';
-import { ISessionService } from '@service/session/model';
 
 import { IRegisterFormValues } from './components/register-form.component';
 import { IRegisterVM } from './register.component';

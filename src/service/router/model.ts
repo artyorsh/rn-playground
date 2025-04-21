@@ -1,10 +1,9 @@
 import React from 'react';
-
-import { IHomeRoute } from '@screens/home';
-import { ILoginRoute } from '@screens/login';
-import { IRegisterRoute } from '@screens/register';
-import { ISplashRoute } from '@screens/splash';
-import { IWelcomeRoute } from '@screens/welcome';
+import { ILoginRoute } from 'src/auth/login';
+import { IRegisterRoute } from 'src/auth/register';
+import { IWelcomeRoute } from 'src/auth/welcome';
+import { IHomeRoute } from 'src/home';
+import { ISplashRoute } from 'src/splash';
 
 export type IRoute =
   | ISplashRoute

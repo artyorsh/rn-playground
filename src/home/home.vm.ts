@@ -1,9 +1,9 @@
 import { computed, makeAutoObservable, observable } from 'mobx';
 
+import { ISessionService } from '@auth/session/model';
 import { ILogService } from '@service/log/model';
 import { IPushNotificationService } from '@service/push-notification/model';
 import { INavigationLifecycleListener, IRouter } from '@service/router/model';
-import { ISessionService } from '@service/session/model';
 import { IUserService } from '@service/user/model';
 
 import { IHomeVM } from './home.component';

@@ -1,16 +1,17 @@
 import { Container } from 'inversify';
 
-import { HomeScreenModule } from '@screens/home';
-import { LoginScreenModule } from '@screens/login';
-import { RegisterScreenModule } from '@screens/register';
-import { SplashScreenModule } from '@screens/splash';
-import { WelcomeScreenModule } from '@screens/welcome';
+import { LoginScreenModule } from '@auth/login';
+import { RegisterScreenModule } from '@auth/register';
+import { SessionModule } from '@auth/session';
+import { WelcomeScreenModule } from '@auth/welcome';
 import { LogModule } from '@service/log';
 import { PermissionModule } from '@service/permission';
 import { PushNotificationModule } from '@service/push-notification';
 import { RouterModule } from '@service/router';
-import { SessionModule } from '@service/session';
 import { UserModule } from '@service/user';
+
+import { HomeScreenModule } from '../home';
+import { SplashScreenModule } from '../splash';
 
 export const container = new Container();
 

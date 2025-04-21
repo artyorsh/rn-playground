@@ -1,4 +1,5 @@
-import { ILogService } from '../log/model';
+import { ILogService } from '@service/log/model';
+
 import { ISession, ISessionInitializer, ISessionService } from './model';
 
 export interface IAuthenticationToken<Payload> {

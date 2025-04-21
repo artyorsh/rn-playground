@@ -1,5 +1,5 @@
+import { ISessionService } from '@auth/session/model';
 import { IRouter } from '@service/router/model';
-import { ISessionService } from '@service/session/model';
 
 import { ILoginFormValues } from './components/login-form.component';
 import { ILoginVM } from './login.component';

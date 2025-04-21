@@ -1,10 +1,10 @@
 import React from 'react';
 import { fireEvent, render, waitFor } from '@testing-library/react-native';
 
+import { ISessionService } from '@auth/session/model';
 import { ILogService } from '@service/log/model';
 import { IPushNotificationService } from '@service/push-notification/model';
 import { IRouter } from '@service/router/model';
-import { ISessionService } from '@service/session/model';
 import { IUserService } from '@service/user/model';
 
 import { Home, IHomeVM } from './home.component';
@@ -26,7 +26,7 @@ describe('Home', () => {
 
   beforeEach(() => {
     router = jest.requireMock('@service/router/react-navigation/react-navigation-router').RouterService();
-    sessionService = jest.requireMock('@service/session/session.service').SessionService();
+    sessionService = jest.requireMock('@auth/session/session.service').SessionService();
     userService = jest.requireMock('@service/user/user.service').UserService();
     pushNotificationService = jest.requireMock('@service/push-notification/push-notification.service').PushNotificationService();
     logService = jest.requireMock('@service/log/log.service').LogService();

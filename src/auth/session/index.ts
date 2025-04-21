@@ -5,8 +5,25 @@ import { AppModule } from '@/di/model';
 
 import { LocalAuthenticationProvider } from './local-auth-provider';
 import { MMKVAuthenticationStorage } from './mmkv-auth-storage';
-import { ISessionInitializer, ISessionService } from './model';
 import { SessionService } from './session.service';
+
+export interface ISession {
+  userId: string;
+  secret: string;
+}
+
+export interface ISessionInitializer {
+  initialize(session: ISession): Promise<void>;
+  destroy(): Promise<void>;
+}
+
+export interface ISessionService {
+  login(email: string, password: string): Promise<ISession>;
+  register(email: string, password: string): Promise<ISession>;
+  refresh(): Promise<ISession>;
+  restore(): Promise<ISession>;
+  logout(): Promise<void>;
+}
 
 export const SessionServiceFactory = (context: interfaces.Context): ISessionService => {
   const userInitializer: ISessionInitializer = context.container.get(AppModule.USER);

@@ -2,7 +2,7 @@ import React from 'react';
 import { ContainerModule, interfaces } from 'inversify';
 
 import { AppModule } from '@/di/model';
-import { ISessionService } from '@/auth/session/model';
+import { ISessionService } from '@/auth/session';
 import { ILogService } from '@/log/model';
 import { IPushNotificationService } from '@/push-notification/model';
 import { IRouter } from '@/router/model';

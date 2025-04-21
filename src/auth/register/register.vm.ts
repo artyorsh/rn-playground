@@ -1,4 +1,4 @@
-import { ISessionService } from '@/auth/session/model';
+import { ISessionService } from '@/auth/session';
 import { IRouter } from '@/router/model';
 
 import { IRegisterFormValues } from './components/register-form.component';

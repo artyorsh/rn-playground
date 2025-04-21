@@ -1,4 +1,4 @@
-import { ISessionInitializer } from './model';
+import { ISessionInitializer } from '.';
 import { AnyAuthenticationProvider, AnyAuthenticationStorage, SessionService } from './session.service';
 import { AnyAuthenticationToken } from './session.service';
 

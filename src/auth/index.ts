@@ -5,8 +5,7 @@ import { AppModule } from '@/di/model';
 
 import { ILoginRoute, LoginScreenFactory } from './login';
 import { IRegisterRoute, RegisterScreenFactory } from './register';
-import { SessionServiceFactory } from './session';
-import { ISessionService } from './session/model';
+import { ISessionService, SessionServiceFactory } from './session';
 import { ISplashRoute, SplashScreenFactory } from './splash';
 import { IWelcomeRoute, WelcomeScreenFactory } from './welcome';
 

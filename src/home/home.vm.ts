@@ -1,6 +1,6 @@
 import { computed, makeAutoObservable, observable } from 'mobx';
 
-import { ISessionService } from '@/auth/session/model';
+import { ISessionService } from '@/auth/session';
 import { ILogService } from '@/log/model';
 import { IPushNotificationService } from '@/push-notification/model';
 import { INavigationLifecycleListener, IRouter } from '@/router/model';

@@ -1,6 +1,6 @@
 import { ILogService } from '@/log/model';
 
-import { ISession, ISessionInitializer, ISessionService } from './model';
+import { ISession, ISessionInitializer, ISessionService } from '.';
 
 export interface IAuthenticationToken<Payload> {
   provider: string;

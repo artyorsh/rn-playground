@@ -1,4 +1,4 @@
-import { ISession, ISessionInitializer } from '@/auth/session/model';
+import { ISession, ISessionInitializer } from '@/auth/session';
 import { ILogService } from '@/log/model';
 import { IPermissionService } from '@/permission/model';
 

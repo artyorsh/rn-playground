@@ -5,20 +5,21 @@ import { render, waitFor } from '@testing-library/react-native';
 import { LogService } from '@service/log/log.service';
 import { ILogService } from '@service/log/model';
 
-import { NavigationService } from './navigation.service';
+import { IRouter } from './model';
+import { ReactNavigationRouter } from './router.service';
 
-jest.unmock('./navigation.service');
+jest.unmock('./router.service');
 
 const NAVIGATION_EVENT_DEBOUNCE_MS = 10;
 
-describe('NavigationService', () => {
+describe('ReactNavigationRouter', () => {
 
   let logService: ILogService;
-  let navigationService: NavigationService;
+  let router: IRouter;
 
   beforeEach(() => {
     logService = new LogService();
-    navigationService = new NavigationService({
+    router = new ReactNavigationRouter({
       '/': () => React.createElement(View, { testID: 'screen-root' }),
       '/home': () => React.createElement(View, { testID: 'screen-home' }),
       '/welcome': () => React.createElement(View, { testID: 'screen-welcome' }),
@@ -28,16 +29,16 @@ describe('NavigationService', () => {
   });
 
   it('should mount only root screen', () => {
-    const api = render(navigationService.getWindow());
+    const api = render(router.getWindow());
 
     expect(api.getByTestId('screen-root')).toBeTruthy();
     expect(api.queryByTestId('screen-home')).toBeFalsy();
   });
 
   it('should mount target screen on navigate', async () => {
-    const api = render(navigationService.getWindow());
+    const api = render(router.getWindow());
 
-    navigationService.navigate('/home');
+    router.navigate('/home');
 
     await waitFor(() => {
       expect(api.getByTestId('screen-home')).toBeTruthy();
@@ -45,12 +46,12 @@ describe('NavigationService', () => {
   });
 
   it('should unmount target screen, mount root screen on goBack', async () => {
-    const api = render(navigationService.getWindow());
+    const api = render(router.getWindow());
 
-    navigationService.navigate('/home');
+    router.navigate('/home');
 
     await new Promise((resolve) => setTimeout(resolve, NAVIGATION_EVENT_DEBOUNCE_MS));
-    navigationService.goBack();
+    router.goBack();
 
     await waitFor(() => {
       expect(api.queryByTestId('screen-home')).toBeFalsy();
@@ -62,9 +63,9 @@ describe('NavigationService', () => {
 
   it('should notify root screen on focus', async () => {
     const onFocusListener = jest.fn();
-    navigationService.subscribe('/', { onFocus: onFocusListener });
+    router.subscribe('/', { onFocus: onFocusListener });
 
-    render(navigationService.getWindow());
+    render(router.getWindow());
 
     await waitFor(() => {
       expect(onFocusListener).toHaveBeenCalledTimes(1);
@@ -73,13 +74,13 @@ describe('NavigationService', () => {
 
   it('should notify target screen on focus, parent screen on blur', async () => {
     const onFocusListener = jest.fn();
-    navigationService.subscribe('/home', { onFocus: onFocusListener });
+    router.subscribe('/home', { onFocus: onFocusListener });
 
     const onBlurListener = jest.fn();
-    navigationService.subscribe('/', { onBlur: onBlurListener });
+    router.subscribe('/', { onBlur: onBlurListener });
 
-    render(navigationService.getWindow());
-    navigationService.navigate('/home');
+    render(router.getWindow());
+    router.navigate('/home');
 
     await waitFor(() => {
       expect(onFocusListener).toHaveBeenCalledTimes(1);
@@ -89,16 +90,16 @@ describe('NavigationService', () => {
 
   it('should notify target screen on blur, parent screen on focus', async () => {
     const onBlurListener = jest.fn();
-    navigationService.subscribe('/home', { onBlur: onBlurListener });
+    router.subscribe('/home', { onBlur: onBlurListener });
 
     const onFocusListener = jest.fn();
-    navigationService.subscribe('/', { onFocus: onFocusListener });
+    router.subscribe('/', { onFocus: onFocusListener });
 
-    render(navigationService.getWindow());
-    navigationService.navigate('/home');
+    render(router.getWindow());
+    router.navigate('/home');
 
     await new Promise((resolve) => setTimeout(resolve, NAVIGATION_EVENT_DEBOUNCE_MS));
-    navigationService.goBack();
+    router.goBack();
 
     await waitFor(() => {
       expect(onBlurListener).toHaveBeenCalledTimes(1);

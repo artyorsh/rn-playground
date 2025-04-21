@@ -1,4 +1,4 @@
-import { INavigationService } from '@service/navigation/model';
+import { IRouter } from '@service/router/model';
 import { ISessionService } from '@service/session/model';
 
 import { ILoginFormValues } from './components/login-form.component';
@@ -13,7 +13,7 @@ export class LoginVM implements ILoginVM {
     password: 'password',
   };
 
-  constructor(private navigationService: INavigationService, private sessionService: ISessionService) {
+  constructor(private navigationService: IRouter, private sessionService: ISessionService) {
   }
 
   public submit = (values: ILoginFormValues): void => {

@@ -1,4 +1,4 @@
-import { INavigationService } from '@service/navigation/model';
+import { IRouter } from '@service/router/model';
 import { ISessionService } from '@service/session/model';
 
 import { IRegisterFormValues } from './components/register-form.component';
@@ -8,7 +8,7 @@ export class RegisterVM implements IRegisterVM {
 
   public readonly title = 'Register';
 
-  constructor(private navigationService: INavigationService, private sessionService: ISessionService) {
+  constructor(private navigationService: IRouter, private sessionService: ISessionService) {
   }
 
   public submit = (values: IRegisterFormValues): void => {

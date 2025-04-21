@@ -3,18 +3,18 @@ import React from 'react';
 import { AppModule } from '@di/model';
 
 import { container } from './di';
-import { INavigationService } from './service/navigation/model';
+import { IRouter } from './service/router/model';
 
 export class App extends React.Component {
 
-  private navigation: INavigationService;
+  private router: IRouter;
 
   constructor(props: {}) {
     super(props);
-    this.navigation = container.get<INavigationService>(AppModule.NAVIGATION);
+    this.router = container.get<IRouter>(AppModule.ROUTER);
   }
 
   public render(): React.ReactElement {
-    return this.navigation.getWindow();
+    return this.router.getWindow();
   }
 }

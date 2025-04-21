@@ -1,8 +1,8 @@
 import { computed, makeAutoObservable, observable } from 'mobx';
 
 import { ILogService } from '@service/log/model';
-import { INavigationLifecycleListener, INavigationService } from '@service/navigation/model';
 import { IPushNotificationService } from '@service/push-notification/model';
+import { INavigationLifecycleListener, IRouter } from '@service/router/model';
 import { ISessionService } from '@service/session/model';
 import { IUserService } from '@service/user/model';
 
@@ -36,12 +36,12 @@ export class HomeVM implements IHomeVM, INavigationLifecycleListener {
     private sessionService: ISessionService,
     private userService: IUserService,
     private pushNotificationService: IPushNotificationService,
-    private navigationService: INavigationService,
+    private router: IRouter,
     private logService: ILogService,
     private api: IHomeAPI,
   ) {
 
-    navigationService.subscribe('/home', this);
+    router.subscribe('/home', this);
     makeAutoObservable(this);
   }
 
@@ -56,7 +56,7 @@ export class HomeVM implements IHomeVM, INavigationLifecycleListener {
 
   public logout = (): void => {
     this.sessionService.logout().then(() => {
-      this.navigationService.replace('/welcome');
+      this.router.replace('/welcome');
     }).catch(() => {
       /* no-op */
     });

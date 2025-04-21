@@ -2,7 +2,7 @@ import React from 'react';
 import { ContainerModule, interfaces } from 'inversify';
 
 import { AppModule } from '@di/model';
-import { INavigationService } from '@service/navigation/model';
+import { IRouter } from '@service/router/model';
 
 import { IWelcomeVM, Welcome } from './welcome.component';
 import { WelcomeVM } from './welcome.vm';
@@ -10,7 +10,7 @@ import { WelcomeVM } from './welcome.vm';
 export type IWelcomeRoute = '/welcome';
 
 const createWelcomeVM = (context: interfaces.Context): IWelcomeVM => {
-  const navigationService: INavigationService = context.container.get(AppModule.NAVIGATION);
+  const navigationService: IRouter = context.container.get(AppModule.ROUTER);
 
   return new WelcomeVM(navigationService);
 };

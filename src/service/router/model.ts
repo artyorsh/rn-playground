@@ -20,7 +20,7 @@ export interface INavigationLifecycleListener {
   onBlur?(): void;
 }
 
-export interface INavigationService {
+export interface IRouter {
   getWindow(): React.ReactElement;
   navigate(route: IRoute, params?: IRouteParams): void;
   replace(route: IRoute, params?: IRouteParams): void;

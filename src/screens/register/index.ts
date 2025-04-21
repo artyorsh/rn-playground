@@ -2,7 +2,7 @@ import React from 'react';
 import { ContainerModule, interfaces } from 'inversify';
 
 import { AppModule } from '@di/model';
-import { INavigationService } from '@service/navigation/model';
+import { IRouter } from '@service/router/model';
 import { ISessionService } from '@service/session/model';
 
 import { IRegisterVM, Register } from './register.component';
@@ -11,7 +11,7 @@ import { RegisterVM } from './register.vm';
 export type IRegisterRoute = '/register';
 
 const createRegisterVM = (context: interfaces.Context): IRegisterVM => {
-  const navigationService: INavigationService = context.container.get(AppModule.NAVIGATION);
+  const navigationService: IRouter = context.container.get(AppModule.ROUTER);
   const sessionService: ISessionService = context.container.get(AppModule.SESSION);
 
   return new RegisterVM(navigationService, sessionService);

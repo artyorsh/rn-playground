@@ -2,8 +2,8 @@ import React from 'react';
 import { fireEvent, render, waitFor } from '@testing-library/react-native';
 
 import { ILogService } from '@service/log/model';
-import { INavigationService } from '@service/navigation/model';
 import { IPushNotificationService } from '@service/push-notification/model';
+import { IRouter } from '@service/router/model';
 import { ISessionService } from '@service/session/model';
 import { IUserService } from '@service/user/model';
 
@@ -14,7 +14,7 @@ import { HomeVM } from './home.vm';
 describe('Home', () => {
 
   let vm: IHomeVM;
-  let navigationService: INavigationService;
+  let router: IRouter;
   let sessionService: ISessionService;
   let userService: IUserService;
   let pushNotificationService: IPushNotificationService;
@@ -25,7 +25,7 @@ describe('Home', () => {
   };
 
   beforeEach(() => {
-    navigationService = jest.requireMock('@service/navigation/navigation.service').NavigationService();
+    router = jest.requireMock('@service/router/router.service').RouterService();
     sessionService = jest.requireMock('@service/session/session.service').SessionService();
     userService = jest.requireMock('@service/user/user.service').UserService();
     pushNotificationService = jest.requireMock('@service/push-notification/push-notification.service').PushNotificationService();
@@ -35,7 +35,7 @@ describe('Home', () => {
       sessionService,
       userService,
       pushNotificationService,
-      navigationService,
+      router,
       logService,
       dataProvider,
     );
@@ -55,7 +55,7 @@ describe('Home', () => {
     fireEvent.press(api.getByTestId('logout-button'));
 
     await waitFor(() => {
-      expect(navigationService.replace).toHaveBeenCalledWith('/welcome');
+      expect(router.replace).toHaveBeenCalledWith('/welcome');
     });
   });
 
@@ -73,7 +73,7 @@ describe('Home', () => {
       sessionService,
       userService,
       pushNotificationService,
-      navigationService,
+      router,
       logService,
       dataProvider,
     );
@@ -82,7 +82,7 @@ describe('Home', () => {
     fireEvent.press(api.getByTestId('logout-button'));
 
     await waitFor(() => {
-      expect(navigationService.replace).not.toHaveBeenCalled();
+      expect(router.replace).not.toHaveBeenCalled();
     });
   });
 });

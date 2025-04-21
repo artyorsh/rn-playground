@@ -1,4 +1,4 @@
-import { INavigationLifecycleListener, INavigationService } from '@service/navigation/model';
+import { INavigationLifecycleListener, IRouter } from '@service/router/model';
 import { ISessionService } from '@service/session/model';
 
 import { ISplashVM } from './splash.component';
@@ -7,7 +7,7 @@ export class SplashVM implements ISplashVM, INavigationLifecycleListener {
 
   public readonly title = 'Hello';
 
-  constructor(private navigation: INavigationService, private session: ISessionService) {
+  constructor(private navigation: IRouter, private session: ISessionService) {
     navigation.subscribe('/', this);
   }
 

@@ -3,14 +3,14 @@ import { ContainerModule } from 'inversify';
 import { AppModule } from '@di/model';
 import { ILogService } from '@service/log/model';
 
-import { INavigationService } from './model';
-import { INavigationMap, NavigationService } from './navigation.service';
+import { IRouter } from './model';
+import { IRouteMap, ReactNavigationRouter } from './router.service';
 
-export const NavigationModule = new ContainerModule(bind => {
-  bind<INavigationService>(AppModule.NAVIGATION).toDynamicValue(context => {
+export const RouterModule = new ContainerModule(bind => {
+  bind<IRouter>(AppModule.ROUTER).toDynamicValue(context => {
     const logService: ILogService = context.container.get(AppModule.LOG);
 
-    const navigationMap: INavigationMap = {
+    const navigationMap: IRouteMap = {
       '/': context.container.get(AppModule.SPLASH_SCREEN),
       '/welcome': context.container.get(AppModule.WELCOME_SCREEN),
       '/login': context.container.get(AppModule.LOGIN_SCREEN),
@@ -18,7 +18,7 @@ export const NavigationModule = new ContainerModule(bind => {
       '/home': context.container.get(AppModule.HOME_SCREEN),
     };
 
-    return new NavigationService(navigationMap, logService);
+    return new ReactNavigationRouter(navigationMap, logService);
   }).inSingletonScope();
 });
 

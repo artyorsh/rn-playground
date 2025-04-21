@@ -1,4 +1,4 @@
-import { INavigationService } from '@service/navigation/model';
+import { IRouter } from '@service/router/model';
 
 import { IWelcomeVM } from './welcome.component';
 
@@ -6,7 +6,7 @@ export class WelcomeVM implements IWelcomeVM {
 
   public readonly title = 'Welcome';
 
-  constructor(private navigationService: INavigationService) {
+  constructor(private navigationService: IRouter) {
   }
 
   public login = (): void => {

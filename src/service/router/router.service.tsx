@@ -4,11 +4,11 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import { ILogService } from '@service/log/model';
 
-import { INavigationLifecycleListener, INavigationService, IRoute, IRouteParams } from './model';
+import { INavigationLifecycleListener, IRoute, IRouteParams, IRouter } from './model';
 
-export type INavigationMap = Record<IRoute, React.ComponentType>;
+export type IRouteMap = Record<IRoute, React.ComponentType>;
 
-export class NavigationService implements INavigationService {
+export class ReactNavigationRouter implements IRouter {
 
   private rootNavigator = React.createRef<NavigationContainerRef<{}>>();
 
@@ -16,7 +16,7 @@ export class NavigationService implements INavigationService {
 
   private navigationListeners: Map<IRoute, INavigationLifecycleListener> = new Map();
 
-  constructor(private navigationMap: INavigationMap, private log: ILogService) {
+  constructor(private routeMap: IRouteMap, private log: ILogService) {
   }
 
   /*
@@ -43,7 +43,7 @@ export class NavigationService implements INavigationService {
         onReady={this.onNavigationReady}
         onStateChange={this.onNavigationStateChange}>
         <Stack.Navigator screenOptions={{ headerShown: false, gestureEnabled: false }}>
-          {Object.entries(this.navigationMap).map(createScreen)}
+          {Object.entries(this.routeMap).map(createScreen)}
         </Stack.Navigator>
       </NavigationContainer>
     );
@@ -71,7 +71,7 @@ export class NavigationService implements INavigationService {
     const nextRoute = this.rootNavigator.current?.getCurrentRoute() as Route<IRoute> | undefined;
 
     if (nextRoute && nextRoute.name !== this.currentRoute) {
-      this.log.info('NavigationService', `Moving from ${this.currentRoute} to ${nextRoute.name}`);
+      this.log.info('RouterService', `Moving from ${this.currentRoute} to ${nextRoute.name}`);
 
       this.navigationListeners.get(this.currentRoute)?.onBlur?.();
       this.navigationListeners.get(nextRoute.name)?.onFocus?.();

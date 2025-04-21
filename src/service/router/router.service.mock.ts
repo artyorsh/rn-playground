@@ -1,7 +1,7 @@
-import { INavigationLifecycleListener, INavigationService, IRoute } from './model';
+import { INavigationLifecycleListener, IRoute, IRouter } from './model';
 
-jest.mock('./navigation.service', () => {
-  const navigationService: INavigationService = {
+jest.mock('./router.service', () => {
+  const routerService: IRouter = {
     getWindow: jest.fn(),
     navigate: jest.fn(),
     replace: jest.fn(),
@@ -16,6 +16,6 @@ jest.mock('./navigation.service', () => {
   };
 
   return {
-    NavigationService: jest.fn().mockImplementation(() => navigationService),
+    RouterService: jest.fn().mockImplementation(() => routerService),
   };
 });

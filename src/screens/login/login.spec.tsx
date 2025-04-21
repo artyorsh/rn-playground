@@ -1,7 +1,7 @@
 import React from 'react';
 import { fireEvent, render, waitFor } from '@testing-library/react-native';
 
-import { INavigationService } from '@service/navigation/model';
+import { IRouter } from '@service/router/model';
 import { ISessionService } from '@service/session/model';
 
 import { ILoginVM, Login } from './login.component';
@@ -69,11 +69,11 @@ describe('Login Component', () => {
 });
 
 describe('Login VM', () => {
-  let navigationService: INavigationService;
+  let navigationService: IRouter;
   let sessionService: ISessionService;
 
   beforeEach(() => {
-    navigationService = jest.requireMock('@service/navigation/navigation.service').NavigationService();
+    navigationService = jest.requireMock('@service/router/router.service').RouterService();
     sessionService = jest.requireMock('@service/session/session.service').SessionService();
   });
 

@@ -1,7 +1,7 @@
 export const AppModule = {
   /* Services */
   LOG: Symbol.for('LogService'),
-  NAVIGATION: Symbol.for('NavigationService'),
+  ROUTER: Symbol.for('RouterService'),
   PERMISSION: Symbol.for('PermissionService'),
   PUSH_NOTIFICATION: Symbol.for('PushNotificationService'),
   SESSION: Symbol.for('SessionService'),

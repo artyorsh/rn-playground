@@ -3,8 +3,8 @@ import { ContainerModule, interfaces } from 'inversify';
 
 import { AppModule } from '@di/model';
 import { ILogService } from '@service/log/model';
-import { INavigationService } from '@service/navigation/model';
 import { IPushNotificationService } from '@service/push-notification/model';
+import { IRouter } from '@service/router/model';
 import { ISessionService } from '@service/session/model';
 import { IUserService } from '@service/user/model';
 
@@ -15,7 +15,7 @@ import { HomeVM } from './home.vm';
 export type IHomeRoute = '/home';
 
 const createHomeVM = (context: interfaces.Context): IHomeVM => {
-  const navigationService: INavigationService = context.container.get(AppModule.NAVIGATION);
+  const navigationService: IRouter = context.container.get(AppModule.ROUTER);
   const sessionService: ISessionService = context.container.get(AppModule.SESSION);
   const userService: IUserService = context.container.get(AppModule.USER);
   const pushNotificationService: IPushNotificationService = context.container.get(AppModule.PUSH_NOTIFICATION);

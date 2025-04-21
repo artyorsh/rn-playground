@@ -16,7 +16,7 @@ module.exports = {
   setupFilesAfterEnv: [
     '@testing-library/jest-native/extend-expect',
     '<rootDir>/src/service/log/log.service.mock.ts',
-    '<rootDir>/src/service/navigation/navigation.service.mock.ts',
+    '<rootDir>/src/service/router/router.service.mock.ts',
     '<rootDir>/src/service/session/session.service.mock.ts',
     '<rootDir>/src/service/user/user.service.mock.ts',
     '<rootDir>/src/service/push-notification/push-notification.service.mock.ts',

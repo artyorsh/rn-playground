@@ -1,4 +1,4 @@
-import { INavigationService, IRoute } from '@service/navigation/model';
+import { IRoute, IRouter } from '@service/router/model';
 
 import { IPushNotification, IPushNotificationHandler } from '../push-notification.service';
 
@@ -11,7 +11,7 @@ type INavigationNotification = IPushNotification<INavigationNotificationPayload>
 
 export class NavigationNotificationHandler implements IPushNotificationHandler {
 
-  constructor(private navigationService: INavigationService) {
+  constructor(private navigationService: IRouter) {
   }
 
   public getName = (): string => {

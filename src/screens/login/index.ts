@@ -9,15 +9,15 @@ import { LoginVM } from './login.vm';
 
 export type ILoginRoute = '/login';
 
+const createLoginVM = (context: interfaces.Context): ILoginVM => {
+  const navigationService: INavigationService = context.container.get('navigation');
+  const sessionService: ISessionService = context.container.get('session');
+
+  return new LoginVM(navigationService, sessionService);
+};
+
 export const LoginScreenModule = new ContainerModule(bind => {
   bind<interfaces.Factory<React.FC>>('LoginScreen').toFactory(context => {
-    return () => {
-      const navigationService: INavigationService = context.container.get('navigation');
-      const sessionService: ISessionService = context.container.get('session');
-
-      const vm: ILoginVM = new LoginVM(navigationService, sessionService);
-
-      return React.createElement(Login, { vm });
-    };
+    return () => React.createElement(Login, { vm: createLoginVM(context) });
   });
 });

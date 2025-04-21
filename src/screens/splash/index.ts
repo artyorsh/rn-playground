@@ -9,15 +9,15 @@ import { SplashVM } from './splash.vm';
 
 export type ISplashRoute = '/';
 
+const createSplashVM = (context: interfaces.Context): ISplashVM => {
+  const navigationService: INavigationService = context.container.get('navigation');
+  const sessionService: ISessionService = context.container.get('session');
+
+  return new SplashVM(navigationService, sessionService);
+};
+
 export const SplashScreenModule = new ContainerModule(bind => {
   bind<interfaces.Factory<React.FC>>('SplashScreen').toFactory(context => {
-    return () => {
-      const navigationService: INavigationService = context.container.get('navigation');
-      const sessionService: ISessionService = context.container.get('session');
-
-      const vm: ISplashVM = new SplashVM(navigationService, sessionService);
-
-      return React.createElement(Splash, { vm });
-    };
+    return () => React.createElement(Splash, { vm: createSplashVM(context) });
   });
 });

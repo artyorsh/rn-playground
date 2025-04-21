@@ -13,25 +13,25 @@ import { HomeVM } from './home.vm';
 
 export type IHomeRoute = '/home';
 
+const createHomeVM = (context: interfaces.Context): IHomeVM => {
+  const navigationService: INavigationService = context.container.get('navigation');
+  const sessionService: ISessionService = context.container.get('session');
+  const userService: IUserService = context.container.get('user');
+  const pushNotificationService: IPushNotificationService = context.container.get('push_notification');
+  const logService: ILogService = context.container.get('log');
+
+  return new HomeVM(
+    sessionService,
+    userService,
+    pushNotificationService,
+    navigationService,
+    logService,
+    new HomeAPI(),
+  );
+};
+
 export const HomeScreenModule = new ContainerModule(bind => {
   bind<interfaces.Factory<React.FC>>('HomeScreen').toFactory(context => {
-    return () => {
-      const navigationService: INavigationService = context.container.get('navigation');
-      const sessionService: ISessionService = context.container.get('session');
-      const userService: IUserService = context.container.get('user');
-      const pushNotificationService: IPushNotificationService = context.container.get('push_notification');
-      const logService: ILogService = context.container.get('log');
-
-      const vm: IHomeVM = new HomeVM(
-        sessionService,
-        userService,
-        pushNotificationService,
-        navigationService,
-        logService,
-        new HomeAPI(),
-      );
-
-      return React.createElement(Home, { vm });
-    };
+    return () => React.createElement(Home, { vm: createHomeVM(context) });
   });
 });

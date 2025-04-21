@@ -8,14 +8,14 @@ import { WelcomeVM } from './welcome.vm';
 
 export type IWelcomeRoute = '/welcome';
 
+const createWelcomeVM = (context: interfaces.Context): IWelcomeVM => {
+  const navigationService: INavigationService = context.container.get('navigation');
+
+  return new WelcomeVM(navigationService);
+};
+
 export const WelcomeScreenModule = new ContainerModule(bind => {
   bind<interfaces.Factory<React.FC>>('WelcomeScreen').toFactory(context => {
-    return () => {
-      const navigationService: INavigationService = context.container.get('navigation');
-
-      const vm: IWelcomeVM = new WelcomeVM(navigationService);
-
-      return React.createElement(Welcome, { vm });
-    };
+    return () => React.createElement(Welcome, { vm: createWelcomeVM(context) });
   });
 });

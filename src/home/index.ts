@@ -14,6 +14,11 @@ import { HomeVM } from './home.vm';
 
 export type IHomeRoute = '/home';
 
+export const HomeScreenModule = new ContainerModule(bind => {
+  bind<interfaces.Factory<React.FC>>(AppModule.HOME_SCREEN)
+    .toFactory(context => () => React.createElement(Home, { vm: createHomeVM(context) }));
+});
+
 const createHomeVM = (context: interfaces.Context): IHomeVM => {
   const router: IRouter = context.container.get(AppModule.ROUTER);
   const sessionService: ISessionService = context.container.get(AppModule.SESSION);
@@ -31,8 +36,3 @@ const createHomeVM = (context: interfaces.Context): IHomeVM => {
   );
 };
 
-export const HomeScreenModule = new ContainerModule(bind => {
-  bind<interfaces.Factory<React.FC>>(AppModule.HOME_SCREEN).toFactory(context => {
-    return () => React.createElement(Home, { vm: createHomeVM(context) });
-  });
-});

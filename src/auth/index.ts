@@ -4,7 +4,6 @@ import { ContainerModule, interfaces } from 'inversify';
 
 import { AppModule } from '@/di/model';
 import { ISessionInitializer, ISessionService } from '@/auth/session/model';
-import { IRouter } from '@/router/model';
 
 import { ILoginVM, Login } from './login/login.component';
 import { LoginVM } from './login/login.vm';
@@ -51,21 +50,19 @@ const createSessionServiceOptions = (context: interfaces.Context): ISessionServi
 };
 
 const createWelcomeVM = (context: interfaces.Context): IWelcomeVM => {
-  const router: IRouter = context.container.get(AppModule.ROUTER);
-
-  return new WelcomeVM(router);
+  return new WelcomeVM(context.container.get(AppModule.ROUTER));
 };
 
 const createLoginVM = (context: interfaces.Context): ILoginVM => {
-  const router: IRouter = context.container.get(AppModule.ROUTER);
-  const sessionService: ISessionService = context.container.get(AppModule.SESSION);
-
-  return new LoginVM(router, sessionService);
+  return new LoginVM(
+    context.container.get(AppModule.ROUTER),
+    context.container.get(AppModule.SESSION),
+  );
 };
 
 const createRegisterVM = (context: interfaces.Context): IRegisterVM => {
-  const router: IRouter = context.container.get(AppModule.ROUTER);
-  const sessionService: ISessionService = context.container.get(AppModule.SESSION);
-
-  return new RegisterVM(router, sessionService);
+  return new RegisterVM(
+    context.container.get(AppModule.ROUTER),
+    context.container.get(AppModule.SESSION),
+  );
 };

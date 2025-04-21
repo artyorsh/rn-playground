@@ -17,6 +17,14 @@ export class NavigationService implements INavigationService {
   constructor(private navigationMap: INavigationMap, private log: ILogService) {
   }
 
+  /*
+   * TODO: Here it's not possible to create screens for navigators other than Stack, mounted by RootNavigator.
+   * It's also not possible to have this function abstract, since we depend on onReady and onStateChange callbacks.
+   *
+   * In case other navigators (e.g bottom tabs) are needed,
+   * it can be created via updating the contract between the RootNavigator and NavigationService,
+   * e.g by adding a new property to the RootNavigatorProps.
+   */
   public getWindow(): React.ReactElement {
     return React.createElement(RootNavigator, <RootNavigatorProps>{
       ref: this.rootNavigator,

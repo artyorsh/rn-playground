@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { AppModule } from '@di/model';
 
 import { container } from './di';

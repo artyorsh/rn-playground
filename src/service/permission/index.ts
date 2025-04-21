@@ -1,6 +1,6 @@
-import { AppModule } from '@di/model';
 import { ContainerModule } from 'inversify';
 
+import { AppModule } from '@di/model';
 import { ILogService } from '@service/log/model';
 
 import { NotificationPermissionController } from './controller/notification-permission-controller';

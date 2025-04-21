@@ -1,7 +1,7 @@
 import React from 'react';
-import { AppModule } from '@di/model';
 import { ContainerModule, interfaces } from 'inversify';
 
+import { AppModule } from '@di/model';
 import { INavigationService } from '@service/navigation/model';
 import { ISessionService } from '@service/session/model';
 

@@ -201,7 +201,7 @@
           "^\\u0000"
         ],
         [
-          "^@features",
+          "^@di",
           "^@screens",
           "^@service",
           "^@components"

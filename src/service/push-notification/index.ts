@@ -1,6 +1,7 @@
 import { ContainerModule } from 'inversify';
 
 import { ILogService } from '@service/log/model';
+import { NavigationServiceId } from '@service/navigation';
 import { INavigationService } from '@service/navigation/model';
 import { IPermissionService } from '@service/permission/model';
 
@@ -12,7 +13,7 @@ import { RNFBPushServiceProvider } from './rnfb-push-service-provider';
 
 export const PushNotificationModule = new ContainerModule(bind => {
   bind<IPushNotificationService>('push_notification').toDynamicValue(context => {
-    const navigationService: INavigationService = context.container.get('navigation');
+    const navigationService: INavigationService = context.container.get(NavigationServiceId);
     const permissionService: IPermissionService = context.container.get('permission');
     const logService: ILogService = context.container.get('log');
 

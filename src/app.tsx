@@ -7,7 +7,7 @@ import { RegisterScreenModule } from '@screens/register';
 import { SplashScreenModule } from '@screens/splash';
 import { WelcomeScreenModule } from '@screens/welcome';
 import { LogModule } from '@service/log';
-import { NavigationModule } from '@service/navigation';
+import { NavigationModule, NavigationServiceId } from '@service/navigation';
 import { PermissionModule } from '@service/permission';
 import { PushNotificationModule } from '@service/push-notification';
 import { SessionModule } from '@service/session';
@@ -37,7 +37,7 @@ export class App extends React.Component {
 
   constructor(props: {}) {
     super(props);
-    this.navigation = container.get<INavigationService>('navigation');
+    this.navigation = container.get<INavigationService>(NavigationServiceId);
   }
 
   public render(): React.ReactElement {

@@ -1,7 +1,7 @@
 import { ILogService } from '@/log';
 import { IPermissionService } from '@/permission';
 
-import { IPushNotificationService } from './model';
+import { IPushNotificationService } from '.';
 import { IPushNotificationHandler, IPushServiceProvider, PushNotificationService } from './push-notification.service';
 
 jest.unmock('./push-notification.service');

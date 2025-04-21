@@ -2,7 +2,7 @@ import { computed, makeAutoObservable, observable } from 'mobx';
 
 import { ISessionService } from '@/auth/session';
 import { ILogService } from '@/log';
-import { IPushNotificationService } from '@/push-notification/model';
+import { IPushNotificationService } from '@/push-notification';
 import { INavigationLifecycleListener, IRouter } from '@/router';
 import { IUserService } from '@/user/model';
 

@@ -4,7 +4,7 @@ import { ContainerModule, interfaces } from 'inversify';
 import { AppModule } from '@/di/model';
 import { ISessionService } from '@/auth/session';
 import { ILogService } from '@/log';
-import { IPushNotificationService } from '@/push-notification/model';
+import { IPushNotificationService } from '@/push-notification';
 import { IRouter } from '@/router';
 import { IUserService } from '@/user/model';
 

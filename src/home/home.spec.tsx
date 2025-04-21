@@ -3,7 +3,7 @@ import { fireEvent, render, waitFor } from '@testing-library/react-native';
 
 import { ISessionService } from '@/auth/session';
 import { ILogService } from '@/log';
-import { IPushNotificationService } from '@/push-notification/model';
+import { IPushNotificationService } from '@/push-notification';
 import { IRouter } from '@/router';
 import { IUserService } from '@/user/model';
 

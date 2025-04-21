@@ -1,4 +1,4 @@
-import { IPushNotificationService } from './model';
+import { IPushNotificationService } from '.';
 
 jest.mock('./push-notification.service', () => {
   const pushNotificationService: IPushNotificationService = {

@@ -7,9 +7,16 @@ import { IRouter } from '@/router';
 
 import { NavigationNotificationHandler } from './handlers/navigation-notification-handler';
 import { NotificationRemoveHandler } from './handlers/notification-remove-handler';
-import { IPushNotificationService } from './model';
 import { IPushNotificationHandler, IPushServiceProvider, PushNotificationService } from './push-notification.service';
 import { RNFBPushServiceProvider } from './rnfb-push-service-provider';
+
+export interface IPushNotificationService {
+  /**
+   * Requests notification permission and subscribes for Push Notification events.
+   * @returns a resolved promise if subscribed successfully, rejected otherwise
+   */
+  authorize(): Promise<void>;
+}
 
 export const PushNotificationModule = new ContainerModule(bind => {
   bind<IPushNotificationService>(AppModule.PUSH_NOTIFICATION).toDynamicValue(context => {

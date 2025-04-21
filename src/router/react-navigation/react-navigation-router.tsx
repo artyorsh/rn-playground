@@ -1,12 +1,11 @@
 import React from 'react';
 import { NavigationContainer, NavigationContainerRef, Route, StackActions } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import { ILogService } from '@/log';
 
 import { INavigationLifecycleListener, IRoute, IRouteParams, IRouter } from '..';
 
-export type IRouteMap = Record<IRoute, React.ComponentType>;
+export type IRouteFactory = () => React.ReactElement;
 
 export class ReactNavigationRouter implements IRouter {
 
@@ -16,35 +15,16 @@ export class ReactNavigationRouter implements IRouter {
 
   private navigationListeners: Map<IRoute, INavigationLifecycleListener> = new Map();
 
-  constructor(private routeMap: IRouteMap, private log: ILogService) {
+  constructor(private log: ILogService, private routeFactory: IRouteFactory) {
   }
 
-  /*
-   * TODO: Here it's not possible to create screens for navigators other than Stack.
-   * It's also not possible to have this function abstract, since we depend on onReady and onStateChange callbacks.
-   *
-   * In case other navigators (e.g bottom tabs) are needed,
-   * it can be created via updating the INavigationMap contract, to separate stack screens from other screens.
-   */
   public getWindow(): React.ReactElement {
-    const Stack = createNativeStackNavigator();
-
-    const createScreen = ([route, component]: [string, React.ComponentType], index: number): React.ReactElement => (
-      <Stack.Screen
-        key={index}
-        name={route}
-        component={component}
-      />
-    );
-
     return (
       <NavigationContainer
         ref={this.navigationContainerRef}
         onReady={this.onNavigationReady}
         onStateChange={this.onNavigationStateChange}>
-        <Stack.Navigator screenOptions={{ headerShown: false, gestureEnabled: false }}>
-          {Object.entries(this.routeMap).map(createScreen)}
-        </Stack.Navigator>
+        {this.routeFactory()}
       </NavigationContainer>
     );
   }

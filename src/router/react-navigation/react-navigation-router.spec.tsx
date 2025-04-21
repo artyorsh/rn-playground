@@ -6,6 +6,7 @@ import { render, waitFor } from '@testing-library/react-native';
 import { ILogService } from '@/log';
 
 import { IRouter } from '..';
+import { StackRouteFactory } from './stack-route-factory';
 
 jest.unmock('./react-navigation-router');
 
@@ -18,13 +19,13 @@ describe('ReactNavigationRouter', () => {
 
   beforeEach(() => {
     logService = jest.requireMock('@/log/log.service').LogService();
-    router = new ReactNavigationRouter({
+    router = new ReactNavigationRouter(logService, StackRouteFactory({
       '/': () => React.createElement(View, { testID: 'screen-root' }),
       '/home': () => React.createElement(View, { testID: 'screen-home' }),
       '/welcome': () => React.createElement(View, { testID: 'screen-welcome' }),
       '/login': () => React.createElement(View, { testID: 'screen-login' }),
       '/register': () => React.createElement(View, { testID: 'screen-register' }),
-    }, logService);
+    }));
   });
 
   it('should mount only root screen', () => {
@@ -56,8 +57,6 @@ describe('ReactNavigationRouter', () => {
       expect(api.queryByTestId('screen-home')).toBeFalsy();
       expect(api.getByTestId('screen-root')).toBeTruthy();
     });
-
-    api.debug();
   });
 
   it('should notify root screen on focus', async () => {

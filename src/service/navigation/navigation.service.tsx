@@ -1,10 +1,12 @@
 import React from 'react';
-import { NavigationContainerRef, Route, StackActions } from '@react-navigation/native';
+import { NavigationContainer, NavigationContainerRef, Route, StackActions } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import { ILogService } from '@service/log/model';
 
 import { INavigationLifecycleListener, INavigationService, IRoute, IRouteParams } from './model';
-import { INavigationMap, RootNavigator, RootNavigatorProps } from './root-navigator';
+
+export type INavigationMap = Record<IRoute, React.ComponentType>;
 
 export class NavigationService implements INavigationService {
 
@@ -18,20 +20,32 @@ export class NavigationService implements INavigationService {
   }
 
   /*
-   * TODO: Here it's not possible to create screens for navigators other than Stack, mounted by RootNavigator.
+   * TODO: Here it's not possible to create screens for navigators other than Stack.
    * It's also not possible to have this function abstract, since we depend on onReady and onStateChange callbacks.
    *
    * In case other navigators (e.g bottom tabs) are needed,
-   * it can be created via updating the contract between the RootNavigator and NavigationService,
-   * e.g by adding a new property to the RootNavigatorProps.
+   * it can be created via updating the INavigationMap contract, to separate stack screens from other screens.
    */
   public getWindow(): React.ReactElement {
-    return React.createElement(RootNavigator, <RootNavigatorProps>{
-      ref: this.rootNavigator,
-      navigationMap: this.navigationMap,
-      onReady: this.onNavigationReady,
-      onStateChange: this.onNavigationStateChange,
-    });
+    const Stack = createNativeStackNavigator();
+
+    const createScreen = ([route, component]: [string, React.ComponentType]): React.ReactElement => (
+      <Stack.Screen
+        name={route}
+        component={component}
+      />
+    );
+
+    return (
+      <NavigationContainer
+        ref={this.rootNavigator}
+        onReady={this.onNavigationReady}
+        onStateChange={this.onNavigationStateChange}>
+        <Stack.Navigator screenOptions={{ headerShown: false, gestureEnabled: false, animation: 'fade' }}>
+          {Object.entries(this.navigationMap).map(createScreen)}
+        </Stack.Navigator>
+      </NavigationContainer>
+    );
   }
 
   public goTo = (route: IRoute, params?: IRouteParams): void => {

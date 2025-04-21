@@ -1,5 +1,4 @@
 import React from 'react';
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
 import { IHomeRoute } from '@screens/home';
 import { ILoginRoute } from '@screens/login';
@@ -15,8 +14,6 @@ export type IRoute =
   | IHomeRoute;
 
 export type IRouteParams = Record<string, any>;
-
-export type ScreenProps<Params extends object> = NativeStackScreenProps<{ Self: Params }, 'Self'>;
 
 export interface INavigationLifecycleListener {
   onFocus(): void;

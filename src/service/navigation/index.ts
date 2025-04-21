@@ -3,8 +3,7 @@ import { ContainerModule } from 'inversify';
 import { ILogService } from '@service/log/model';
 
 import { INavigationService } from './model';
-import { NavigationService } from './navigation.service';
-import { INavigationMap } from './root-navigator';
+import { INavigationMap, NavigationService } from './navigation.service';
 
 export const NavigationModule = new ContainerModule(bind => {
   bind<INavigationService>('navigation').toDynamicValue(context => {

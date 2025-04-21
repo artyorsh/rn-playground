@@ -4,7 +4,7 @@ import { ISessionService } from '@/auth/session';
 import { ILogService } from '@/log';
 import { IPushNotificationService } from '@/push-notification';
 import { INavigationLifecycleListener, IRouter } from '@/router';
-import { IUserService } from '@/user/model';
+import { IUserService } from '@/user';
 
 import { IHomeVM } from './home.component';
 import { IPost } from './posts-list/model';

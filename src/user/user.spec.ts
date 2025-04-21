@@ -1,6 +1,6 @@
 import { ILogService } from '@/log';
 
-import { IUserService } from './model';
+import { IUserService } from '.';
 import { IUserRepository, UserService } from './user.service';
 
 jest.unmock('./user.service');

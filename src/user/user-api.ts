@@ -1,4 +1,4 @@
-import { IUser } from './model';
+import { IUser } from '.';
 import { IUserRepository } from './user.service';
 
 export class UserApi implements IUserRepository {

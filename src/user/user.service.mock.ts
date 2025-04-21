@@ -1,4 +1,4 @@
-import { IUserService } from './model';
+import { IUserService } from '.';
 
 jest.mock('./user.service', () => {
   const userService: IUserService = {

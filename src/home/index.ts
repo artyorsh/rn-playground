@@ -6,7 +6,7 @@ import { ISessionService } from '@/auth/session';
 import { ILogService } from '@/log';
 import { IPushNotificationService } from '@/push-notification';
 import { IRouter } from '@/router';
-import { IUserService } from '@/user/model';
+import { IUserService } from '@/user';
 
 import { HomeAPI } from './home.api';
 import { Home, IHomeVM } from './home.component';

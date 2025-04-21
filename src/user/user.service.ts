@@ -1,7 +1,7 @@
 import { ISession, ISessionInitializer } from '@/auth/session';
 import { ILogService } from '@/log';
 
-import { IUser, IUserService } from './model';
+import { IUser, IUserService } from '.';
 
 export interface IUserRepository {
   getUser(userId: string): Promise<IUser>;

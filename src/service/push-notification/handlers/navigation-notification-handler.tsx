@@ -44,7 +44,7 @@ export class NavigationNotificationHandler implements IPushNotificationHandler {
 
     const { route, ...params } = notification.data;
 
-    this.navigationService.goTo(route as IRoute, params);
+    this.navigationService.navigate(route as IRoute, params);
 
     return true;
   }

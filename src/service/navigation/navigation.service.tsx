@@ -49,14 +49,14 @@ export class NavigationService implements INavigationService {
     );
   }
 
-  public goTo = (route: IRoute, params?: IRouteParams): void => {
+  public navigate = (route: IRoute, params?: IRouteParams): void => {
     // @ts-ignore: surpress IRoute not assignable to type never
     this.rootNavigator.current?.navigate(route, params);
   };
 
   public replace = (route: IRoute, params?: IRouteParams): void => {
     this.rootNavigator.current?.dispatch(StackActions.pop());
-    this.goTo(route, params);
+    this.navigate(route, params);
   };
 
   public goBack = (): void => {

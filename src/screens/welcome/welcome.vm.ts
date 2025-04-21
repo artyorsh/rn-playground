@@ -10,10 +10,10 @@ export class WelcomeVM implements IWelcomeVM {
   }
 
   public login = (): void => {
-    this.navigationService.goTo('/login');
+    this.navigationService.navigate('/login');
   };
 
   public register = (): void => {
-    this.navigationService.goTo('/register');
+    this.navigationService.navigate('/register');
   };
 }

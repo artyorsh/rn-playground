@@ -34,10 +34,10 @@ describe('NavigationService', () => {
     expect(api.queryByTestId('screen-home')).toBeFalsy();
   });
 
-  it('should mount target screen on goTo', async () => {
+  it('should mount target screen on navigate', async () => {
     const api = render(navigationService.getWindow());
 
-    navigationService.goTo('/home');
+    navigationService.navigate('/home');
 
     await waitFor(() => {
       expect(api.getByTestId('screen-home')).toBeTruthy();
@@ -47,7 +47,7 @@ describe('NavigationService', () => {
   it('should unmount target screen, mount root screen on goBack', async () => {
     const api = render(navigationService.getWindow());
 
-    navigationService.goTo('/home');
+    navigationService.navigate('/home');
 
     await new Promise((resolve) => setTimeout(resolve, NAVIGATION_EVENT_DEBOUNCE_MS));
     navigationService.goBack();
@@ -79,7 +79,7 @@ describe('NavigationService', () => {
     navigationService.subscribe('/', { onBlur: onBlurListener });
 
     render(navigationService.getWindow());
-    navigationService.goTo('/home');
+    navigationService.navigate('/home');
 
     await waitFor(() => {
       expect(onFocusListener).toHaveBeenCalledTimes(1);
@@ -95,7 +95,7 @@ describe('NavigationService', () => {
     navigationService.subscribe('/', { onFocus: onFocusListener });
 
     render(navigationService.getWindow());
-    navigationService.goTo('/home');
+    navigationService.navigate('/home');
 
     await new Promise((resolve) => setTimeout(resolve, NAVIGATION_EVENT_DEBOUNCE_MS));
     navigationService.goBack();

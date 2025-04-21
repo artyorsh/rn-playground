@@ -22,7 +22,7 @@ export interface INavigationLifecycleListener {
 
 export interface INavigationService {
   getWindow(): React.ReactElement;
-  goTo(route: IRoute, params?: IRouteParams): void;
+  navigate(route: IRoute, params?: IRouteParams): void;
   replace(route: IRoute, params?: IRouteParams): void;
   goBack(): void;
   /**

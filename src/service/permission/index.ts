@@ -1,14 +1,17 @@
 import { ContainerModule } from 'inversify';
 
+import { LogServiceId } from '@service/log';
 import { ILogService } from '@service/log/model';
 
 import { NotificationPermissionController } from './controller/notification-permission-controller';
 import { IPermissionService } from './model';
 import { PermissionService } from './permission.service';
 
+export const PermissionServiceId: symbol = Symbol.for('PermissionService');
+
 export const PermissionModule = new ContainerModule(bind => {
-  bind<IPermissionService>('permission').toDynamicValue(context => {
-    const logService: ILogService = context.container.get('log');
+  bind<IPermissionService>(PermissionServiceId).toDynamicValue(context => {
+    const logService: ILogService = context.container.get(LogServiceId);
 
     const notificationPermissionController = new NotificationPermissionController([
       'alert',

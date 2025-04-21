@@ -1,11 +1,15 @@
 import React from 'react';
 import { ContainerModule, interfaces } from 'inversify';
 
+import { LogServiceId } from '@service/log';
 import { ILogService } from '@service/log/model';
 import { NavigationServiceId } from '@service/navigation';
 import { INavigationService } from '@service/navigation/model';
+import { PushNotificationServiceId } from '@service/push-notification';
 import { IPushNotificationService } from '@service/push-notification/model';
+import { SessionServiceId } from '@service/session';
 import { ISessionService } from '@service/session/model';
+import { UserServiceId } from '@service/user';
 import { IUserService } from '@service/user/model';
 
 import { HomeAPI } from './home.api';
@@ -18,10 +22,10 @@ export const HomeScreenServiceId: symbol = Symbol.for('HomeScreen');
 
 const createHomeVM = (context: interfaces.Context): IHomeVM => {
   const navigationService: INavigationService = context.container.get(NavigationServiceId);
-  const sessionService: ISessionService = context.container.get('session');
-  const userService: IUserService = context.container.get('user');
-  const pushNotificationService: IPushNotificationService = context.container.get('push_notification');
-  const logService: ILogService = context.container.get('log');
+  const sessionService: ISessionService = context.container.get(SessionServiceId);
+  const userService: IUserService = context.container.get(UserServiceId);
+  const pushNotificationService: IPushNotificationService = context.container.get(PushNotificationServiceId);
+  const logService: ILogService = context.container.get(LogServiceId);
 
   return new HomeVM(
     sessionService,

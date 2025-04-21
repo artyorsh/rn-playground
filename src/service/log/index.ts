@@ -9,6 +9,8 @@ import { ConsoleLogTransporter } from './transporters/console-log-transporter';
 import { FileLogTransporter } from './transporters/file-log-transporter';
 import { GrafanaLogTransporter } from './transporters/grafana-log-transporter';
 
+export const LogServiceId: symbol = Symbol.for('LogService');
+
 export const LogModule = new ContainerModule(bind => {
   const grafanaAppId: string = `rnapp_${Platform.OS}_${Config.RNAPP_ENV_NAME}`;
 
@@ -33,5 +35,5 @@ export const LogModule = new ContainerModule(bind => {
     transporters: [consoleTransporter, fileTransporter, grafanaTransporter],
   });
 
-  bind<ILogService>('log').toConstantValue(logService);
+  bind<ILogService>(LogServiceId).toConstantValue(logService);
 });

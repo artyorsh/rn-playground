@@ -3,6 +3,7 @@ import { ContainerModule, interfaces } from 'inversify';
 
 import { NavigationServiceId } from '@service/navigation';
 import { INavigationService } from '@service/navigation/model';
+import { SessionServiceId } from '@service/session';
 import { ISessionService } from '@service/session/model';
 
 import { ISplashVM, Splash } from './splash.component';
@@ -14,7 +15,7 @@ export const SplashScreenServiceId: symbol = Symbol.for('SplashScreen');
 
 const createSplashVM = (context: interfaces.Context): ISplashVM => {
   const navigationService: INavigationService = context.container.get(NavigationServiceId);
-  const sessionService: ISessionService = context.container.get('session');
+  const sessionService: ISessionService = context.container.get(SessionServiceId);
 
   return new SplashVM(navigationService, sessionService);
 };

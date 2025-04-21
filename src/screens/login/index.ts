@@ -3,6 +3,7 @@ import { ContainerModule, interfaces } from 'inversify';
 
 import { NavigationServiceId } from '@service/navigation';
 import { INavigationService } from '@service/navigation/model';
+import { SessionServiceId } from '@service/session';
 import { ISessionService } from '@service/session/model';
 
 import { ILoginVM, Login } from './login.component';
@@ -14,7 +15,7 @@ export const LoginScreenServiceId: symbol = Symbol.for('LoginScreen');
 
 const createLoginVM = (context: interfaces.Context): ILoginVM => {
   const navigationService: INavigationService = context.container.get(NavigationServiceId);
-  const sessionService: ISessionService = context.container.get('session');
+  const sessionService: ISessionService = context.container.get(SessionServiceId);
 
   return new LoginVM(navigationService, sessionService);
 };

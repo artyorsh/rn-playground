@@ -5,6 +5,7 @@ import { LoginScreenServiceId } from '@screens/login';
 import { RegisterScreenServiceId } from '@screens/register';
 import { SplashScreenServiceId } from '@screens/splash';
 import { WelcomeScreenServiceId } from '@screens/welcome';
+import { LogServiceId } from '@service/log';
 import { ILogService } from '@service/log/model';
 
 import { INavigationService } from './model';
@@ -14,7 +15,7 @@ export const NavigationServiceId: symbol = Symbol.for('NavigationService');
 
 export const NavigationModule = new ContainerModule(bind => {
   bind<INavigationService>(NavigationServiceId).toDynamicValue(context => {
-    const logService: ILogService = context.container.get('log');
+    const logService: ILogService = context.container.get(LogServiceId);
 
     const navigationMap: INavigationMap = {
       '/': context.container.get(SplashScreenServiceId),

@@ -1,15 +1,12 @@
 import React from 'react';
-import { ILoginRoute } from 'src/auth/login';
-import { IRegisterRoute } from 'src/auth/register';
-import { IWelcomeRoute } from 'src/auth/welcome';
-import { IHomeRoute } from 'src/home';
-import { ISplashRoute } from 'src/splash';
+
+import { IAuthRoute } from '@/auth';
+import { IHomeRoute } from '@/home';
+import { ISplashRoute } from '@/splash';
 
 export type IRoute =
   | ISplashRoute
-  | IWelcomeRoute
-  | ILoginRoute
-  | IRegisterRoute
+  | IAuthRoute
   | IHomeRoute;
 
 export type IRouteParams = Record<string, any>;

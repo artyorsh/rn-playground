@@ -1,9 +1,8 @@
 import React from 'react';
+import { AppModule } from '@di/model';
 import { ContainerModule, interfaces } from 'inversify';
 
-import { NavigationServiceId } from '@service/navigation';
 import { INavigationService } from '@service/navigation/model';
-import { SessionServiceId } from '@service/session';
 import { ISessionService } from '@service/session/model';
 
 import { ILoginVM, Login } from './login.component';
@@ -11,17 +10,15 @@ import { LoginVM } from './login.vm';
 
 export type ILoginRoute = '/login';
 
-export const LoginScreenServiceId: symbol = Symbol.for('LoginScreen');
-
 const createLoginVM = (context: interfaces.Context): ILoginVM => {
-  const navigationService: INavigationService = context.container.get(NavigationServiceId);
-  const sessionService: ISessionService = context.container.get(SessionServiceId);
+  const navigationService: INavigationService = context.container.get(AppModule.NAVIGATION);
+  const sessionService: ISessionService = context.container.get(AppModule.SESSION);
 
   return new LoginVM(navigationService, sessionService);
 };
 
 export const LoginScreenModule = new ContainerModule(bind => {
-  bind<interfaces.Factory<React.FC>>(LoginScreenServiceId).toFactory(context => {
+  bind<interfaces.Factory<React.FC>>(AppModule.LOGIN_SCREEN).toFactory(context => {
     return () => React.createElement(Login, { vm: createLoginVM(context) });
   });
 });

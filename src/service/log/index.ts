@@ -1,6 +1,7 @@
 import { Platform } from 'react-native';
 import Config from 'react-native-config';
 import RNDeviceInfo from 'react-native-device-info';
+import { AppModule } from '@di/model';
 import { ContainerModule } from 'inversify';
 
 import { LogService } from './log.service';
@@ -8,8 +9,6 @@ import { ILogService, ILogTransporter } from './model';
 import { ConsoleLogTransporter } from './transporters/console-log-transporter';
 import { FileLogTransporter } from './transporters/file-log-transporter';
 import { GrafanaLogTransporter } from './transporters/grafana-log-transporter';
-
-export const LogServiceId: symbol = Symbol.for('LogService');
 
 export const LogModule = new ContainerModule(bind => {
   const grafanaAppId: string = `rnapp_${Platform.OS}_${Config.RNAPP_ENV_NAME}`;
@@ -35,5 +34,5 @@ export const LogModule = new ContainerModule(bind => {
     transporters: [consoleTransporter, fileTransporter, grafanaTransporter],
   });
 
-  bind<ILogService>(LogServiceId).toConstantValue(logService);
+  bind<ILogService>(AppModule.LOG).toConstantValue(logService);
 });

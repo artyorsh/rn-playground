@@ -5,6 +5,7 @@
     "experimentalDecorators": true,
     "paths": {
       "@components/*": ["./src/components/*"],
+      "@di/*": ["./src/di/*"],
       "@service/*": ["./src/service/*"],
       "@screens/*": ["./src/screens/*"]
     },

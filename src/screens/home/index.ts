@@ -1,15 +1,11 @@
 import React from 'react';
+import { AppModule } from '@di/model';
 import { ContainerModule, interfaces } from 'inversify';
 
-import { LogServiceId } from '@service/log';
 import { ILogService } from '@service/log/model';
-import { NavigationServiceId } from '@service/navigation';
 import { INavigationService } from '@service/navigation/model';
-import { PushNotificationServiceId } from '@service/push-notification';
 import { IPushNotificationService } from '@service/push-notification/model';
-import { SessionServiceId } from '@service/session';
 import { ISessionService } from '@service/session/model';
-import { UserServiceId } from '@service/user';
 import { IUserService } from '@service/user/model';
 
 import { HomeAPI } from './home.api';
@@ -18,14 +14,12 @@ import { HomeVM } from './home.vm';
 
 export type IHomeRoute = '/home';
 
-export const HomeScreenServiceId: symbol = Symbol.for('HomeScreen');
-
 const createHomeVM = (context: interfaces.Context): IHomeVM => {
-  const navigationService: INavigationService = context.container.get(NavigationServiceId);
-  const sessionService: ISessionService = context.container.get(SessionServiceId);
-  const userService: IUserService = context.container.get(UserServiceId);
-  const pushNotificationService: IPushNotificationService = context.container.get(PushNotificationServiceId);
-  const logService: ILogService = context.container.get(LogServiceId);
+  const navigationService: INavigationService = context.container.get(AppModule.NAVIGATION);
+  const sessionService: ISessionService = context.container.get(AppModule.SESSION);
+  const userService: IUserService = context.container.get(AppModule.USER);
+  const pushNotificationService: IPushNotificationService = context.container.get(AppModule.PUSH_NOTIFICATION);
+  const logService: ILogService = context.container.get(AppModule.LOG);
 
   return new HomeVM(
     sessionService,
@@ -38,7 +32,7 @@ const createHomeVM = (context: interfaces.Context): IHomeVM => {
 };
 
 export const HomeScreenModule = new ContainerModule(bind => {
-  bind<interfaces.Factory<React.FC>>(HomeScreenServiceId).toFactory(context => {
+  bind<interfaces.Factory<React.FC>>(AppModule.HOME_SCREEN).toFactory(context => {
     return () => React.createElement(Home, { vm: createHomeVM(context) });
   });
 });

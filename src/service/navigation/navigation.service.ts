@@ -19,8 +19,8 @@ export class NavigationService implements INavigationService {
   constructor(private navigationMapFactory: INavigationMapFactory, private log: ILogService) {
   }
 
-  public get navigator(): React.FC<RootNavigatorProps> {
-    return () => React.createElement(RootNavigator, <RootNavigatorProps>{
+  public getWindow(): React.ReactElement {
+    return React.createElement(RootNavigator, <RootNavigatorProps>{
       ref: this.rootNavigator,
       navigationMap: this.navigationMapFactory(this),
       onReady: this.onNavigationReady,

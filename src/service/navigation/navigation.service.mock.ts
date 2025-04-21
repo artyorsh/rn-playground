@@ -2,7 +2,7 @@ import { INavigationLifecycleListener, INavigationService, IRoute } from './mode
 
 jest.mock('./navigation.service', () => {
   const navigationService: INavigationService = {
-    navigator: jest.fn(),
+    getWindow: jest.fn(),
     goTo: jest.fn(),
     replace: jest.fn(),
     goBack: jest.fn(),

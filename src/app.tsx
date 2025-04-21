@@ -41,10 +41,6 @@ export class App extends React.Component {
   }
 
   public render(): React.ReactElement {
-    return (
-      <>
-        {this.navigation.navigator({})}
-      </>
-    );
+    return this.navigation.getWindow();
   }
 }

@@ -7,10 +7,10 @@ jest.mock('./navigation.service', () => {
     replace: jest.fn(),
     goBack: jest.fn(),
     subscribe: jest.fn((_route: IRoute, listener: INavigationLifecycleListener) => {
-      listener.onFocus();
+      listener.onFocus?.();
 
       return jest.fn(() => {
-        listener.onBlur();
+        listener.onBlur?.();
       });
     }),
   };

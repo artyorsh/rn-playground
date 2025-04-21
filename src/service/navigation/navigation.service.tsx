@@ -64,7 +64,7 @@ export class NavigationService implements INavigationService {
   };
 
   private onNavigationReady = (): void => {
-    this.navigationListeners.get(this.currentRoute)?.onFocus();
+    this.navigationListeners.get(this.currentRoute)?.onFocus?.();
   };
 
   private onNavigationStateChange = (): void => {
@@ -73,8 +73,8 @@ export class NavigationService implements INavigationService {
     if (nextRoute && nextRoute.name !== this.currentRoute) {
       this.log.info('NavigationService', `Moving from ${this.currentRoute} to ${nextRoute.name}`);
 
-      this.navigationListeners.get(this.currentRoute)?.onBlur();
-      this.navigationListeners.get(nextRoute.name)?.onFocus();
+      this.navigationListeners.get(this.currentRoute)?.onBlur?.();
+      this.navigationListeners.get(nextRoute.name)?.onFocus?.();
 
       this.currentRoute = nextRoute.name as IRoute;
     }

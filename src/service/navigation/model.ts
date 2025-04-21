@@ -16,8 +16,8 @@ export type IRoute =
 export type IRouteParams = Record<string, any>;
 
 export interface INavigationLifecycleListener {
-  onFocus(): void;
-  onBlur(): void;
+  onFocus?(): void;
+  onBlur?(): void;
 }
 
 export interface INavigationService {

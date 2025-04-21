@@ -1,6 +1,6 @@
 import { ILogService } from '@/log';
 
-import { IPermissionId, IPermissionService, MODULE_IDENTIFIER } from './model';
+import { IPermissionId, IPermissionService } from '.';
 
 type IPermissionServiceOptions = Record<IPermissionId, IPermissionController>;
 
@@ -37,22 +37,22 @@ export class PermissionService implements IPermissionService {
     const controller = this.controllers[permissionId];
 
     if (!controller) {
-      this.logService.error(MODULE_IDENTIFIER, `Controller for permission ${permissionId} not found`);
+      this.logService.error('PermissionService', `Controller for permission ${permissionId} not found`);
 
       throw new Error(`Controller for permission ${permissionId} not found`);
     }
 
     return controller.request().then(() => {
-      this.logService.debug(MODULE_IDENTIFIER, `granted permission: ${permissionId}`);
+      this.logService.debug('PermissionService', `granted permission: ${permissionId}`);
     }).catch(e => {
-      this.logService.error(MODULE_IDENTIFIER, `Error requesting permission ${permissionId}: ${e}`);
+      this.logService.error('PermissionService', `Error requesting permission ${permissionId}: ${e}`);
 
       throw e;
     });
   }
 
   private throwNoControllerError(permissionId: IPermissionId): never {
-    this.logService.error(MODULE_IDENTIFIER, `Controller for permission ${permissionId} not found`);
+    this.logService.error('PermissionService', `Controller for permission ${permissionId} not found`);
 
     throw new Error(`Controller for permission ${permissionId} not found`);
   }

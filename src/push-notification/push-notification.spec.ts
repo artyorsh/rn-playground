@@ -1,5 +1,5 @@
 import { ILogService } from '@/log';
-import { IPermissionService } from '@/permission/model';
+import { IPermissionService } from '@/permission';
 
 import { IPushNotificationService } from './model';
 import { IPushNotificationHandler, IPushServiceProvider, PushNotificationService } from './push-notification.service';

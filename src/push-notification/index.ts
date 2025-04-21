@@ -2,7 +2,7 @@ import { ContainerModule } from 'inversify';
 
 import { AppModule } from '@/di/model';
 import { ILogService } from '@/log';
-import { IPermissionService } from '@/permission/model';
+import { IPermissionService } from '@/permission';
 import { IRouter } from '@/router/model';
 
 import { NavigationNotificationHandler } from './handlers/navigation-notification-handler';

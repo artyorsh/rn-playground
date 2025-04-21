@@ -36,5 +36,6 @@ export const SessionServiceFactory = (context: interfaces.Context): ISessionServ
       encryptionKey: Config.RNAPP_STORAGE_ENCRYPTION_KEY || '',
     }),
     initializers: [userInitializer, pushServiceInitializer],
+    logger: context.container.get(AppModule.LOG),
   });
 };

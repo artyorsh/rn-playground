@@ -3,7 +3,7 @@ import Config from 'react-native-config';
 import RNDeviceInfo from 'react-native-device-info';
 import { ContainerModule } from 'inversify';
 
-import { AppModule } from '@di/model';
+import { AppModule } from '@/di/model';
 
 import { LogService } from './log.service';
 import { ILogService, ILogTransporter } from './model';

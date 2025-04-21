@@ -1,9 +1,9 @@
 import React from 'react';
 
-import { AppModule } from '@di/model';
+import { AppModule } from '@/di/model';
+import { IRouter } from '@/router/model';
 
 import { container } from './di';
-import { IRouter } from './service/router/model';
 
 export class App extends React.Component {
 

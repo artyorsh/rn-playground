@@ -1,8 +1,8 @@
 import React from 'react';
 import { ContainerModule, interfaces } from 'inversify';
 
-import { AppModule } from '@di/model';
-import { IRouter } from '@service/router/model';
+import { AppModule } from '@/di/model';
+import { IRouter } from '@/router/model';
 
 import { IWelcomeVM, Welcome } from './welcome.component';
 import { WelcomeVM } from './welcome.vm';

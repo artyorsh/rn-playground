@@ -1,4 +1,4 @@
-import { ILogService } from '@service/log/model';
+import { ILogService } from '@/log/model';
 
 import { ISession, ISessionInitializer, ISessionService } from './model';
 

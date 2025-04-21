@@ -1,8 +1,8 @@
 import React from 'react';
 import { fireEvent, render, waitFor } from '@testing-library/react-native';
 
-import { ISessionService } from '@auth/session/model';
-import { IRouter } from '@service/router/model';
+import { ISessionService } from '@/auth/session/model';
+import { IRouter } from '@/router/model';
 
 import { IRegisterVM, Register } from './register.component';
 import { RegisterVM } from './register.vm';
@@ -51,8 +51,8 @@ describe('Register VM', () => {
   let sessionService: ISessionService;
 
   beforeEach(() => {
-    router = jest.requireMock('@service/router/react-navigation/react-navigation-router').RouterService();
-    sessionService = jest.requireMock('@auth/session/session.service').SessionService();
+    router = jest.requireMock('@/router/react-navigation/react-navigation-router').RouterService();
+    sessionService = jest.requireMock('@/auth/session/session.service').SessionService();
   });
 
   afterEach(() => {

@@ -3,8 +3,7 @@ import { View } from 'react-native';
 import { ReactNavigationRouter } from './react-navigation-router';
 import { render, waitFor } from '@testing-library/react-native';
 
-import { LogService } from '@service/log/log.service';
-import { ILogService } from '@service/log/model';
+import { ILogService } from '@/log/model';
 
 import { IRouter } from '../model';
 
@@ -18,7 +17,7 @@ describe('ReactNavigationRouter', () => {
   let router: IRouter;
 
   beforeEach(() => {
-    logService = new LogService();
+    logService = jest.requireMock('@/log/log.service').LogService();
     router = new ReactNavigationRouter({
       '/': () => React.createElement(View, { testID: 'screen-root' }),
       '/home': () => React.createElement(View, { testID: 'screen-home' }),

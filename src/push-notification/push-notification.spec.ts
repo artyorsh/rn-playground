@@ -1,5 +1,5 @@
-import { ILogService } from '@service/log/model';
-import { IPermissionService } from '@service/permission/model';
+import { ILogService } from '@/log/model';
+import { IPermissionService } from '@/permission/model';
 
 import { IPushNotificationService } from './model';
 import { IPushNotificationHandler, IPushServiceProvider, PushNotificationService } from './push-notification.service';
@@ -47,7 +47,7 @@ describe('PushNotificationService', () => {
       },
     ];
 
-    logService = jest.requireMock('@service/log/log.service').LogService();
+    logService = jest.requireMock('@/log/log.service').LogService();
 
     pushNotificationService = new PushNotificationService(
       pushServiceProvider,

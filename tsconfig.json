@@ -4,11 +4,7 @@
     "baseUrl": "./",
     "experimentalDecorators": true,
     "paths": {
-      "@auth/*": ["./src/auth/*"],
-      "@components/*": ["./src/components/*"],
-      "@di/*": ["./src/di/*"],
-      "@service/*": ["./src/service/*"],
-      "@screens/*": ["./src/screens/*"]
+      "@/*": ["./src/*"]
     },
     "types": [
       "react-native",

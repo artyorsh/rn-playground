@@ -1,11 +1,11 @@
 import React from 'react';
 import { fireEvent, render, waitFor } from '@testing-library/react-native';
 
-import { ISessionService } from '@auth/session/model';
-import { ILogService } from '@service/log/model';
-import { IPushNotificationService } from '@service/push-notification/model';
-import { IRouter } from '@service/router/model';
-import { IUserService } from '@service/user/model';
+import { ISessionService } from '@/auth/session/model';
+import { ILogService } from '@/log/model';
+import { IPushNotificationService } from '@/push-notification/model';
+import { IRouter } from '@/router/model';
+import { IUserService } from '@/user/model';
 
 import { Home, IHomeVM } from './home.component';
 import { IHomeAPI } from './home.vm';
@@ -25,11 +25,11 @@ describe('Home', () => {
   };
 
   beforeEach(() => {
-    router = jest.requireMock('@service/router/react-navigation/react-navigation-router').RouterService();
-    sessionService = jest.requireMock('@auth/session/session.service').SessionService();
-    userService = jest.requireMock('@service/user/user.service').UserService();
-    pushNotificationService = jest.requireMock('@service/push-notification/push-notification.service').PushNotificationService();
-    logService = jest.requireMock('@service/log/log.service').LogService();
+    router = jest.requireMock('@/router/react-navigation/react-navigation-router').RouterService();
+    sessionService = jest.requireMock('@/auth/session/session.service').SessionService();
+    userService = jest.requireMock('@/user/user.service').UserService();
+    pushNotificationService = jest.requireMock('@/push-notification/push-notification.service').PushNotificationService();
+    logService = jest.requireMock('@/log/log.service').LogService();
 
     vm = new HomeVM(
       sessionService,

@@ -197,18 +197,16 @@
           "^react$",
           "^react-native$",
           "react",
-          "^@?\\w",
-          "^\\u0000"
+          "^@\\w+/",    // Third-party scoped packages with @ followed by word chars then /
+          "^[^@.]"  // Other third-party packages (starts with @ but not followed by /)
         ],
         [
-          "^@di",
-          "^@auth",
-          "^@screens",
-          "^@service",
-          "^@components"
+          "^@/di",
+          "^@/components",
+          "^@/"
         ],
         [
-          "^\\."
+          "^\\."        // Relative imports
         ]
       ]
     }],

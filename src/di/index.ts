@@ -1,14 +1,14 @@
 import { Container } from 'inversify';
 
-import { LoginScreenModule } from '@auth/login';
-import { RegisterScreenModule } from '@auth/register';
-import { SessionModule } from '@auth/session';
-import { WelcomeScreenModule } from '@auth/welcome';
-import { LogModule } from '@service/log';
-import { PermissionModule } from '@service/permission';
-import { PushNotificationModule } from '@service/push-notification';
-import { RouterModule } from '@service/router';
-import { UserModule } from '@service/user';
+import { LoginScreenModule } from '@/auth/login';
+import { RegisterScreenModule } from '@/auth/register';
+import { SessionModule } from '@/auth/session';
+import { WelcomeScreenModule } from '@/auth/welcome';
+import { LogModule } from '@/log';
+import { PermissionModule } from '@/permission';
+import { PushNotificationModule } from '@/push-notification';
+import { RouterModule } from '@/router';
+import { UserModule } from '@/user';
 
 import { HomeScreenModule } from '../home';
 import { SplashScreenModule } from '../splash';

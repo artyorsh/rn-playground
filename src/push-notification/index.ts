@@ -1,9 +1,9 @@
 import { ContainerModule } from 'inversify';
 
-import { AppModule } from '@di/model';
-import { ILogService } from '@service/log/model';
-import { IPermissionService } from '@service/permission/model';
-import { IRouter } from '@service/router/model';
+import { AppModule } from '@/di/model';
+import { ILogService } from '@/log/model';
+import { IPermissionService } from '@/permission/model';
+import { IRouter } from '@/router/model';
 
 import { NavigationNotificationHandler } from './handlers/navigation-notification-handler';
 import { NotificationRemoveHandler } from './handlers/notification-remove-handler';

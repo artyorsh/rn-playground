@@ -1,8 +1,8 @@
 import Config from 'react-native-config';
 import { ContainerModule } from 'inversify';
 
-import { AppModule } from '@di/model';
-import { ILogService } from '@service/log/model';
+import { AppModule } from '@/di/model';
+import { ILogService } from '@/log/model';
 
 import { LocalAuthenticationProvider } from './local-auth-provider';
 import { MMKVAuthenticationStorage } from './mmkv-auth-storage';

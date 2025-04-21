@@ -1,12 +1,12 @@
 import React from 'react';
 import { ContainerModule, interfaces } from 'inversify';
 
-import { AppModule } from '@di/model';
-import { ISessionService } from '@auth/session/model';
-import { ILogService } from '@service/log/model';
-import { IPushNotificationService } from '@service/push-notification/model';
-import { IRouter } from '@service/router/model';
-import { IUserService } from '@service/user/model';
+import { AppModule } from '@/di/model';
+import { ISessionService } from '@/auth/session/model';
+import { ILogService } from '@/log/model';
+import { IPushNotificationService } from '@/push-notification/model';
+import { IRouter } from '@/router/model';
+import { IUserService } from '@/user/model';
 
 import { HomeAPI } from './home.api';
 import { Home, IHomeVM } from './home.component';

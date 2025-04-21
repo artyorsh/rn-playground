@@ -1,5 +1,5 @@
-import { ISessionService } from '@auth/session/model';
-import { INavigationLifecycleListener, IRouter } from '@service/router/model';
+import { ISessionService } from '@/auth/session/model';
+import { INavigationLifecycleListener, IRouter } from '@/router/model';
 
 import { ISplashVM } from './splash.component';
 

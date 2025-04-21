@@ -1,4 +1,4 @@
-import { IRoute, IRouter } from '@service/router/model';
+import { IRoute, IRouter } from '@/router/model';
 
 import { IPushNotification, IPushNotificationHandler } from '../push-notification.service';
 

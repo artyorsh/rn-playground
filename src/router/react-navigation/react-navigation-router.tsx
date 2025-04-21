@@ -2,7 +2,7 @@ import React from 'react';
 import { NavigationContainer, NavigationContainerRef, Route, StackActions } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import { ILogService } from '@service/log/model';
+import { ILogService } from '@/log/model';
 
 import { INavigationLifecycleListener, IRoute, IRouteParams, IRouter } from '../model';
 

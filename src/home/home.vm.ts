@@ -1,10 +1,10 @@
 import { computed, makeAutoObservable, observable } from 'mobx';
 
-import { ISessionService } from '@auth/session/model';
-import { ILogService } from '@service/log/model';
-import { IPushNotificationService } from '@service/push-notification/model';
-import { INavigationLifecycleListener, IRouter } from '@service/router/model';
-import { IUserService } from '@service/user/model';
+import { ISessionService } from '@/auth/session/model';
+import { ILogService } from '@/log/model';
+import { IPushNotificationService } from '@/push-notification/model';
+import { INavigationLifecycleListener, IRouter } from '@/router/model';
+import { IUserService } from '@/user/model';
 
 import { IHomeVM } from './home.component';
 import { IPost } from './posts-list/model';

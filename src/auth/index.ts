@@ -12,10 +12,13 @@ import { RegisterVM } from './register/register.vm';
 import { LocalAuthenticationProvider } from './session/local-auth-provider';
 import { MMKVAuthenticationStorage } from './session/mmkv-auth-storage';
 import { AnyAuthenticationProvider, AnyAuthenticationStorage, ISessionServiceOptions, SessionService } from './session/session.service';
+import { ISplashVM, Splash } from './splash/splash.component';
+import { SplashVM } from './splash/splash.vm';
 import { IWelcomeVM, Welcome } from './welcome/welcome.component';
 import { WelcomeVM } from './welcome/welcome.vm';
 
 export type IAuthRoute =
+  | '/'
   | '/welcome'
   | '/login'
   | '/register';
@@ -24,6 +27,9 @@ export const AuthModule = new ContainerModule(bind => {
   bind<ISessionService>(AppModule.SESSION)
     .toDynamicValue(context => new SessionService(createSessionServiceOptions(context)))
     .inSingletonScope();
+
+  bind<interfaces.Factory<React.FC>>(AppModule.SPLASH_SCREEN)
+    .toFactory(context => () => React.createElement(Splash, { vm: createSplashVM(context) }));
 
   bind<interfaces.Factory<React.FC>>(AppModule.WELCOME_SCREEN)
     .toFactory(context => () => React.createElement(Welcome, { vm: createWelcomeVM(context) }));
@@ -47,6 +53,13 @@ const createSessionServiceOptions = (context: interfaces.Context): ISessionServi
     }),
     initializers: [userInitializer, pushServiceInitializer],
   };
+};
+
+const createSplashVM = (context: interfaces.Context): ISplashVM => {
+  return new SplashVM(
+    context.container.get(AppModule.ROUTER),
+    context.container.get(AppModule.SESSION),
+  );
 };
 
 const createWelcomeVM = (context: interfaces.Context): IWelcomeVM => {

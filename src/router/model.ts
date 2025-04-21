@@ -2,10 +2,8 @@ import React from 'react';
 
 import { IAuthRoute } from '@/auth';
 import { IHomeRoute } from '@/home';
-import { ISplashRoute } from '@/splash';
 
 export type IRoute =
-  | ISplashRoute
   | IAuthRoute
   | IHomeRoute;
 

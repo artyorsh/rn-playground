@@ -8,7 +8,6 @@ import { RouterModule } from '@/router';
 import { UserModule } from '@/user';
 
 import { HomeScreenModule } from '../home';
-import { SplashScreenModule } from '../splash';
 
 export const container = new Container();
 
@@ -19,6 +18,5 @@ container.load(
   PermissionModule,
   PushNotificationModule,
   UserModule,
-  SplashScreenModule,
   HomeScreenModule,
 );

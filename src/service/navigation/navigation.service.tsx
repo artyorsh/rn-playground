@@ -41,7 +41,7 @@ export class NavigationService implements INavigationService {
         ref={this.rootNavigator}
         onReady={this.onNavigationReady}
         onStateChange={this.onNavigationStateChange}>
-        <Stack.Navigator screenOptions={{ headerShown: false, gestureEnabled: false, animation: 'fade' }}>
+        <Stack.Navigator screenOptions={{ headerShown: false, gestureEnabled: false }}>
           {Object.entries(this.navigationMap).map(createScreen)}
         </Stack.Navigator>
       </NavigationContainer>

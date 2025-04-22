@@ -22,6 +22,7 @@ def ios_hack_development_codesigning(options)
   get_provisioning_profile(
     development: true,
     force: true,
+    username: ENV["FASTLANE_IOS_USERNAME"],
   )
 
   enable_automatic_code_signing(

@@ -23,8 +23,10 @@ def ios_hack_development_codesigning(options)
     path: ENV['FASTLANE_IOS_PROVISIONING_PROFILE_PATH'],
   )
 
-  enable_automatic_code_signing(
+  update_code_signing_settings(
     path: XCODEPROJ_PATH,
+    use_automatic_signing: true,
+    profile_uuid: ENV["FASTLANE_IOS_PROFILE_UUID"],
     team_id: ENV["FASTLANE_IOS_TEAM_ID"],
   )
 

@@ -1,8 +1,8 @@
 platform :ios do
 
   desc "Builds .ipa and stores it in the `./build` folder"
-  desc "Important: the .ipa is not installable without configuring code signing identity:"
-  desc ".xcworkspace > Target > Signing & Capabilities > Automatically manage signing"
+  desc "Important: .ipa installation on a physical device is not possible without configuring code signing identity."
+  desc "For testing purposes, the app is distributed with 'development' profile, faking the .entitlements file (see codesign.rb)"
   desc ""
   desc "Parameters:"
   desc "- build_number - build number"
@@ -10,6 +10,9 @@ platform :ios do
   desc "The result of the command is a `./build/ios` folder in the project root containing build artifacts:"
   desc "- .ipa, .jsbundle and sourcemaps (.jsbnudle.map)"
   lane :native do |options|
+
+    # This is only required to export "development" builds (as long as there is no Apple Developer account)
+    ios_hack_development_codesigning(options)
 
     artifacts = build(options)
     copy_artifacts(

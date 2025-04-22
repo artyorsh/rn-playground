@@ -85,9 +85,9 @@ The result of the command is a `./build/android` folder in the project root cont
 
 Builds .ipa and stores it in the `./build` folder
 
-Important: the .ipa is not installable without configuring code signing identity:
+Important: .ipa installation on a physical device is not possible without configuring code signing identity.
 
-.xcworkspace > Target > Signing & Capabilities > Automatically manage signing
+For testing purposes, automatic signing is enabled, and the .entitlements file is removed (because XCode managed profiles do not support Push Notifications capability)
 
 
 

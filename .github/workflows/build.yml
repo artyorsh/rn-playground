@@ -60,7 +60,8 @@ jobs:
           path: codesign
 
       - name: Trigger native build (android)
-        run: bundle exec fastlane android native
+        run:
+          bundle exec fastlane native
 
       - name: Archive results
         uses: actions/upload-artifact@v4

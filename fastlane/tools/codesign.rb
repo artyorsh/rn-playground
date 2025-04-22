@@ -28,6 +28,7 @@ def ios_hack_development_codesigning(options)
     use_automatic_signing: true,
     profile_uuid: ENV["FASTLANE_IOS_PROFILE_UUID"],
     team_id: ENV["FASTLANE_IOS_TEAM_ID"],
+    bundle_identifier: "me.artyorsh.rnapp.staging",
   )
 
 end

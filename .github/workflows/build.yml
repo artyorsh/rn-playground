@@ -58,6 +58,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: artyorsh/rnapp-codesign
+          token: ${{ secrets.CODESIGN_REPO_TOKEN }}
           path: codesign
 
       - name: Trigger native build (android)

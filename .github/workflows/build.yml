@@ -62,7 +62,7 @@ jobs:
 
       - name: Trigger native build (android)
         run:
-          bundle exec fastlane native
+          bundle exec fastlane ios native
 
       - name: Archive results
         uses: actions/upload-artifact@v4

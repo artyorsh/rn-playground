@@ -12,10 +12,10 @@
 		7937FE1DC207EEDEB979EB70 /* Pods_rnapp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE36D7AD9AF28F53B9756414 /* Pods_rnapp.framework */; };
 		D56D70486D74F4FF126851F0 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 0E80BBB4006DE5268BE14663 /* PrivacyInfo.xcprivacy */; };
 		F21C1BCC2D9884EC00F1530E /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = F21C1BCA2D9884EC00F1530E /* LaunchScreen.xib */; };
+		F234DB062DB7DC5F00F87C5A /* GoogleService-Info-Staging.plist in Resources */ = {isa = PBXBuildFile; fileRef = F234DB032DB7DC5F00F87C5A /* GoogleService-Info-Staging.plist */; };
+		F234DB072DB7DC5F00F87C5A /* GoogleService-Info-Production.plist in Resources */ = {isa = PBXBuildFile; fileRef = F234DB022DB7DC5F00F87C5A /* GoogleService-Info-Production.plist */; };
+		F234DB082DB7DC5F00F87C5A /* FirebaseIntegration.swift in Sources */ = {isa = PBXBuildFile; fileRef = F234DB012DB7DC5F00F87C5A /* FirebaseIntegration.swift */; };
 		F27088262DA976DA00C953D4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F27088252DA976DA00C953D4 /* AppDelegate.swift */; };
-		F2C955A12DABD96E0035F49D /* FirebaseIntegration.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2C9559C2DABD96E0035F49D /* FirebaseIntegration.swift */; };
-		F2C955A22DABD96E0035F49D /* GoogleService-Info-Production.plist in Resources */ = {isa = PBXBuildFile; fileRef = F2C9559D2DABD96E0035F49D /* GoogleService-Info-Production.plist */; };
-		F2C955A32DABD96E0035F49D /* GoogleService-Info-Staging.plist in Resources */ = {isa = PBXBuildFile; fileRef = F2C9559E2DABD96E0035F49D /* GoogleService-Info-Staging.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -42,11 +42,11 @@
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		F21C1BC92D95A7C900F1530E /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		F21C1BCB2D9884EC00F1530E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
+		F234DB012DB7DC5F00F87C5A /* FirebaseIntegration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseIntegration.swift; sourceTree = "<group>"; };
+		F234DB022DB7DC5F00F87C5A /* GoogleService-Info-Production.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info-Production.plist"; sourceTree = "<group>"; };
+		F234DB032DB7DC5F00F87C5A /* GoogleService-Info-Staging.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info-Staging.plist"; sourceTree = "<group>"; };
 		F27088252DA976DA00C953D4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F2C9558D2DABD0330035F49D /* rnapp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = rnapp.entitlements; path = rnapp/rnapp.entitlements; sourceTree = "<group>"; };
-		F2C9559C2DABD96E0035F49D /* FirebaseIntegration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseIntegration.swift; sourceTree = "<group>"; };
-		F2C9559D2DABD96E0035F49D /* GoogleService-Info-Production.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info-Production.plist"; sourceTree = "<group>"; };
-		F2C9559E2DABD96E0035F49D /* GoogleService-Info-Staging.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info-Staging.plist"; sourceTree = "<group>"; };
 		FE36D7AD9AF28F53B9756414 /* Pods_rnapp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_rnapp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -65,7 +65,7 @@
 		13B07FAE1A68108700A75B9A /* rnapp */ = {
 			isa = PBXGroup;
 			children = (
-				F2C955A02DABD96E0035F49D /* integrations */,
+				F234DB052DB7DC5F00F87C5A /* integrations */,
 				F2C9558D2DABD0330035F49D /* rnapp.entitlements */,
 				F27088252DA976DA00C953D4 /* AppDelegate.swift */,
 				3E8B9DC12B8123FD00CF68DD /* MaterialCommunityIcons.ttf */,
@@ -125,22 +125,23 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
-		F2C9559F2DABD96E0035F49D /* firebase */ = {
+		F234DB042DB7DC5F00F87C5A /* firebase */ = {
 			isa = PBXGroup;
 			children = (
-				F2C9559C2DABD96E0035F49D /* FirebaseIntegration.swift */,
-				F2C9559D2DABD96E0035F49D /* GoogleService-Info-Production.plist */,
-				F2C9559E2DABD96E0035F49D /* GoogleService-Info-Staging.plist */,
+				F234DB012DB7DC5F00F87C5A /* FirebaseIntegration.swift */,
+				F234DB022DB7DC5F00F87C5A /* GoogleService-Info-Production.plist */,
+				F234DB032DB7DC5F00F87C5A /* GoogleService-Info-Staging.plist */,
 			);
 			path = firebase;
 			sourceTree = "<group>";
 		};
-		F2C955A02DABD96E0035F49D /* integrations */ = {
+		F234DB052DB7DC5F00F87C5A /* integrations */ = {
 			isa = PBXGroup;
 			children = (
-				F2C9559F2DABD96E0035F49D /* firebase */,
+				F234DB042DB7DC5F00F87C5A /* firebase */,
 			);
-			path = integrations;
+			name = integrations;
+			path = rnapp/integrations;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -207,8 +208,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				F21C1BCC2D9884EC00F1530E /* LaunchScreen.xib in Resources */,
-				F2C955A22DABD96E0035F49D /* GoogleService-Info-Production.plist in Resources */,
-				F2C955A32DABD96E0035F49D /* GoogleService-Info-Staging.plist in Resources */,
+				F234DB062DB7DC5F00F87C5A /* GoogleService-Info-Staging.plist in Resources */,
+				F234DB072DB7DC5F00F87C5A /* GoogleService-Info-Production.plist in Resources */,
 				3E8B9DC22B8123FD00CF68DD /* MaterialCommunityIcons.ttf in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				D56D70486D74F4FF126851F0 /* PrivacyInfo.xcprivacy in Resources */,
@@ -329,7 +330,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F27088262DA976DA00C953D4 /* AppDelegate.swift in Sources */,
-				F2C955A12DABD96E0035F49D /* FirebaseIntegration.swift in Sources */,
+				F234DB082DB7DC5F00F87C5A /* FirebaseIntegration.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

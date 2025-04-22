@@ -39,6 +39,7 @@ env:
   FASTLANE_CI_LOG_LEVEL: ${{ vars.FASTLANE_CI_LOG_LEVEL }}
   FASTLANE_IOS_PROVISIONING_PROFILE_PATH: ${{ github.workspace }}/codesign/${{ vars.FASTLANE_IOS_PROVISIONING_PROFILE_PATH }}
   FASTLANE_IOS_PROFILE_UUID: ${{ secrets.FASTLANE_IOS_PROFILE_UUID }}
+
 jobs:
 
   build:
@@ -61,6 +62,10 @@ jobs:
           repository: artyorsh/rnapp-codesign
           token: ${{ secrets.CODESIGN_REPO_TOKEN }}
           path: codesign
+
+      - name: Install iOS codesigning certificate
+        run: |
+          security import ${{ github.workspace }}/codesign/rnapp-cert.p12 -P ${{ secrets.FASTLANE_IOS_CERT_PASSWORD }} -T /usr/bin/codesign
 
       - name: Trigger native build (android)
         run:

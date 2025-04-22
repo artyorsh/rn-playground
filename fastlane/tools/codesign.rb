@@ -19,15 +19,13 @@ def ios_hack_development_codesigning(options)
   entitlements_content = entitlements_content.gsub(/<dict>.*?<\/dict>/m, '<dict></dict>')
   File.write(entitlements_path, entitlements_content)
 
-  get_provisioning_profile(
-    development: true,
-    force: true,
-    username: ENV["FASTLANE_IOS_USERNAME"],
+  install_provisioning_profile(
+    path: ENV['FASTLANE_IOS_PROVISIONING_PROFILE_PATH'],
   )
 
   enable_automatic_code_signing(
     path: XCODEPROJ_PATH,
-    # team_id: ENV["FASTLANE_IOS_TEAM_ID"],
+    team_id: ENV["FASTLANE_IOS_TEAM_ID"],
   )
 
 end

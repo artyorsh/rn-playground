@@ -52,6 +52,9 @@ jobs:
 
       - uses: ./.github/workflows/actions/prepare
 
+      - name: Debug keychains
+        run: security list-keychains
+
       - name: Create .env file
         run: |
           # Only export environment variables with "RNAPP_" prefix

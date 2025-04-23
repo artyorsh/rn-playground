@@ -20,6 +20,7 @@ def ios_hack_development_codesigning(options)
     certificate_path: ENV['FASTLANE_IOS_CERT_PATH'],
     certificate_password: ENV["FASTLANE_IOS_CERT_PASSWORD"],
     keychain_name: "fastlane_tmp_keychain",
+    keychain_password: "",
   )
 
   install_provisioning_profile(

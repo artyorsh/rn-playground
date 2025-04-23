@@ -19,11 +19,6 @@ def ios_hack_development_codesigning(options)
   entitlements_content = entitlements_content.gsub(/<dict>.*?<\/dict>/m, '<dict></dict>')
   File.write(entitlements_path, entitlements_content)
 
-  import_certificate(
-    certificate_path: ENV['FASTLANE_IOS_CERT_PATH'],
-    certificate_password: ENV["FASTLANE_IOS_CERT_PASSWORD"],
-  )
-
   install_provisioning_profile(
     path: ENV['FASTLANE_IOS_PROVISIONING_PROFILE_PATH'],
   )

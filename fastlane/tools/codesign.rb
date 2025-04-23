@@ -14,10 +14,7 @@ end
 def ios_hack_development_codesigning(options)
 
   entitlements_path = "#{IOS_DIR}/#{PROJECT_NAME}/#{PROJECT_NAME}.entitlements"
-
-  entitlements_content = File.read(entitlements_path)
-  entitlements_content = entitlements_content.gsub(/<dict>.*?<\/dict>/m, '<dict></dict>')
-  File.write(entitlements_path, entitlements_content)
+  File.write(entitlements_path, {}.to_plist)
 
   install_provisioning_profile(
     path: ENV['FASTLANE_IOS_PROVISIONING_PROFILE_PATH'],

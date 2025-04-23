@@ -45,6 +45,11 @@ jobs:
 
   build:
     runs-on: macos-15
+
+    strategy:
+      matrix:
+        platform: [ios, android]
+
     environment: ${{ inputs.environment || 'staging' }}
 
     steps:
@@ -64,9 +69,9 @@ jobs:
           token: ${{ secrets.CODESIGN_REPO_TOKEN }}
           path: codesign
 
-      - name: Trigger native build (android)
+      - name: Trigger native build
         run:
-          bundle exec fastlane ios native
+          bundle exec fastlane ${{ matrix.platform }} native
 
       - name: Archive results
         uses: actions/upload-artifact@v4

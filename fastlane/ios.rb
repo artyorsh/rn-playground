@@ -12,7 +12,7 @@ platform :ios do
   lane :native do |options|
 
     # This is only required to export "development" builds (as long as there is no Apple Developer account)
-    ios_hack_development_codesigning(options)
+    ios_hack_development_codesigning(options) if ENV['CI']
 
     artifacts = build(options)
     copy_artifacts(

@@ -28,9 +28,15 @@ def ios_hack_development_codesigning(options)
   )
 
   update_code_signing_settings(
-    path: XCODEPROJ_PATH,
     use_automatic_signing: true,
     team_id: ENV["FASTLANE_IOS_TEAM_ID"],
+    bundle_identifier: "#{ENV['RNAPP_APP_ID']}",
+  )
+
+  update_code_signing_settings(
+    use_automatic_signing: true,
+    team_id: ENV["FASTLANE_IOS_TEAM_ID"],
+    bundle_identifier: "#{ENV['RNAPP_APP_ID']}.staging",
   )
 
 end

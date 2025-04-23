@@ -31,8 +31,6 @@ def ios_hack_development_codesigning(options)
     path: XCODEPROJ_PATH,
     use_automatic_signing: true,
     team_id: ENV["FASTLANE_IOS_TEAM_ID"],
-    bundle_identifier: "me.artyorsh.rnapp.staging",
-    code_sign_identity: "Apple Development"
   )
 
 end

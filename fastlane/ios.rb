@@ -1,8 +1,15 @@
 platform :ios do
 
   desc "Builds .ipa and stores it in the `./build` folder"
-  desc "Important: .ipa installation on a physical device is not possible without configuring code signing identity."
-  desc "For testing purposes, the app is distributed with 'development' profile, faking the .entitlements file (see codesign.rb)"
+  desc ""
+  desc "Important: Installation of iOS .ipa built without Apple Developer account is limited to a personal device or simulators."
+  desc "Regardless, exporting development builds requires an Apple account that can be used as 'Personal Team' to enable signing with Xcode managed provisioning profiles."
+  desc ""
+  desc "Example setup with personal team:"
+  desc "- Enable Automatic signing"
+  desc "- FASTLANE_IOS_PROVISIONING_PROFILE_PATH: Info icon on the 'Provisioning Profile' in Xcode -> Drag and drop the file"
+  desc "- FASTLANE_IOS_CERT_PATH and FASTLANE_IOS_CERT_PASSWORD: Xcode Settings -> Accounts -> Manage Certificates -> Export"
+  desc "- FASTLANE_IOS_TEAM_ID: git diff -> DEVELOPMENT_TEAM"
   desc ""
   desc "Parameters:"
   desc "- build_number - build number"
@@ -11,8 +18,12 @@ platform :ios do
   desc "- .ipa, .jsbundle and sourcemaps (.jsbnudle.map)"
   lane :native do |options|
 
-    # This is only required to export "development" builds (as long as there is no Apple Developer account)
-    ios_hack_development_codesigning(options) if ENV['CI']
+    # This can't be managed with environment variables due to how build configuration and product flavors are set up.
+    # See @env.example for more details.
+    # TODO: can it be simplified?
+    bundle_identifier = ENV['RNAPP_ENV_NAME'] == 'staging' ? "#{ENV['RNAPP_APP_ID']}.staging" : ENV['RNAPP_APP_ID']
+
+    ios_hack_development_codesigning(bundle_identifier: bundle_identifier)
 
     artifacts = build(options)
     copy_artifacts(

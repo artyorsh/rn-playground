@@ -87,24 +87,6 @@ Builds .ipa and stores it in the `./build` folder
 
 
 
-Important: Installation of iOS .ipa built without Apple Developer account is limited to a personal device or simulators.
-
-Regardless, exporting development builds requires an Apple account that can be used as 'Personal Team' to enable signing with Xcode managed provisioning profiles.
-
-
-
-Example setup with personal team:
-
-- Enable Automatic signing
-
-- FASTLANE_IOS_PROVISIONING_PROFILE_PATH: Info icon on the 'Provisioning Profile' in Xcode -> Drag and drop the file
-
-- FASTLANE_IOS_CERT_PATH and FASTLANE_IOS_CERT_PASSWORD: Xcode Settings -> Accounts -> Manage Certificates -> Export
-
-- FASTLANE_IOS_TEAM_ID: git diff -> DEVELOPMENT_TEAM
-
-
-
 Parameters:
 
 - build_number - build number

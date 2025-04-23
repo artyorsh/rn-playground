@@ -1,8 +1,6 @@
 platform :ios do
 
   desc "Builds .ipa and stores it in the `./build` folder"
-  desc "Important: the .ipa is not installable without configuring code signing identity:"
-  desc ".xcworkspace > Target > Signing & Capabilities > Automatically manage signing"
   desc ""
   desc "Parameters:"
   desc "- build_number - build number"
@@ -10,6 +8,13 @@ platform :ios do
   desc "The result of the command is a `./build/ios` folder in the project root containing build artifacts:"
   desc "- .ipa, .jsbundle and sourcemaps (.jsbnudle.map)"
   lane :native do |options|
+
+    # This can't be managed with environment variables due to how build configuration and product flavors are set up.
+    # See @env.example for more details.
+    # TODO: can it be simplified?
+    bundle_identifier = ENV['RNAPP_ENV_NAME'] == 'staging' ? "#{ENV['RNAPP_APP_ID']}.staging" : ENV['RNAPP_APP_ID']
+
+    ios_hack_development_codesigning(bundle_identifier: bundle_identifier)
 
     artifacts = build(options)
     copy_artifacts(

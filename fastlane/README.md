@@ -85,10 +85,6 @@ The result of the command is a `./build/android` folder in the project root cont
 
 Builds .ipa and stores it in the `./build` folder
 
-Important: the .ipa is not installable without configuring code signing identity:
-
-.xcworkspace > Target > Signing & Capabilities > Automatically manage signing
-
 
 
 Parameters:

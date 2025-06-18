@@ -1,4 +1,5 @@
-import { ISession, ISessionInitializer } from '@/auth/session';
+import { ISession } from '@/auth/session';
+import { ISessionModule } from '@/auth/session/initialzier';
 import { ILogService } from '@/log';
 
 import { IUser, IUserService } from '.';
@@ -7,7 +8,9 @@ export interface IUserRepository {
   getUser(userId: string): Promise<IUser>;
 }
 
-export class UserService implements IUserService, ISessionInitializer {
+export class UserService implements IUserService, ISessionModule {
+
+  public readonly moduleIdentifier: string = UserService.name;
 
   private user: IUser | null = null;
 

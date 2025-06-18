@@ -1,6 +1,6 @@
 import { ILogService } from '@/log';
 
-import { ISession, ISessionInitializer, ISessionService } from '.';
+import { ISession, ISessionService } from '.';
 
 export interface IAuthenticationToken<Payload> {
   provider: string;
@@ -28,17 +28,25 @@ export interface IAuthenticationStorage<Token extends AnyAuthenticationToken> {
 
 export type AnyAuthenticationStorage = IAuthenticationStorage<AnyAuthenticationToken>;
 
+export interface ISessionInitializer {
+  initialize(session: ISession): Promise<void>;
+  destroy(): Promise<void>;
+}
+
 export interface ISessionServiceOptions<Provider extends AnyAuthenticationProvider, Storage extends AnyAuthenticationStorage> {
   tokenRefreshThresholdMinutes: number;
   authenticationProvider: Provider;
   authenticationStorage: Storage;
-  initializers?: ISessionInitializer[];
+  initializer: ISessionInitializer;
   logger?: ILogService;
 }
 
 export class SessionService implements ISessionService {
 
+  private initializer: ISessionInitializer;
+
   constructor(private options: ISessionServiceOptions<AnyAuthenticationProvider, AnyAuthenticationStorage>) {
+    this.initializer = options.initializer;
   }
 
   public login = (email: string, password: string): Promise<ISession> => {
@@ -48,7 +56,7 @@ export class SessionService implements ISessionService {
 
         this.options.logger?.info('SessionService', `login user ${session.userId}`);
 
-        return this.initializeModules(session)
+        return this.initializer.initialize(session)
           .then(() => session);
       });
     });
@@ -61,7 +69,7 @@ export class SessionService implements ISessionService {
 
         this.options.logger?.info('SessionService', `register user ${session.userId}`);
 
-        return this.initializeModules(session)
+        return this.initializer.initialize(session)
           .then(() => session);
       });
     });
@@ -83,7 +91,7 @@ export class SessionService implements ISessionService {
           const expiresInMinutes: number = this.getExpiresInMinutes(token);
           this.options.logger?.info('SessionService', `refresh for user ${session.userId}, expires in ${expiresInMinutes} minutes`);
 
-          return this.initializeModules(session)
+          return this.initializer.initialize(session)
             .then(() => session);
         });
       });
@@ -112,7 +120,7 @@ export class SessionService implements ISessionService {
 
       this.options.logger?.info('SessionService', `restore for user ${session.userId}, expires in ${expiresInMinutes} minutes`);
 
-      return this.initializeModules(session)
+      return this.initializer.initialize(session)
         .then(() => session);
     });
   };
@@ -121,36 +129,12 @@ export class SessionService implements ISessionService {
     return this.options.authenticationStorage.clear().then(() => {
       this.options.logger?.info('SessionService', 'logout');
 
-      return this.destroyModules();
+      return this.initializer.destroy();
     });
   };
 
   private createSession = (token: AnyAuthenticationToken): ISession => {
     return { userId: token.userId, secret: token.secret };
-  };
-
-  private initializeModules = (session: ISession): Promise<void> => {
-    const initializerPromizes = this.options.initializers?.map(initializer => initializer.initialize(session));
-
-    return Promise.all(initializerPromizes || [])
-      .then(() => {/** no-op */})
-      .catch(error => {
-        this.options.logger?.error('SessionService', `Failed to initialize modules: ${error.message}`);
-
-        return Promise.reject(error);
-      });
-  };
-
-  private destroyModules = (): Promise<void> => {
-    const destroyerPromises = this.options.initializers?.map(initializer => initializer.destroy());
-
-    return Promise.all(destroyerPromises || [])
-      .then(() => {/** no-op */})
-      .catch(error => {
-        this.options.logger?.error('SessionService', `Failed to destroy modules: ${error.message}`);
-
-        return Promise.reject(error);
-      });
   };
 
   private getExpiresInMinutes = (token: AnyAuthenticationToken): number => {

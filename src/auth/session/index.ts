@@ -2,19 +2,17 @@ import Config from 'react-native-config';
 import { interfaces } from 'inversify';
 
 import { AppModule } from '@/di/model';
+import { ILogService } from '@/log';
 
+import { ISessionModule } from './initialzier';
+import { ParallelModuleInitializer } from './initialzier/parallel-module-initializer';
 import { LocalAuthenticationProvider } from './local-auth-provider';
 import { MMKVAuthenticationStorage } from './mmkv-auth-storage';
-import { SessionService } from './session.service';
+import { ISessionInitializer, SessionService } from './session.service';
 
 export interface ISession {
   userId: string;
   secret: string;
-}
-
-export interface ISessionInitializer {
-  initialize(session: ISession): Promise<void>;
-  destroy(): Promise<void>;
 }
 
 export interface ISessionService {
@@ -26,8 +24,17 @@ export interface ISessionService {
 }
 
 export const SessionServiceFactory = (context: interfaces.Context): ISessionService => {
-  const userInitializer: ISessionInitializer = context.container.get(AppModule.USER);
-  const pushServiceInitializer: ISessionInitializer = context.container.get(AppModule.PUSH_NOTIFICATION);
+  const logService: ILogService = context.container.get(AppModule.LOG);
+
+  const userModule: ISessionModule = context.container.get(AppModule.USER);
+  const pushServiceModule: ISessionModule = context.container.get(AppModule.PUSH_NOTIFICATION);
+  const sessionModules: ISessionModule[] = [userModule, pushServiceModule];
+
+  const sessionInitializer: ISessionInitializer = new ParallelModuleInitializer(sessionModules, logService, {
+    shouldFailOnModuleFailure: (module: ISessionModule, _error: Error): boolean => {
+      return module.moduleIdentifier === 'UserService';
+    },
+  });
 
   return new SessionService({
     tokenRefreshThresholdMinutes: Number(Config.RNAPP_AUTH_TOKEN_REFRESH_THRESHOLD_MINUTES) || 0,
@@ -35,7 +42,7 @@ export const SessionServiceFactory = (context: interfaces.Context): ISessionServ
     authenticationStorage: new MMKVAuthenticationStorage({
       encryptionKey: Config.RNAPP_STORAGE_ENCRYPTION_KEY || '',
     }),
-    initializers: [userInitializer, pushServiceInitializer],
-    logger: context.container.get(AppModule.LOG),
+    initializer: sessionInitializer,
+    logger: logService,
   });
 };

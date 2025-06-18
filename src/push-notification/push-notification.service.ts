@@ -1,4 +1,5 @@
-import { ISession, ISessionInitializer } from '@/auth/session';
+import { ISession } from '@/auth/session';
+import { ISessionModule } from '@/auth/session/initialzier';
 import { ILogService } from '@/log';
 import { IPermissionService } from '@/permission';
 
@@ -37,7 +38,9 @@ export interface IPushServiceProvider {
   getToken(): Promise<IPushNotificationToken>;
 }
 
-export class PushNotificationService implements IPushNotificationService, IPushNotificationHandler, ISessionInitializer {
+export class PushNotificationService implements IPushNotificationService, IPushNotificationHandler, ISessionModule {
+
+  public readonly moduleIdentifier: string = PushNotificationService.name;
 
   constructor(
     private provider: IPushServiceProvider,
@@ -59,7 +62,7 @@ export class PushNotificationService implements IPushNotificationService, IPushN
   // IPushNotificationHandler
 
   public getName = (): string => {
-    return 'PushNotificationService';
+    return this.moduleIdentifier;
   };
 
   public handleForeground = (notification: IPushNotification): boolean => {

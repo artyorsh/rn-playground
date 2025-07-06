@@ -1,18 +1,7 @@
 import React from 'react';
-import { Platform, SafeAreaView, StatusBar, StyleSheet, ViewProps } from 'react-native';
+import { ViewProps } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 export const SafeArea: React.FC<ViewProps> = (props) => (
-  <SafeAreaView
-    {...props}
-    style={[styles.safeArea, props.style]}
-  />
+  <SafeAreaView {...props} />
 );
-
-const styles = StyleSheet.create({
-  safeArea: {
-    paddingTop: Platform.select({
-      android: StatusBar.currentHeight,
-      default: null,
-    }),
-  },
-});

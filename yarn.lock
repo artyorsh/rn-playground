@@ -7068,9 +7068,9 @@ react-native-permissions@^5.3.0:
   integrity sha512-krDaImQ7J8tm7P+GqKmTIkojNqdO0E6v2x7TOlX/7rRc/zlpoqRXsN7210ecChcUmEOJEH6wzPcemYq+7AfZiw==
 
 react-native-safe-area-context@^5.3.0:
-  version "5.3.0"
-  resolved "https://registry.yarnpkg.com/react-native-safe-area-context/-/react-native-safe-area-context-5.3.0.tgz#272e6786a58aafe3362fde4d3233713b66158179"
-  integrity sha512-glV9bwuozTjf/JDBIBm+ITnukHNaUT3nucgdeADwjtHsfEN3RL5UO6nq99vvdWv5j/O9yCZBvFncM1BBQ+UvpQ==
+  version "5.5.1"
+  resolved "https://registry.yarnpkg.com/react-native-safe-area-context/-/react-native-safe-area-context-5.5.1.tgz#9fac8ae5da8b9ff6f77eb3f697e073f04a1f2f3f"
+  integrity sha512-WYxV+mm7SWuapVWxq2071lkQlDUXjSwcu7Cc2bUtNcF80/Bl0WnuWAZ8+tO46M38PclMrQIIgbv83BvDHJNQ5g==
 
 react-native-screens@^4.10.0:
   version "4.11.1"

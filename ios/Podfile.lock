@@ -1741,7 +1741,7 @@ PODS:
     - react-native-config/App (= 1.5.5)
   - react-native-config/App (1.5.5):
     - React-Core
-  - react-native-mmkv (3.2.0):
+  - react-native-mmkv (3.3.0):
     - boost
     - DoubleConversion
     - fast_float
@@ -2754,7 +2754,7 @@ SPEC CHECKSUMS:
   React-microtasksnativemodule: b3bb72ff82cdcfd534733ccf7b16f282d5878aa4
   react-native-blob-util: 817663486fd0aa4ea70af1c6499fae4ce4eaa680
   react-native-config: 3367df9c1f25bb96197007ec531c7087ed4554c3
-  react-native-mmkv: 741091108aff619e919249dc0ea07dc698669755
+  react-native-mmkv: 2ba423c902f6cae8b4013247721c35a9c09fb23a
   react-native-safe-area-context: c40c5cc47a7dfde915a1fc2016ef3a3781003179
   React-NativeModulesApple: 69f9d6ac5bf8f81a14f2a63f3151cba3e9c24259
   React-oscompat: 114036cd8f064558c9c1a0c04fc9ae5e1453706a

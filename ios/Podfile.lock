@@ -3,60 +3,60 @@ PODS:
   - DoubleConversion (1.1.6)
   - fast_float (8.0.0)
   - FBLazyVector (0.80.1)
-  - Firebase/CoreOnly (11.10.0):
-    - FirebaseCore (~> 11.10.0)
-  - Firebase/Messaging (11.10.0):
+  - Firebase/CoreOnly (11.13.0):
+    - FirebaseCore (~> 11.13.0)
+  - Firebase/Messaging (11.13.0):
     - Firebase/CoreOnly
-    - FirebaseMessaging (~> 11.10.0)
-  - FirebaseCore (11.10.0):
-    - FirebaseCoreInternal (~> 11.10.0)
-    - GoogleUtilities/Environment (~> 8.0)
-    - GoogleUtilities/Logger (~> 8.0)
-  - FirebaseCoreExtension (11.10.0):
-    - FirebaseCore (~> 11.10.0)
-  - FirebaseCoreInternal (11.10.0):
-    - "GoogleUtilities/NSData+zlib (~> 8.0)"
-  - FirebaseInstallations (11.10.0):
-    - FirebaseCore (~> 11.10.0)
-    - GoogleUtilities/Environment (~> 8.0)
-    - GoogleUtilities/UserDefaults (~> 8.0)
+    - FirebaseMessaging (~> 11.13.0)
+  - FirebaseCore (11.13.0):
+    - FirebaseCoreInternal (~> 11.13.0)
+    - GoogleUtilities/Environment (~> 8.1)
+    - GoogleUtilities/Logger (~> 8.1)
+  - FirebaseCoreExtension (11.13.0):
+    - FirebaseCore (~> 11.13.0)
+  - FirebaseCoreInternal (11.13.0):
+    - "GoogleUtilities/NSData+zlib (~> 8.1)"
+  - FirebaseInstallations (11.13.0):
+    - FirebaseCore (~> 11.13.0)
+    - GoogleUtilities/Environment (~> 8.1)
+    - GoogleUtilities/UserDefaults (~> 8.1)
     - PromisesObjC (~> 2.4)
-  - FirebaseMessaging (11.10.0):
-    - FirebaseCore (~> 11.10.0)
+  - FirebaseMessaging (11.13.0):
+    - FirebaseCore (~> 11.13.0)
     - FirebaseInstallations (~> 11.0)
     - GoogleDataTransport (~> 10.0)
-    - GoogleUtilities/AppDelegateSwizzler (~> 8.0)
-    - GoogleUtilities/Environment (~> 8.0)
-    - GoogleUtilities/Reachability (~> 8.0)
-    - GoogleUtilities/UserDefaults (~> 8.0)
+    - GoogleUtilities/AppDelegateSwizzler (~> 8.1)
+    - GoogleUtilities/Environment (~> 8.1)
+    - GoogleUtilities/Reachability (~> 8.1)
+    - GoogleUtilities/UserDefaults (~> 8.1)
     - nanopb (~> 3.30910.0)
   - fmt (11.0.2)
   - glog (0.3.5)
   - GoogleDataTransport (10.1.0):
     - nanopb (~> 3.30910.0)
     - PromisesObjC (~> 2.4)
-  - GoogleUtilities/AppDelegateSwizzler (8.0.2):
+  - GoogleUtilities/AppDelegateSwizzler (8.1.0):
     - GoogleUtilities/Environment
     - GoogleUtilities/Logger
     - GoogleUtilities/Network
     - GoogleUtilities/Privacy
-  - GoogleUtilities/Environment (8.0.2):
+  - GoogleUtilities/Environment (8.1.0):
     - GoogleUtilities/Privacy
-  - GoogleUtilities/Logger (8.0.2):
+  - GoogleUtilities/Logger (8.1.0):
     - GoogleUtilities/Environment
     - GoogleUtilities/Privacy
-  - GoogleUtilities/Network (8.0.2):
+  - GoogleUtilities/Network (8.1.0):
     - GoogleUtilities/Logger
     - "GoogleUtilities/NSData+zlib"
     - GoogleUtilities/Privacy
     - GoogleUtilities/Reachability
-  - "GoogleUtilities/NSData+zlib (8.0.2)":
+  - "GoogleUtilities/NSData+zlib (8.1.0)":
     - GoogleUtilities/Privacy
-  - GoogleUtilities/Privacy (8.0.2)
-  - GoogleUtilities/Reachability (8.0.2):
+  - GoogleUtilities/Privacy (8.1.0)
+  - GoogleUtilities/Reachability (8.1.0):
     - GoogleUtilities/Logger
     - GoogleUtilities/Privacy
-  - GoogleUtilities/UserDefaults (8.0.2):
+  - GoogleUtilities/UserDefaults (8.1.0):
     - GoogleUtilities/Logger
     - GoogleUtilities/Privacy
   - hermes-engine (0.80.1):
@@ -2336,11 +2336,11 @@ PODS:
     - SocketRocket
   - RNDeviceInfo (14.0.4):
     - React-Core
-  - RNFBApp (21.13.0):
-    - Firebase/CoreOnly (= 11.10.0)
+  - RNFBApp (22.2.1):
+    - Firebase/CoreOnly (= 11.13.0)
     - React-Core
-  - RNFBMessaging (21.13.0):
-    - Firebase/Messaging (= 11.10.0)
+  - RNFBMessaging (22.2.1):
+    - Firebase/Messaging (= 11.13.0)
     - FirebaseCoreExtension
     - React-Core
     - RNFBApp
@@ -2706,16 +2706,16 @@ SPEC CHECKSUMS:
   DoubleConversion: cb417026b2400c8f53ae97020b2be961b59470cb
   fast_float: b32c788ed9c6a8c584d114d0047beda9664e7cc6
   FBLazyVector: 09f03e4b6f42f955734b64a118f86509cc719427
-  Firebase: 1fe1c0a7d9aaea32efe01fbea5f0ebd8d70e53a2
-  FirebaseCore: 8344daef5e2661eb004b177488d6f9f0f24251b7
-  FirebaseCoreExtension: 6f357679327f3614e995dc7cf3f2d600bdc774ac
-  FirebaseCoreInternal: ef4505d2afb1d0ebbc33162cb3795382904b5679
-  FirebaseInstallations: 9980995bdd06ec8081dfb6ab364162bdd64245c3
-  FirebaseMessaging: 2b9f56aa4ed286e1f0ce2ee1d413aabb8f9f5cb9
+  Firebase: 3435bc66b4d494c2f22c79fd3aae4c1db6662327
+  FirebaseCore: c692c7f1c75305ab6aff2b367f25e11d73aa8bd0
+  FirebaseCoreExtension: c048485c347616dba6165358dbef765c5197597b
+  FirebaseCoreInternal: 29d7b3af4aaf0b8f3ed20b568c13df399b06f68c
+  FirebaseInstallations: 0ee9074f2c1e86561ace168ee1470dc67aabaf02
+  FirebaseMessaging: 195bbdb73e6ca1dbc76cd46e73f3552c084ef6e4
   fmt: a40bb5bd0294ea969aaaba240a927bd33d878cdd
   glog: 5683914934d5b6e4240e497e0f4a3b42d1854183
   GoogleDataTransport: aae35b7ea0c09004c3797d53c8c41f66f219d6a7
-  GoogleUtilities: 26a3abef001b6533cf678d3eb38fd3f614b7872d
+  GoogleUtilities: 00c88b9a86066ef77f0da2fab05f65d7768ed8e1
   hermes-engine: 4f07404533b808de66cf48ac4200463068d0e95a
   nanopb: fad817b59e0457d11a5dfbde799381cd727c1275
   PromisesObjC: f5707f49cb48b9636751c5b2e7d227e43fba9f47
@@ -2788,8 +2788,8 @@ SPEC CHECKSUMS:
   ReactCodegen: 3c43e79aa0aa13c1a6456a956b23419878213e8d
   ReactCommon: 0148a0eeec41961cfcf43621379bb6140a78caa6
   RNDeviceInfo: feea80a690d2bde1fe51461cf548039258bd03f2
-  RNFBApp: 57aef1ee0e7195a8728f8923bfbc2916298ccb3d
-  RNFBMessaging: 51ca431c76f028c1bc84d889cbe8680133d5e429
+  RNFBApp: df5caad9f64b6bc87f8a0b110e6bc411fb00a12b
+  RNFBMessaging: 6586f18ab3411aeb3349088c19fe54283d39e529
   RNPermissions: 9bf6f4299af843b9ee1ce8625ccb224fedcbd234
   RNScreens: 5ca475eb30f4362c5808f3ff4a1c7b786bcd878e
   SocketRocket: d4aabe649be1e368d1318fdf28a022d714d65748

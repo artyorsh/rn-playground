@@ -4,7 +4,8 @@ import MCIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 export type IconName =
   | 'back'
-  | 'share';
+  | 'share'
+  | 'close';
 
 /**
  * @see https://pictogrammers.com/library/mdi
@@ -12,6 +13,7 @@ export type IconName =
 export const ICON_MAP: Record<IconName, string> = {
   'back': 'arrow-left',
   'share': 'share-variant',
+  'close': 'close',
 };
 
 export interface IconProps extends ViewProps {

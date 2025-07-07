@@ -3,6 +3,7 @@ import { fireEvent, render, waitFor } from '@testing-library/react-native';
 
 import { ISessionService } from '@/auth/session';
 import { ILogService } from '@/log';
+import { IModalService } from '@/modal';
 import { IPushNotificationService } from '@/push-notification';
 import { IRouter } from '@/router';
 import { IUserService } from '@/user';
@@ -18,6 +19,7 @@ describe('Home', () => {
   let sessionService: ISessionService;
   let userService: IUserService;
   let pushNotificationService: IPushNotificationService;
+  let modalService: IModalService;
   let logService: ILogService;
 
   const dataProvider: IHomeAPI = {
@@ -29,6 +31,7 @@ describe('Home', () => {
     sessionService = jest.requireMock('@/auth/session/session.service').SessionService();
     userService = jest.requireMock('@/user/user.service').UserService();
     pushNotificationService = jest.requireMock('@/push-notification/push-notification.service').PushNotificationService();
+    modalService = jest.requireMock('@/modal/modal.service').ModalService();
     logService = jest.requireMock('@/log/log.service').LogService();
 
     vm = new HomeVM(
@@ -36,6 +39,7 @@ describe('Home', () => {
       userService,
       pushNotificationService,
       router,
+      modalService,
       logService,
       dataProvider,
     );
@@ -74,6 +78,7 @@ describe('Home', () => {
       userService,
       pushNotificationService,
       router,
+      modalService,
       logService,
       dataProvider,
     );

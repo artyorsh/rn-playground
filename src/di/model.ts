@@ -4,6 +4,7 @@ export const AppModule = {
   ROUTER: Symbol.for('RouterService'),
   PERMISSION: Symbol.for('PermissionService'),
   PUSH_NOTIFICATION: Symbol.for('PushNotificationService'),
+  MODAL: Symbol.for('ModalService'),
   SESSION: Symbol.for('SessionService'),
   USER: Symbol.for('UserService'),
 

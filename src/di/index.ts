@@ -2,6 +2,7 @@ import { Container } from 'inversify';
 
 import { AuthModule } from '@/auth';
 import { LogModule } from '@/log';
+import { ModalModule } from '@/modal';
 import { PermissionModule } from '@/permission';
 import { PushNotificationModule } from '@/push-notification';
 import { RouterModule } from '@/router';
@@ -17,6 +18,7 @@ container.load(
   RouterModule,
   PermissionModule,
   PushNotificationModule,
+  ModalModule,
   UserModule,
   HomeScreenModule,
 );

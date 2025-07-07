@@ -50,6 +50,7 @@ describe('PostsList', () => {
   beforeEach(() => {
     deps = {
       logger: jest.requireMock('@/log/log.service').LogService(),
+      modalService: jest.requireMock('@/modal/modal.service').ModalService(),
     };
     vm = new PostsListVM([], deps);
   });

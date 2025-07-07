@@ -4,6 +4,7 @@ import { ContainerModule, interfaces } from 'inversify';
 import { AppModule } from '@/di/model';
 import { ISessionService } from '@/auth/session';
 import { ILogService } from '@/log';
+import { IModalService } from '@/modal';
 import { IPushNotificationService } from '@/push-notification';
 import { IRouter } from '@/router';
 import { IUserService } from '@/user';
@@ -24,6 +25,7 @@ const createHomeVM = (context: interfaces.Context): IHomeVM => {
   const sessionService: ISessionService = context.container.get(AppModule.SESSION);
   const userService: IUserService = context.container.get(AppModule.USER);
   const pushNotificationService: IPushNotificationService = context.container.get(AppModule.PUSH_NOTIFICATION);
+  const modalService: IModalService = context.container.get(AppModule.MODAL);
   const logService: ILogService = context.container.get(AppModule.LOG);
 
   return new HomeVM(
@@ -31,6 +33,7 @@ const createHomeVM = (context: interfaces.Context): IHomeVM => {
     userService,
     pushNotificationService,
     router,
+    modalService,
     logService,
     new HomeAPI(),
   );

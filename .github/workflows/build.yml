@@ -48,7 +48,7 @@ jobs:
 
     strategy:
       matrix:
-        platform: [ios, android]
+        platform: [android]
 
     environment: ${{ inputs.environment || 'staging' }}
 

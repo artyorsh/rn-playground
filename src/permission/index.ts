@@ -4,7 +4,7 @@ import { AppModule } from '@/di/model';
 import { ILogService } from '@/log';
 
 import { NotificationPermissionController } from './controller/notification-permission-controller';
-import { PermissionService } from './permission.service';
+import { IPermissionController, PermissionService } from './permission.service';
 
 export type IPermissionId =
   | 'notification';
@@ -30,11 +30,10 @@ export const PermissionModule = new ContainerModule(bind => {
 const createPermissionService = (context: interfaces.Context): IPermissionService => {
   const logService: ILogService = context.container.get(AppModule.LOG);
 
-  const notificationPermissionController = new NotificationPermissionController([
-    'alert',
-    'badge',
-    'sound',
-  ]);
+  const notificationPermissionController: IPermissionController = {
+    isGranted: () => Promise.resolve(true),
+    request: () => Promise.resolve(),
+  };
 
   return new PermissionService(logService, {
     notification: notificationPermissionController,

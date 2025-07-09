@@ -8,7 +8,6 @@ import { IRouter } from '@/router';
 import { NavigationNotificationHandler } from './handlers/navigation-notification-handler';
 import { NotificationRemoveHandler } from './handlers/notification-remove-handler';
 import { IPushNotificationHandler, IPushServiceProvider, PushNotificationService } from './push-notification.service';
-import { RNFBPushServiceProvider } from './rnfb-push-service-provider';
 
 export interface IPushNotificationService {
   /**
@@ -29,10 +28,12 @@ const createPushNotificationService = (context: interfaces.Context): IPushNotifi
   const permissionService: IPermissionService = context.container.get(AppModule.PERMISSION);
   const logService: ILogService = context.container.get(AppModule.LOG);
 
-  const pushServiceProvider: IPushServiceProvider = new RNFBPushServiceProvider({
-    initialNotificationPollInterval: 1000,
-    shouldHandleInitialNotification: () => true,
-  });
+  const pushServiceProvider: IPushServiceProvider = {
+    subscribe: (): void => {/** no-op */},
+    getToken: (): Promise<{ fcm: string | null; apns: string | null }> => {
+      return Promise.resolve({ fcm: null, apns: null });
+    },
+  };
 
   const handlers: IPushNotificationHandler[] = [
     new NavigationNotificationHandler(router),

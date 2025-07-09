@@ -1,4 +1,4 @@
-// import RNFetchBlob, { ReactNativeBlobUtilWriteStream } from 'react-native-blob-util';
+import RNFetchBlob, { ReactNativeBlobUtilWriteStream } from 'react-native-blob-util';
 
 import { ILogOptions, ILogTransporter } from '../log.service';
 

@@ -1,6 +1,3 @@
-import { Platform } from 'react-native';
-// import Config from 'react-native-config';
-// import RNDeviceInfo from 'react-native-device-info';
 import { ContainerModule, interfaces } from 'inversify';
 
 import { AppModule } from '@/di/model';

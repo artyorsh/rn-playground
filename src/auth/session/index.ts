@@ -7,6 +7,7 @@ import { ILogService } from '@/log';
 import { ISessionModule } from './initialzier';
 import { ParallelModuleInitializer } from './initialzier/parallel-module-initializer';
 import { LocalAuthenticationProvider } from './local-auth-provider';
+import { MMKVAuthenticationStorage } from './mmkv-auth-storage';
 import { ISessionInitializer, SessionService } from './session.service';
 
 export interface ISession {
@@ -38,11 +39,9 @@ export const SessionServiceFactory = (context: interfaces.Context): ISessionServ
   return new SessionService({
     tokenRefreshThresholdMinutes: Number(Config.RNAPP_AUTH_TOKEN_REFRESH_THRESHOLD_MINUTES) || 0,
     authenticationProvider: new LocalAuthenticationProvider(),
-    authenticationStorage: {
-      getToken: () => Promise.resolve(null),
-      setToken: () => Promise.resolve(),
-      clear: () => Promise.resolve(),
-    },
+    authenticationStorage: new MMKVAuthenticationStorage({
+      encryptionKey: 'expo-migration',
+    }),
     initializer: sessionInitializer,
     logger: logService,
   });

@@ -1,4 +1,11 @@
 {
   "name": "rnapp",
-  "displayName": "rnapp"
+  "displayName": "rnapp",
+  "newArchEnabled": true,
+  "android": {
+    "package": "com.artyorsh.rnapp"
+  },
+  "ios": {
+    "bundleIdentifier": "com.artyorsh.rnapp"
+  }
 }

@@ -1,6 +1,6 @@
 import React from 'react';
 import { ViewProps } from 'react-native';
-import MCIcon from 'react-native-vector-icons/MaterialCommunityIcons';
+// import MCIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 export type IconName =
   | 'back'

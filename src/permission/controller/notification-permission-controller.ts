@@ -1,4 +1,4 @@
-import { checkNotifications, NotificationOption, openSettings, requestNotifications, RESULTS } from 'react-native-permissions';
+// import { checkNotifications, NotificationOption, openSettings, requestNotifications, RESULTS } from 'react-native-permissions';
 
 import { IPermissionController } from '../permission.service';
 

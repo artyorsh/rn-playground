@@ -1,10 +1,11 @@
 import UIKit
+import Expo
 import React
 import React_RCTAppDelegate
 import ReactAppDependencyProvider
 
 @main
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: ExpoAppDelegate {
   var window: UIWindow?
 
   var reactNativeDelegate: ReactNativeDelegate?
@@ -14,13 +15,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     FirebaseIntegration()
   ]
 
-  func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {
+  override func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {
     let delegate = ReactNativeDelegate()
-    let factory = RCTReactNativeFactory(delegate: delegate)
+    let factory = ExpoReactNativeFactory(delegate: delegate)
     delegate.dependencyProvider = RCTAppDependencyProvider()
 
     reactNativeDelegate = delegate
     reactNativeFactory = factory
+    bindReactNativeFactory(factory)
 
     window = UIWindow(frame: UIScreen.main.bounds)
 
@@ -32,43 +34,43 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     self.integrations.forEach { i in i.app?(application, didFinishLaunchingWithOptions: launchOptions ?? [:]) }
 
-    return true
+    return super.application(application, didFinishLaunchingWithOptions: launchOptions)
   }
 
-  func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
+  override func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
     return self.integrations.reduce(false) { acc, i in
       return i.app?(app, open: url, options: options) ?? acc
     }
   }
 
-  func application(_ application: UIApplication, continue userActivity: NSUserActivity, restorationHandler: @escaping ([UIUserActivityRestoring]?) -> Void) -> Bool {
+  override func application(_ application: UIApplication, continue userActivity: NSUserActivity, restorationHandler: @escaping ([UIUserActivityRestoring]?) -> Void) -> Bool {
     return self.integrations.reduce(false) { acc, i in
       return i.app?(application, continue: userActivity, restorationHandler: restorationHandler) ?? acc
     }
   }
 
-  func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+  override func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
     self.integrations.forEach { i in i.app?(application, didRegisterForNotificationsWithToken: deviceToken) }
   }
 
-  func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
+  override func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
     self.integrations.forEach { i in i.app?(application, didFailToRegisterForNotificationsWithError: error) }
   }
 
-  func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+  override func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
     self.integrations.forEach { i in i.app?(application, didReceiveNotification: userInfo, withHandler: completionHandler) }
   }
 }
 
-class ReactNativeDelegate: RCTDefaultReactNativeFactoryDelegate {
+class ReactNativeDelegate: ExpoReactNativeFactoryDelegate {
   
   override func sourceURL(for bridge: RCTBridge) -> URL? {
-    self.bundleURL()
+    bridge.bundleURL ?? bundleURL()
   }
 
   override func bundleURL() -> URL? {
     #if DEBUG
-      RCTBundleURLProvider.sharedSettings().jsBundleURL(forBundleRoot: "index")
+      RCTBundleURLProvider.sharedSettings().jsBundleURL(forBundleRoot: ".expo/.virtual-metro-entry")
     #else
       Bundle.main.url(forResource: "main", withExtension: "jsbundle")
     #endif

@@ -1,4 +1,5 @@
 import React from 'react';
+import Constants from 'expo-constants';
 
 import { AppModule } from '@/di/model';
 import { IRouter } from '@/router';
@@ -15,6 +16,8 @@ export class App extends React.Component {
     super(props);
     this.router = container.get<IRouter>(AppModule.ROUTER);
     this.modalService = container.get<IModalService>(AppModule.MODAL);
+
+    // console.log(Constants.systemFonts);
   }
 
   public render(): React.ReactElement {

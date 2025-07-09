@@ -1,6 +1,6 @@
-import '@react-native-firebase/messaging';
-import { getApp } from '@react-native-firebase/app';
-import { FirebaseMessagingTypes } from '@react-native-firebase/messaging';
+// import '@react-native-firebase/messaging';
+// import { getApp } from '@react-native-firebase/app';
+// import { FirebaseMessagingTypes } from '@react-native-firebase/messaging';
 
 import { IPushNotification, IPushNotificationHandler, IPushNotificationToken, IPushServiceProvider } from './push-notification.service';
 

@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		3E8B9DC22B8123FD00CF68DD /* MaterialCommunityIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3E8B9DC12B8123FD00CF68DD /* MaterialCommunityIcons.ttf */; };
+		3F743B22AA9CADCD9EA0AA7D /* ExpoModulesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07AEA3CC21D893640B95CE31 /* ExpoModulesProvider.swift */; };
 		7937FE1DC207EEDEB979EB70 /* Pods_rnapp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE36D7AD9AF28F53B9756414 /* Pods_rnapp.framework */; };
 		D56D70486D74F4FF126851F0 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 0E80BBB4006DE5268BE14663 /* PrivacyInfo.xcprivacy */; };
 		F21C1BCC2D9884EC00F1530E /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = F21C1BCA2D9884EC00F1530E /* LaunchScreen.xib */; };
@@ -32,6 +33,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		07AEA3CC21D893640B95CE31 /* ExpoModulesProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExpoModulesProvider.swift; path = "Pods/Target Support Files/Pods-rnapp/ExpoModulesProvider.swift"; sourceTree = "<group>"; };
 		0E80BBB4006DE5268BE14663 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xml; name = PrivacyInfo.xcprivacy; path = rnapp/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* rnapp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = rnapp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = rnapp/Images.xcassets; sourceTree = "<group>"; };
@@ -102,6 +104,7 @@
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				BBD78D7AC51CEA395F1C20DB /* Pods */,
 				F21C1BC92D95A7C900F1530E /* Config.xcconfig */,
+				F0B6DB6FEB189B5D1259D401 /* ExpoModulesProviders */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -123,6 +126,22 @@
 				5709B34CF0A7D63546082F79 /* Pods-rnapp.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		D00645BBFB87F8D04E4A2180 /* rnapp */ = {
+			isa = PBXGroup;
+			children = (
+				07AEA3CC21D893640B95CE31 /* ExpoModulesProvider.swift */,
+			);
+			name = rnapp;
+			sourceTree = "<group>";
+		};
+		F0B6DB6FEB189B5D1259D401 /* ExpoModulesProviders */ = {
+			isa = PBXGroup;
+			children = (
+				D00645BBFB87F8D04E4A2180 /* rnapp */,
+			);
+			name = ExpoModulesProviders;
 			sourceTree = "<group>";
 		};
 		F234DB042DB7DC5F00F87C5A /* firebase */ = {
@@ -152,6 +171,7 @@
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "rnapp" */;
 			buildPhases = (
 				20FD62FB7C4DDC84AA32B86C /* [CP] Check Pods Manifest.lock */,
+				247DDD9E5B2412F8A7A6424B /* [Expo] Configure project */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
@@ -233,7 +253,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "set -e\n\nWITH_ENVIRONMENT=\"../node_modules/react-native/scripts/xcode/with-environment.sh\"\nREACT_NATIVE_XCODE=\"../node_modules/react-native/scripts/react-native-xcode.sh\"\n\n/bin/sh -c \"$WITH_ENVIRONMENT $REACT_NATIVE_XCODE\"\n";
+			shellScript = "if [[ -f \"$PODS_ROOT/../.xcode.env\" ]]; then\n  source \"$PODS_ROOT/../.xcode.env\"\nfi\nif [[ -f \"$PODS_ROOT/../.xcode.env.local\" ]]; then\n  source \"$PODS_ROOT/../.xcode.env.local\"\nfi\n\n# The project root by default is one level up from the ios directory\nexport PROJECT_ROOT=\"$PROJECT_DIR\"/..\n\nif [[ \"$CONFIGURATION\" = *Debug* ]]; then\n  export SKIP_BUNDLING=1\nfi\nif [[ -z \"$ENTRY_FILE\" ]]; then\n  # Set the entry JS file using the bundler's entry resolution.\n  export ENTRY_FILE=\"$(\"$NODE_BINARY\" -e \"require('expo/scripts/resolveAppEntry')\" \"$PROJECT_ROOT\" ios relative | tail -n 1)\"\nfi\n\nif [[ -z \"$CLI_PATH\" ]]; then\n  # Use Expo CLI\n  export CLI_PATH=\"$(\"$NODE_BINARY\" --print \"require.resolve('@expo/cli')\")\"\nfi\nif [[ -z \"$BUNDLE_COMMAND\" ]]; then\n  # Default Expo CLI command for bundling\n  export BUNDLE_COMMAND=\"export:embed\"\nfi\n\n`\"$NODE_BINARY\" --print \"require('path').dirname(require.resolve('react-native/package.json')) + '/scripts/react-native-xcode.sh'\"`\n";
 		};
 		20FD62FB7C4DDC84AA32B86C /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -256,6 +276,25 @@
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
+		};
+		247DDD9E5B2412F8A7A6424B /* [Expo] Configure project */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "[Expo] Configure project";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# This script configures Expo modules and generates the modules provider file.\nbash -l -c \"./Pods/Target\\ Support\\ Files/Pods-rnapp/expo-configure-project.sh\"\n";
 		};
 		A4A8406A2BA0D7C497603388 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -331,6 +370,7 @@
 			files = (
 				F27088262DA976DA00C953D4 /* AppDelegate.swift in Sources */,
 				F234DB082DB7DC5F00F87C5A /* FirebaseIntegration.swift in Sources */,
+				3F743B22AA9CADCD9EA0AA7D /* ExpoModulesProvider.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -362,6 +402,7 @@
 				ENABLE_BITCODE = NO;
 				FIREBASE_CONFIG_FILE = "GoogleService-Info-Staging.plist";
 				INFOPLIST_FILE = rnapp/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -372,6 +413,7 @@
 					"-ObjC",
 					"-lc++",
 				);
+				OTHER_SWIFT_FLAGS = "$(inherited) -D EXPO_CONFIGURATION_DEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = "$(RNAPP_APP_ID).staging";
 				PRODUCT_NAME = rnapp;
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -394,6 +436,7 @@
 				DEVELOPMENT_TEAM = "";
 				FIREBASE_CONFIG_FILE = "GoogleService-Info-Production.plist";
 				INFOPLIST_FILE = rnapp/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -404,6 +447,7 @@
 					"-ObjC",
 					"-lc++",
 				);
+				OTHER_SWIFT_FLAGS = "$(inherited) -D EXPO_CONFIGURATION_RELEASE";
 				PRODUCT_BUNDLE_IDENTIFIER = "$(RNAPP_APP_ID)";
 				"PRODUCT_BUNDLE_IDENTIFIER[sdk=iphoneos*]" = "$(RNAPP_APP_ID)";
 				PRODUCT_NAME = rnapp;

@@ -1,6 +1,6 @@
 import { Platform } from 'react-native';
-import Config from 'react-native-config';
-import RNDeviceInfo from 'react-native-device-info';
+// import Config from 'react-native-config';
+// import RNDeviceInfo from 'react-native-device-info';
 import { ContainerModule, interfaces } from 'inversify';
 
 import { AppModule } from '@/di/model';
@@ -36,13 +36,13 @@ export const LogModule = new ContainerModule(bind => {
 });
 
 const createLogger = (_context: interfaces.Context): ILogService => {
-  const grafanaAppId: string = `rnapp_${Platform.OS}_${Config.RNAPP_ENV_NAME}`;
+  // const grafanaAppId: string = `rnapp_${Platform.OS}_${Config.RNAPP_ENV_NAME}`;
 
-  const deviceName: string = RNDeviceInfo.getDeviceNameSync();
-  const deviceModel: string = RNDeviceInfo.getModel();
-  const deviceBrand: string = RNDeviceInfo.getBrand();
-  const systemVersion: string = RNDeviceInfo.getSystemVersion();
-  const appVersion: string = RNDeviceInfo.getVersion();
+  // const deviceName: string = RNDeviceInfo.getDeviceNameSync();
+  // const deviceModel: string = RNDeviceInfo.getModel();
+  // const deviceBrand: string = RNDeviceInfo.getBrand();
+  // const systemVersion: string = RNDeviceInfo.getSystemVersion();
+  // const appVersion: string = RNDeviceInfo.getVersion();
 
   const consoleTransporter: ILogTransporter = new ConsoleLogTransporter();
   const fileTransporter: ILogTransporter = new FileLogTransporter('app.log');
@@ -52,9 +52,9 @@ const createLogger = (_context: interfaces.Context): ILogService => {
 
   return new LogService({
     defaultLabels: {
-      app: grafanaAppId,
-      version: appVersion,
-      runtime: `${deviceName}/${Platform.OS}/${systemVersion}/${deviceBrand}/${deviceModel}`,
+      // app: grafanaAppId,
+      // version: appVersion,
+      // runtime: `${deviceName}/${Platform.OS}/${systemVersion}/${deviceBrand}/${deviceModel}`,
     },
     transporters: [consoleTransporter, fileTransporter, grafanaTransporter],
   });

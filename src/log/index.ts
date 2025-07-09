@@ -1,3 +1,6 @@
+import { Platform } from 'react-native';
+import * as Application from 'expo-application';
+import * as Device from 'expo-device';
 import { ContainerModule, interfaces } from 'inversify';
 
 import { AppModule } from '@/di/model';
@@ -33,26 +36,30 @@ export const LogModule = new ContainerModule(bind => {
 });
 
 const createLogger = (_context: interfaces.Context): ILogService => {
-  // const grafanaAppId: string = `rnapp_${Platform.OS}_${Config.RNAPP_ENV_NAME}`;
+  const grafanaAppId: string = `rnapp_${Platform.OS}_${process.env.EXPO_PUBLIC_RNAPP_ENV_NAME}`;
 
-  // const deviceName: string = RNDeviceInfo.getDeviceNameSync();
-  // const deviceModel: string = RNDeviceInfo.getModel();
-  // const deviceBrand: string = RNDeviceInfo.getBrand();
-  // const systemVersion: string = RNDeviceInfo.getSystemVersion();
-  // const appVersion: string = RNDeviceInfo.getVersion();
+  const deviceName: string = Device.deviceName;
+  const deviceModel: string = Device.modelName;
+  const deviceBrand: string = Device.brand;
+  const systemVersion: string = Device.osVersion;
+  const appVersion: string = `${Application.nativeApplicationVersion} (${Application.nativeBuildVersion})`;
 
   const consoleTransporter: ILogTransporter = new ConsoleLogTransporter();
-  const fileTransporter: ILogTransporter = new FileLogTransporter('app.log');
-  const grafanaTransporter: ILogTransporter = new GrafanaLogTransporter({
-    hostUrl: Config.RNAPP_GRAFANA_HOST || '',
-  });
+  // const fileTransporter: ILogTransporter = new FileLogTransporter('app.log');
+  // const grafanaTransporter: ILogTransporter = new GrafanaLogTransporter({
+  //   hostUrl: process.env.EXPO_PUBLIC_RNAPP_GRAFANA_HOST || '',
+  // });
 
   return new LogService({
     defaultLabels: {
-      // app: grafanaAppId,
-      // version: appVersion,
-      // runtime: `${deviceName}/${Platform.OS}/${systemVersion}/${deviceBrand}/${deviceModel}`,
+      app: grafanaAppId,
+      version: appVersion,
+      runtime: `${deviceName}/${Platform.OS}/${systemVersion}/${deviceBrand}/${deviceModel}`,
     },
-    transporters: [consoleTransporter, fileTransporter, grafanaTransporter],
+    transporters: [
+      consoleTransporter,
+      // fileTransporter,
+      // grafanaTransporter,
+    ],
   });
 };

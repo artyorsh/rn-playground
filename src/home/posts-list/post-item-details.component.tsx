@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 
+import { Button } from '@/components/button.component';
 import { IconButton } from '@/components/icon-button.component';
 import { Text } from '@/components/text.component';
 
@@ -8,10 +9,11 @@ import { IPost } from './model';
 
 interface Props {
   post: IPost;
-  onRequestClose(): void;
+  markHidden(): void;
+  close(): void;
 }
 
-export const PostItemDetails: React.FC<Props> = ({ post, onRequestClose }) => (
+export const PostItemDetails: React.FC<Props> = ({ post, markHidden, close: onRequestClose }) => (
   <View style={styles.container}>
     <IconButton
       style={styles.closeButton}
@@ -26,6 +28,11 @@ export const PostItemDetails: React.FC<Props> = ({ post, onRequestClose }) => (
     <Text style={[styles.text, styles.body]}>
       {post.body}
     </Text>
+    <Button
+      style={styles.removeButton}
+      title='Remove from Feed'
+      onPress={() => markHidden()}
+    />
   </View>
 );
 
@@ -38,6 +45,9 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 12,
     right: 12,
+  },
+  removeButton: {
+    marginTop: 24,
   },
   text: {
     color: 'white',

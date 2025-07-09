@@ -1,4 +1,4 @@
-import { computed } from 'mobx';
+import { computed, makeObservable, observable } from 'mobx';
 
 import { ILogService } from '@/log';
 import { IModalService, PresentationType } from '@/modal';
@@ -18,7 +18,11 @@ export class PostsListVM implements IPostsListVM {
   private modalService: IModalService;
   private logger: ILogService;
 
-  constructor(private data: IPost[], options: IPostsListOptions) {
+  @observable private data: IPost[];
+
+  constructor(data: IPost[], options: IPostsListOptions) {
+    makeObservable(this);
+    this.data = data;
     this.modalService = options.modalService;
     this.logger = options.logger;
   }
@@ -43,12 +47,22 @@ export class PostsListVM implements IPostsListVM {
     return this.modalService.show(controller => (
       <PostItemDetails
         post={post}
-        onRequestClose={() => {
+        markHidden={() => {
+          this.logger.info('PostsListVM', `markHidden: ${post.id}`);
+          this.removePost(post);
+          controller.resolve();
+        }}
+        close={() => {
           this.logger.info('PostsListVM', `onRequestClose: ${post.id}`);
 
           return controller.resolve();
         }}
       />
     ), PresentationType.BOTTOM_SHEET);
+  };
+
+  private removePost = (post: IPost): void => {
+    this.logger.info('PostsListVM', `removePost: ${post.id}`);
+    this.data = this.data.filter(p => p.id !== post.id);
   };
 }

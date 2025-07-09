@@ -1,8 +1,6 @@
 import { computed, makeAutoObservable, observable } from 'mobx';
 
 import { ISessionService } from '@/auth/session';
-import { ILogService } from '@/log';
-import { IModalService } from '@/modal';
 import { IPushNotificationService } from '@/push-notification';
 import { INavigationLifecycleListener, IRouter } from '@/router';
 import { IUserService } from '@/user';
@@ -10,7 +8,6 @@ import { IUserService } from '@/user';
 import { IHomeVM } from './home.component';
 import { IPost } from './posts-list/model';
 import { IPostsListVM } from './posts-list/posts-list.component';
-import { PostsListVM } from './posts-list/posts-list.vm';
 import { IWelcomeHeaderVM } from './welcome-header/welcome-header.component';
 
 export interface IHomeAPI {
@@ -38,9 +35,8 @@ export class HomeVM implements IHomeVM, INavigationLifecycleListener {
     private userService: IUserService,
     private pushNotificationService: IPushNotificationService,
     private router: IRouter,
-    private modalService: IModalService,
-    private logService: ILogService,
     private api: IHomeAPI,
+    private createPostsList: (posts: IPost[]) => IPostsListVM,
   ) {
 
     router.subscribe('/home', this);
@@ -49,10 +45,7 @@ export class HomeVM implements IHomeVM, INavigationLifecycleListener {
 
   public onFocus = async (): Promise<void> => {
     const posts = await this.api.getPosts();
-    this.posts = new PostsListVM(posts, { 
-      logger: this.logService,
-      modalService: this.modalService,
-    });
+    this.posts = this.createPostsList(posts);
   };
 
   public onBlur = (): void => {

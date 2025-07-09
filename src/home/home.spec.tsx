@@ -11,6 +11,10 @@ import { IUserService } from '@/user';
 import { Home, IHomeVM } from './home.component';
 import { IHomeAPI } from './home.vm';
 import { HomeVM } from './home.vm';
+import { PostDetailsPresenter } from './post-details/post-details-presenter';
+import { IPost } from './posts-list/model';
+import { IPostsListVM } from './posts-list/posts-list.component';
+import { PostsListVM } from './posts-list/posts-list.vm';
 
 describe('Home', () => {
 
@@ -26,6 +30,12 @@ describe('Home', () => {
     getPosts: jest.fn(() => Promise.resolve([])),
   };
 
+  const createPostsListVM = (posts: IPost[]): IPostsListVM => new PostsListVM(
+    posts,
+    new PostDetailsPresenter(modalService),
+    logService,
+  );
+
   beforeEach(() => {
     router = jest.requireMock('@/router/react-navigation/react-navigation-router').RouterService();
     sessionService = jest.requireMock('@/auth/session/session.service').SessionService();
@@ -39,9 +49,8 @@ describe('Home', () => {
       userService,
       pushNotificationService,
       router,
-      modalService,
-      logService,
       dataProvider,
+      posts => createPostsListVM(posts),
     );
   });
 
@@ -78,9 +87,8 @@ describe('Home', () => {
       userService,
       pushNotificationService,
       router,
-      modalService,
-      logService,
       dataProvider,
+      posts => createPostsListVM(posts),
     );
 
     const api = render(<Home vm={vm} />);

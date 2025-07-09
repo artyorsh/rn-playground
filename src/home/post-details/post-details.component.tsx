@@ -5,7 +5,7 @@ import { Button } from '@/components/button.component';
 import { IconButton } from '@/components/icon-button.component';
 import { Text } from '@/components/text.component';
 
-import { IPost } from './model';
+import { IPost } from '../posts-list/model';
 
 interface Props {
   post: IPost;
@@ -13,7 +13,7 @@ interface Props {
   close(): void;
 }
 
-export const PostItemDetails: React.FC<Props> = ({ post, markHidden, close: onRequestClose }) => (
+export const PostDetails: React.FC<Props> = ({ post, markHidden, close: onRequestClose }) => (
   <View style={styles.container}>
     <IconButton
       style={styles.closeButton}

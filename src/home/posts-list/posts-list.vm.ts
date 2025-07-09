@@ -1,11 +1,10 @@
 import { computed, makeObservable, observable } from 'mobx';
 
 import { ILogService } from '@/log';
-import { IModalService, PresentationType } from '@/modal';
+import { IModalService } from '@/modal';
 
 import { IPost } from './model';
 import { IPostVM } from './post-item.component';
-import { PostItemDetails } from './post-item-details.component';
 import { IPostsListVM } from './posts-list.component';
 
 export interface IPostsListOptions {
@@ -13,18 +12,31 @@ export interface IPostsListOptions {
   logger: ILogService;
 }
 
+export interface IPostDetailsPresenter {
+  viewDetails(post: IPost, callbacks: IPostDetailsCallbacks): void;
+}
+
+export interface IPostDetailsCallbacks {
+  markHidden(post: IPost): void;
+}
+
 export class PostsListVM implements IPostsListVM {
 
-  private modalService: IModalService;
+  private detailsPresenter: IPostDetailsPresenter;
   private logger: ILogService;
 
   @observable private data: IPost[];
 
-  constructor(data: IPost[], options: IPostsListOptions) {
+  constructor(
+    data: IPost[],
+    detailsPresenter: IPostDetailsPresenter,
+    logger: ILogService,
+  ) {
     makeObservable(this);
+
     this.data = data;
-    this.modalService = options.modalService;
-    this.logger = options.logger;
+    this.detailsPresenter = detailsPresenter;
+    this.logger = logger;
   }
 
   @computed public get posts(): IPostVM[] {
@@ -41,28 +53,17 @@ export class PostsListVM implements IPostsListVM {
     };
   };
 
-  private viewPostDetails = (post: IPost): Promise<string> => {
+  private viewPostDetails = (post: IPost): void => {
     this.logger.info('PostsListVM', `viewPostDetails: ${post.id}`);
 
-    return this.modalService.show(controller => (
-      <PostItemDetails
-        post={post}
-        markHidden={() => {
-          this.logger.info('PostsListVM', `markHidden: ${post.id}`);
-          this.removePost(post);
-          controller.resolve();
-        }}
-        close={() => {
-          this.logger.info('PostsListVM', `onRequestClose: ${post.id}`);
-
-          return controller.resolve();
-        }}
-      />
-    ), PresentationType.BOTTOM_SHEET);
+    this.detailsPresenter.viewDetails(post, {
+      markHidden: (_post: IPost) => this.removePost(post),
+    });
   };
 
   private removePost = (post: IPost): void => {
     this.logger.info('PostsListVM', `removePost: ${post.id}`);
+
     this.data = this.data.filter(p => p.id !== post.id);
   };
 }

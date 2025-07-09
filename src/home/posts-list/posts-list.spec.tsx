@@ -1,10 +1,12 @@
 import React from 'react';
 import { fireEvent, render } from '@testing-library/react-native';
 
+import { ILogService } from '@/log';
+
 import { PostItem } from './post-item.component';
 import { IPostVM } from './post-item.component';
 import { IPostsListVM, PostsList } from './posts-list.component';
-import { IPostsListOptions, PostsListVM } from './posts-list.vm';
+import { IPostDetailsPresenter, PostsListVM } from './posts-list.vm';
 
 describe('PostItem', () => {
   let vm: IPostVM;
@@ -45,24 +47,39 @@ describe('PostItem', () => {
 describe('PostsList', () => {
 
   let vm: IPostsListVM;
-  let deps: IPostsListOptions;
+  let logger: ILogService;
+
+  const presenter: IPostDetailsPresenter = {
+    viewDetails: jest.fn(),
+  };
 
   beforeEach(() => {
-    deps = {
-      logger: jest.requireMock('@/log/log.service').LogService(),
-      modalService: jest.requireMock('@/modal/modal.service').ModalService(),
-    };
-    vm = new PostsListVM([], deps);
+    logger = jest.requireMock('@/log/log.service').LogService();
+    vm = new PostsListVM([], presenter, logger);
   });
 
   it('should render given number of posts', () => {
     vm = new PostsListVM([
       { id: '1', title: 'Post 1', body: 'Body 1', image_url: 'https://' },
       { id: '2', title: 'Post 2', body: 'Body 2', image_url: 'https://' },
-    ], deps);
+    ], presenter, logger);
 
     const api = render(<PostsList vm={vm} />);
 
     expect(api.getAllByTestId('post-item')).toHaveLength(2);
+  });
+
+  it('should invoke presenter#viewDetails when item pressed', () => {
+    vm = new PostsListVM([
+      { id: '1', title: 'Post 1', body: 'Body 1', image_url: 'https://' },
+      { id: '2', title: 'Post 2', body: 'Body 2', image_url: 'https://' },
+    ], presenter, logger);
+
+    const api = render(<PostsList vm={vm} />);
+
+    const firstPost = api.getAllByTestId('post-item')[0];
+    fireEvent.press(firstPost);
+
+    expect(presenter.viewDetails).toHaveBeenCalled();
   });
 });

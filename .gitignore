@@ -75,3 +75,6 @@ buck-out/
 .expo
 dist/
 web-build/
+# CNG
+android
+ios

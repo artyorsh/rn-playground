@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "android": "expo run:android --mode stagingDebug",
-    "ios": "expo run:ios --scheme Staging --no-install",
+    "ios": "expo run:ios",
     "lint": "eslint ./src --cache",
     "build": "tsc -p ./tsconfig.json",
     "start": "expo start",
@@ -19,6 +19,7 @@
     "core-js": "~3.24.0",
     "expo": "~53.0.0",
     "expo-application": "~6.1.5",
+    "expo-build-properties": "~0.14.8",
     "expo-constants": "~17.1.7",
     "expo-device": "~7.1.4",
     "expo-secure-store": "~14.2.3",

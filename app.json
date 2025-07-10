@@ -3,12 +3,24 @@
   "displayName": "rnapp",
   "newArchEnabled": true,
   "android": {
-    "package": "com.artyorsh.rnapp"
+    "package": "com.artyorsh.rnapp",
+    "googleServicesFile": "./google-services.json"
   },
   "ios": {
-    "bundleIdentifier": "com.artyorsh.rnapp"
+    "bundleIdentifier": "com.artyorsh.rnapp",
+    "googleServicesFile": "./GoogleService-Info.plist"
   },
   "plugins": [
-    "expo-secure-store"
+    "expo-secure-store",
+    "@react-native-firebase/app",
+    "@react-native-firebase/messaging",
+    [
+      "expo-build-properties",
+      {
+        "ios": {
+          "useFrameworks": "static"
+        }
+      }
+    ]
   ]
 }

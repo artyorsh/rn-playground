@@ -8,7 +8,6 @@ import { AppModule } from '@/di/model';
 import { ILogTransporter, LogService } from './log.service';
 import { ConsoleLogTransporter } from './transporters/console-log-transporter';
 import { FileLogTransporter } from './transporters/file-log-transporter';
-import { GrafanaLogTransporter } from './transporters/grafana-log-transporter';
 
 export type ILogLevel =
  | 'debug'
@@ -45,12 +44,13 @@ const createLogger = (_context: interfaces.Context): ILogService => {
   const appVersion: string = `${Application.nativeApplicationVersion} (${Application.nativeBuildVersion})`;
 
   const consoleTransporter: ILogTransporter = new ConsoleLogTransporter();
-  // const fileTransporter: ILogTransporter = new FileLogTransporter('app.log');
+  const fileTransporter: ILogTransporter = new FileLogTransporter('app-1.log');
   // const grafanaTransporter: ILogTransporter = new GrafanaLogTransporter({
   //   hostUrl: process.env.EXPO_PUBLIC_RNAPP_GRAFANA_HOST || '',
   // });
 
   return new LogService({
+    flushInterval: 10_000,
     defaultLabels: {
       app: grafanaAppId,
       version: appVersion,
@@ -58,7 +58,7 @@ const createLogger = (_context: interfaces.Context): ILogService => {
     },
     transporters: [
       consoleTransporter,
-      // fileTransporter,
+      fileTransporter,
       // grafanaTransporter,
     ],
   });

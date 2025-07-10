@@ -1,4 +1,3 @@
-import Config from 'react-native-config';
 import { interfaces } from 'inversify';
 
 import { AppModule } from '@/di/model';

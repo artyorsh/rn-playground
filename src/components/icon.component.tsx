@@ -1,5 +1,6 @@
 import React from 'react';
 import { ViewProps } from 'react-native';
+import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 
 export type IconName =
   | 'back'
@@ -7,11 +8,11 @@ export type IconName =
   | 'close';
 
 /**
- * @see https://pictogrammers.com/library/mdi
+ * @see https://icons.expo.fyi
  */
 export const ICON_MAP: Record<IconName, string> = {
-  'back': 'arrow-left',
-  'share': 'share-variant',
+  'back': 'arrow-back',
+  'share': 'share',
   'close': 'close',
 };
 
@@ -19,4 +20,10 @@ export interface IconProps extends ViewProps {
   name: IconName;
 }
 
-export const Icon: React.FC<IconProps> = ({ name, ...props }) => null;
+export const Icon: React.FC<IconProps> = ({ name, ...props }) => (
+  <MaterialIcons
+    {...props}
+    name={ICON_MAP[name]}
+    size={24}
+  />
+);

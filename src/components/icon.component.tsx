@@ -1,29 +1,17 @@
 import React from 'react';
-import { ViewProps } from 'react-native';
+import { IconProps as ExpoIconProps } from '@expo/vector-icons/build/createIconSet';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 
-export type IconName =
-  | 'back'
-  | 'share'
-  | 'close';
+export type IconName = keyof typeof Icons;
+export type IconProps = Omit<ExpoIconProps<any>, 'name'>;
+
+const IconComponent = MaterialIcons;
 
 /**
  * @see https://icons.expo.fyi
  */
-export const ICON_MAP: Record<IconName, string> = {
-  'back': 'arrow-back',
-  'share': 'share',
-  'close': 'close',
+export const Icons = {
+  Back: (props: IconProps) => React.createElement(IconComponent, { ...props, name: 'arrow-back' }),
+  Close: (props: IconProps) => React.createElement(IconComponent, { ...props, name: 'close' }),
+  Share: (props: IconProps) => React.createElement(IconComponent, { ...props, name: 'share' }),
 };
-
-export interface IconProps extends ViewProps {
-  name: IconName;
-}
-
-export const Icon: React.FC<IconProps> = ({ name, ...props }) => (
-  <MaterialIcons
-    {...props}
-    name={ICON_MAP[name]}
-    size={24}
-  />
-);

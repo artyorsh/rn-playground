@@ -10,8 +10,10 @@ export default ({ config }: ConfigContext): ExpoConfig => {
     newArchEnabled: true,
     android: {
       ...config.android,
-      package: bundleIdentifier,
+      edgeToEdgeEnabled: true,
       googleServicesFile: './google-services.json',
+      package: bundleIdentifier,
+      permissions: ['android.permission.POST_NOTIFICATIONS'],
     },
     ios: {
       ...config.ios,

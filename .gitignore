@@ -70,3 +70,11 @@ buck-out/
 **/Pods/
 
 .eslintcache
+
+# Expo
+.expo
+dist/
+web-build/
+# CNG
+android
+ios

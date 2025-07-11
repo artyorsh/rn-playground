@@ -1,7 +1,6 @@
 import { ISession } from '@/auth/session';
 import { ISessionModule } from '@/auth/session/initialzier';
 import { ILogService } from '@/log';
-import { IPermissionService } from '@/permission';
 
 import { IPushNotificationService } from '.';
 
@@ -38,21 +37,26 @@ export interface IPushServiceProvider {
   getToken(): Promise<IPushNotificationToken>;
 }
 
+export interface IPushPermissionController {
+  isGranted(): Promise<boolean>;
+  request(): Promise<void>;
+}
+
 export class PushNotificationService implements IPushNotificationService, IPushNotificationHandler, ISessionModule {
 
   public readonly moduleIdentifier: string = PushNotificationService.name;
 
   constructor(
     private provider: IPushServiceProvider,
+    private permissionController: IPushPermissionController,
     private handlers: IPushNotificationHandler[],
-    private permissionService: IPermissionService,
     private logService: ILogService,
   ) {
     this.provider.subscribe(this);
   }
 
   public authorize = (): Promise<void> => {
-    return this.permissionService.request('notification').then(() => {
+    return this.permissionController.request().then(() => {
       return this.provider.getToken().then(token => {
         this.logService.debug('PushNotificationService', `registered token: ${JSON.stringify(token, null, 2)}`);
       });
@@ -89,7 +93,7 @@ export class PushNotificationService implements IPushNotificationService, IPushN
   // ISessionInitializer
 
   public initialize = (_session: ISession): Promise<void> => {
-    return this.permissionService.isGranted('notification').then(granted => {
+    return this.permissionController.isGranted().then(granted => {
       if (granted) {
         return this.authorize();
       }

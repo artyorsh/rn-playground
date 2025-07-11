@@ -1,8 +1,8 @@
-import { IModalService, PresentationType } from "@/modal";
+import { IModalService, PresentationType } from '@/modal';
 
-import { IPost } from "../posts-list/model";
-import { IPostDetailsCallbacks, IPostDetailsPresenter } from "../posts-list/posts-list.vm";
-import { PostDetails } from "./post-details.component";
+import { IPost } from '../posts-list/model';
+import { IPostDetailsCallbacks, IPostDetailsPresenter } from '../posts-list/posts-list.vm';
+import { PostDetails } from './post-details.component';
 
 export class PostDetailsPresenter implements IPostDetailsPresenter {
 

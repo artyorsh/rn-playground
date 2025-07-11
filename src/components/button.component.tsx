@@ -2,7 +2,7 @@ import React from 'react';
 import { TouchableOpacityProps } from 'react-native';
 import { Button as RNPButton } from 'react-native-paper';
 
-import { Icon, IconName } from './icon.component';
+import { IconName, Icons } from './icon.component';
 
 export interface ButtonProps extends TouchableOpacityProps {
   type?:
@@ -18,17 +18,20 @@ type RNPButtonProps = React.ComponentProps<typeof RNPButton>;
 
 export const Button: React.FC<ButtonProps> = ({ title, icon, ...props }) => {
 
-  const renderIcon = (iconProps: RNPIconProps): React.ReactElement => (
-    <Icon
-      {...iconProps}
-      name={icon as IconName}
-    />
-  );
+  const renderIcon = (iconProps: RNPIconProps): React.ReactElement => {
+    const IconComponent = Icons[icon as IconName];
+
+    return (
+      <IconComponent
+        {...iconProps}
+      />
+    );
+  };
 
   return (
     <RNPButton
       {...props as RNPButtonProps}
-      icon={renderIcon}>
+      icon={icon && renderIcon}>
       {title}
     </RNPButton>
   );

@@ -17,7 +17,7 @@ export const PostDetails: React.FC<Props> = ({ post, markHidden, close: onReques
   <View style={styles.container}>
     <IconButton
       style={styles.closeButton}
-      icon='close'
+      icon='Close'
       onPress={() => onRequestClose()}
     />
     <Text

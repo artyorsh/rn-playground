@@ -26,6 +26,12 @@ export default ({ config }: ConfigContext): ExpoConfig => {
         projectId: '9fe3a870-cac3-4d43-a6a3-a291cd5fb90c',
       },
     },
+    updates: {
+      url: 'https://u.expo.dev/9fe3a870-cac3-4d43-a6a3-a291cd5fb90c',
+    },
+    runtimeVersion: {
+      policy: 'appVersion',
+    },
     plugins: [
       'expo-secure-store',
       '@react-native-firebase/app',

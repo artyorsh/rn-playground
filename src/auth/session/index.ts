@@ -36,7 +36,7 @@ export const SessionServiceFactory = (context: interfaces.Context): ISessionServ
   });
 
   return new SessionService({
-    tokenRefreshThresholdMinutes: Number(process.env.EXPO_PUBLIC_RNAPP_AUTH_TOKEN_REFRESH_THRESHOLD_MINUTES) || 0,
+    tokenRefreshThresholdMinutes: Number(process.env.EXPO_PUBLIC_AUTH_TOKEN_REFRESH_THRESHOLD_MINUTES) || 0,
     authenticationProvider: new LocalAuthenticationProvider(),
     authenticationStorage: new SecureAuthStorage(),
     initializer: sessionInitializer,

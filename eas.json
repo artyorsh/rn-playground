@@ -1,0 +1,25 @@
+{
+  "cli": {
+    "version": ">= 16.15.0",
+    "appVersionSource": "remote"
+  },
+  "build": {
+    "preview": {
+      "distribution": "internal",
+      "env": {
+        "BUNDLE_IDENTIFIER": "com.artyorshbckp.rnapp.preview",
+        "IOS_APS_ENVIRONMENT": "development"
+      }
+    },
+    "production": {
+      "distribution": "internal",
+      "env": {
+        "BUNDLE_IDENTIFIER": "com.artyorshbckp.rnapp",
+        "IOS_APS_ENVIRONMENT": "production"
+      }
+    }
+  },
+  "submit": {
+    "production": {}
+  }
+}

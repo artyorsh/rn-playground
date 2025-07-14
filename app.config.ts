@@ -1,27 +1,30 @@
 import { ConfigContext, ExpoConfig } from 'expo/config';
 
 export default ({ config }: ConfigContext): ExpoConfig => {
-  const bundleIdentifier: string = process.env.RNAPP_APP_ID;
-
   return {
     ...config,
-    name: 'rnapp',
+    name: process.env.APP_NAME,
     slug: 'rnapp',
     newArchEnabled: true,
     android: {
       ...config.android,
       edgeToEdgeEnabled: true,
       googleServicesFile: './google-services.json',
-      package: bundleIdentifier,
+      package: process.env.BUNDLE_IDENTIFIER,
       permissions: ['android.permission.POST_NOTIFICATIONS'],
     },
     ios: {
       ...config.ios,
-      bundleIdentifier: bundleIdentifier,
+      bundleIdentifier: process.env.BUNDLE_IDENTIFIER,
       entitlements: {
-        'aps-environment': 'development',
+        'aps-environment': process.env.NOTIFICATIONS_IOS_APS_ENVIRONMENT,
       },
       googleServicesFile: './GoogleService-Info.plist',
+    },
+    extra: {
+      eas: {
+        projectId: '9fe3a870-cac3-4d43-a6a3-a291cd5fb90c',
+      },
     },
     plugins: [
       'expo-secure-store',

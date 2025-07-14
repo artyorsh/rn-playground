@@ -35,7 +35,7 @@ export const LogModule = new ContainerModule(bind => {
 });
 
 const createLogger = (_context: interfaces.Context): ILogService => {
-  const grafanaAppId: string = `rnapp_${Platform.OS}_${process.env.EXPO_PUBLIC_RNAPP_ENV_NAME}`;
+  const grafanaAppId: string = `rnapp_${Platform.OS}_${process.env.EXPO_PUBLIC_ENV_NAME}`;
 
   const deviceName: string = Device.deviceName;
   const deviceModel: string = Device.modelName;
@@ -46,7 +46,7 @@ const createLogger = (_context: interfaces.Context): ILogService => {
   const consoleTransporter: ILogTransporter = new ConsoleLogTransporter();
   const fileTransporter: ILogTransporter = new FileLogTransporter('app-1.log');
   // const grafanaTransporter: ILogTransporter = new GrafanaLogTransporter({
-  //   hostUrl: process.env.EXPO_PUBLIC_RNAPP_GRAFANA_HOST || '',
+  //   hostUrl: process.env.EXPO_PUBLIC_GRAFANA_HOST || '',
   // });
 
   return new LogService({

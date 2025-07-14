@@ -1,0 +1,43 @@
+name: Validate and create preview
+
+on:
+  pull_request:
+    branches:
+      - main
+    types:
+      - opened
+      - synchronize
+      - ready_for_review
+
+env:
+  EXPO_EAS_VERSION: latest
+
+jobs:
+
+  validate:
+    name: Validate and create preview
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - uses: expo/expo-github-action@v8
+        with:
+          eas-version: ${{ env.EXPO_EAS_VERSION }}
+          token: ${{ secrets.EXPO_TOKEN }}
+
+      - name: Install node modules
+        run: yarn
+
+      - run: yarn lint
+      - run: yarn build
+      - run: yarn test --ci --silent
+
+      - name: Create preview
+        uses: expo/expo-github-action/preview@v8
+        with:
+          command: eas update --auto --branch ${{ github.event.pull_request.head.ref }}

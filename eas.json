@@ -5,18 +5,10 @@
   },
   "build": {
     "preview": {
-      "distribution": "internal",
-      "env": {
-        "BUNDLE_IDENTIFIER": "com.artyorshbckp.rnapp.preview",
-        "IOS_APS_ENVIRONMENT": "development"
-      }
+      "distribution": "internal"
     },
     "production": {
-      "distribution": "internal",
-      "env": {
-        "BUNDLE_IDENTIFIER": "com.artyorshbckp.rnapp",
-        "IOS_APS_ENVIRONMENT": "production"
-      }
+      "distribution": "internal"
     }
   },
   "submit": {

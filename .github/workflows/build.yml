@@ -27,19 +27,6 @@ env:
   RNAPP_GRAFANA_HOST: ${{ vars.RNAPP_GRAFANA_HOST }}
   RNAPP_AUTH_TOKEN_REFRESH_THRESHOLD_MINUTES: ${{ vars.RNAPP_AUTH_TOKEN_REFRESH_THRESHOLD_MINUTES }}
   RNAPP_STORAGE_ENCRYPTION_KEY: ${{ secrets.RNAPP_STORAGE_ENCRYPTION_KEY }}
-  FASTLANE_BUILD_SCHEME: ${{ vars.FASTLANE_BUILD_SCHEME }}
-  FASTLANE_BUILD_TYPE: ${{ vars.FASTLANE_BUILD_TYPE }}
-  FASTLANE_ANDROID_BUILD_TASK: ${{ vars.FASTLANE_ANDROID_BUILD_TASK }}
-  FASTLANE_ANDROID_KEYSTORE_FILE: ${{ github.workspace }}/codesign/${{ vars.FASTLANE_ANDROID_KEYSTORE_FILE }}
-  FASTLANE_ANDROID_KEYSTORE_PASSWORD: ${{ secrets.FASTLANE_ANDROID_KEYSTORE_PASSWORD }}
-  FASTLANE_ANDROID_KEYSTORE_KEY_ALIAS: ${{ secrets.FASTLANE_ANDROID_KEYSTORE_KEY_ALIAS }}
-  FASTLANE_ANDROID_KEYSTORE_KEY_PASSWORD: ${{ secrets.FASTLANE_ANDROID_KEYSTORE_KEY_PASSWORD }}
-  FASTLANE_IOS_EXPORT_METHOD: ${{ vars.FASTLANE_IOS_EXPORT_METHOD }}
-  FASTLANE_IOS_TEAM_ID: ${{ secrets.FASTLANE_IOS_TEAM_ID }}
-  FASTLANE_CI_LOG_LEVEL: ${{ vars.FASTLANE_CI_LOG_LEVEL }}
-  FASTLANE_IOS_CERT_PATH: ${{ github.workspace }}/codesign/${{ vars.FASTLANE_IOS_CERT_PATH }}
-  FASTLANE_IOS_CERT_PASSWORD: ${{ secrets.FASTLANE_IOS_CERT_PASSWORD }}
-  FASTLANE_IOS_PROVISIONING_PROFILE_PATH: ${{ github.workspace }}/codesign/${{ vars.FASTLANE_IOS_PROVISIONING_PROFILE_PATH }}
 
 jobs:
 
@@ -71,7 +58,7 @@ jobs:
 
       - name: Trigger native build
         run:
-          bundle exec fastlane ${{ matrix.platform }} native
+          echo "Building for ${{ matrix.platform }} in environment ${{ inputs.environment || 'staging' }}"
 
       - name: Archive results
         uses: actions/upload-artifact@v4

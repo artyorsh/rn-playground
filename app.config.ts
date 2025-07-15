@@ -9,7 +9,7 @@ export default ({ config }: ConfigContext): ExpoConfig => {
     android: {
       ...config.android,
       edgeToEdgeEnabled: true,
-      googleServicesFile: './google-services.json',
+      googleServicesFile: process.env.GOOGLE_SERVICES_FILE_ANDROID,
       package: process.env.BUNDLE_IDENTIFIER,
       permissions: ['android.permission.POST_NOTIFICATIONS'],
     },
@@ -19,7 +19,7 @@ export default ({ config }: ConfigContext): ExpoConfig => {
       entitlements: {
         'aps-environment': process.env.NOTIFICATIONS_IOS_APS_ENVIRONMENT,
       },
-      googleServicesFile: './GoogleService-Info.plist',
+      googleServicesFile: process.env.GOOGLE_SERVICES_FILE_IOS,
     },
     extra: {
       eas: {

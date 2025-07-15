@@ -44,7 +44,7 @@ const createLogger = (_context: interfaces.Context): ILogService => {
   const appVersion: string = `${Application.nativeApplicationVersion} (${Application.nativeBuildVersion})`;
 
   const consoleTransporter: ILogTransporter = new ConsoleLogTransporter();
-  const fileTransporter: ILogTransporter = new FileLogTransporter('app-1.log');
+  // const fileTransporter: ILogTransporter = new FileLogTransporter('app-1.log');
   // const grafanaTransporter: ILogTransporter = new GrafanaLogTransporter({
   //   hostUrl: process.env.EXPO_PUBLIC_GRAFANA_HOST || '',
   // });
@@ -58,7 +58,7 @@ const createLogger = (_context: interfaces.Context): ILogService => {
     },
     transporters: [
       consoleTransporter,
-      fileTransporter,
+      // fileTransporter,
       // grafanaTransporter,
     ],
   });

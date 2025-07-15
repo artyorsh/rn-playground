@@ -7,8 +7,8 @@ import { IRouter } from '@/router';
 import { NavigationNotificationHandler } from './handlers/navigation-notification-handler';
 import { NotificationRemoveHandler } from './handlers/notification-remove-handler';
 import { IPushNotificationHandler, IPushPermissionController, IPushServiceProvider, PushNotificationService } from './push-notification.service';
-import { RNFBPushPermissionController } from './rnfb/rnfb-push-permission-controller';
-import { RNFBPushServiceProvider } from './rnfb/rnfb-push-service-provider';
+// import { RNFBPushPermissionController } from './rnfb/rnfb-push-permission-controller';
+// import { RNFBPushServiceProvider } from './rnfb/rnfb-push-service-provider';
 
 export interface IPushNotificationService {
   /**
@@ -28,16 +28,25 @@ const createPushNotificationService = (context: interfaces.Context): IPushNotifi
   const router: IRouter = context.container.get(AppModule.ROUTER);
   const logService: ILogService = context.container.get(AppModule.LOG);
 
-  const pushServiceProvider: IPushServiceProvider = new RNFBPushServiceProvider({
-    initialNotificationPollInterval: 1000,
-    shouldHandleInitialNotification: () => true,
-  });
+  // const pushServiceProvider: IPushServiceProvider = new RNFBPushServiceProvider({
+  //   initialNotificationPollInterval: 1000,
+  //   shouldHandleInitialNotification: () => true,
+  // });
+  const pushServiceProvider: IPushServiceProvider = {
+    subscribe: () => Promise.resolve(),
+    getToken: () => Promise.resolve({ fcm: null, apns: null }),
+  };
 
-  const pushPermissionController: IPushPermissionController = new RNFBPushPermissionController({
-    alert: true,
-    badge: true,
-    sound: true,
-  });
+  // const pushPermissionController: IPushPermissionController = new RNFBPushPermissionController({
+  //   alert: true,
+  //   badge: true,
+  //   sound: true,
+  // });
+
+  const pushPermissionController: IPushPermissionController = {
+    isGranted: () => Promise.resolve(true),
+    request: () => Promise.resolve(),
+  };
 
   const handlers: IPushNotificationHandler[] = [
     new NavigationNotificationHandler(router),

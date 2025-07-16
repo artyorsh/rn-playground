@@ -9,9 +9,6 @@ on:
       - synchronize
       - ready_for_review
 
-env:
-  EXPO_EAS_VERSION: latest
-
 jobs:
 
   validate:
@@ -31,7 +28,7 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version: ${{ env.NODE_VERSION }}
 
       - uses: expo/expo-github-action@v8
         with:

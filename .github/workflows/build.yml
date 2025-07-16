@@ -11,9 +11,6 @@ on:
         type: environment
         description: 'Environment to build. See https://github.com/artyorsh/rnapp/settings/environments.'
 
-env:
-  EXPO_EAS_VERSION: latest
-
 jobs:
 
   build:
@@ -26,7 +23,7 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version: ${{ env.NODE_VERSION }}
 
       - uses: expo/expo-github-action@v8
         with:

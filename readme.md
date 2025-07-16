@@ -1,9 +1,10 @@
 # rnapp
 
-[![Build (macos-15)](https://github.com/artyorsh/rnapp/actions/workflows/build.yml/badge.svg?event=push&branch=main)](https://github.com/artyorsh/rn-playground/actions?query=branch%3Amain)
+[![Build](https://github.com/artyorsh/rn-playground/actions/workflows/build.yml/badge.svg?event=push&branch=main)](https://github.com/artyorsh/rn-playground/actions?query=branch%3Amain)
 
 ## Stack
 
+- [![expo](https://img.shields.io/badge/expo-53.0-blue)](https://github.com/expo/expo/blob/main/packages/expo/CHANGELOG.md)
 - [![react-native](https://img.shields.io/badge/react--native-0.79-blue)](https://github.com/facebook/react-native/releases)
 - [![react-navigation](https://img.shields.io/badge/react--navigation-7.0-blue)](https://github.com/react-navigation/react-navigation/releases)
 - [![mobx-react](https://img.shields.io/badge/mobx--react-9.2-blue)](https://github.com/mobxjs/mobx/releases)
@@ -20,28 +21,13 @@ yarn
 ```
 
 ```bash
-bundle install
-```
-
-```bash
-bundle exec pod install --project-directory=ios
-```
-
-```bash
 cp .env.example .env
 ```
 
 ## Running
 
-Start the Metro bundler
+Start the Metro bundler and follow the instructions in the terminal to run the app on your device or emulator.
 
 ```bash
 yarn start
-```
-
-Run the app
-
-```bash
-yarn ios
-# or yarn android
 ```

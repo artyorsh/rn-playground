@@ -1,14 +1,17 @@
+import Constants from 'expo-constants';
 import { ContainerModule, interfaces } from 'inversify';
 
 import { AppModule } from '@/di/model';
 import { ILogService } from '@/log';
 import { IRouter } from '@/router';
 
+import { MockPushPermissionController } from './expo-go-compat/mock-push-permission-controller';
+import { MockPushServiceProvider } from './expo-go-compat/mock-push-service-provider';
 import { NavigationNotificationHandler } from './handlers/navigation-notification-handler';
 import { NotificationRemoveHandler } from './handlers/notification-remove-handler';
 import { IPushNotificationHandler, IPushPermissionController, IPushServiceProvider, PushNotificationService } from './push-notification.service';
-// import { RNFBPushPermissionController } from './rnfb/rnfb-push-permission-controller';
-// import { RNFBPushServiceProvider } from './rnfb/rnfb-push-service-provider';
+import { RNFBPushPermissionController } from './rnfb/rnfb-push-permission-controller';
+import { RNFBPushServiceProvider } from './rnfb/rnfb-push-service-provider';
 
 export interface IPushNotificationService {
   /**
@@ -25,28 +28,26 @@ export const PushNotificationModule = new ContainerModule(bind => {
 });
 
 const createPushNotificationService = (context: interfaces.Context): IPushNotificationService => {
+  const isExpoGo: boolean = Constants.appOwnership === 'expo';
+
   const router: IRouter = context.container.get(AppModule.ROUTER);
   const logService: ILogService = context.container.get(AppModule.LOG);
 
-  // const pushServiceProvider: IPushServiceProvider = new RNFBPushServiceProvider({
-  //   initialNotificationPollInterval: 1000,
-  //   shouldHandleInitialNotification: () => true,
-  // });
-  const pushServiceProvider: IPushServiceProvider = {
-    subscribe: () => Promise.resolve(),
-    getToken: () => Promise.resolve({ fcm: null, apns: null }),
-  };
+  let pushServiceProvider: IPushServiceProvider = new MockPushServiceProvider();
+  let pushPermissionController: IPushPermissionController = new MockPushPermissionController();
 
-  // const pushPermissionController: IPushPermissionController = new RNFBPushPermissionController({
-  //   alert: true,
-  //   badge: true,
-  //   sound: true,
-  // });
+  if (!isExpoGo) {
+    pushServiceProvider = new RNFBPushServiceProvider({
+      initialNotificationPollInterval: 1000,
+      shouldHandleInitialNotification: () => true,
+    });
 
-  const pushPermissionController: IPushPermissionController = {
-    isGranted: () => Promise.resolve(true),
-    request: () => Promise.resolve(),
-  };
+    pushPermissionController = new RNFBPushPermissionController({
+      alert: true,
+      badge: true,
+      sound: true,
+    });
+  }
 
   const handlers: IPushNotificationHandler[] = [
     new NavigationNotificationHandler(router),

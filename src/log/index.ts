@@ -8,7 +8,6 @@ import { AppModule } from '@/di/model';
 
 import { ILogTransporter, LogService } from './log.service';
 import { ConsoleLogTransporter } from './transporters/console-log-transporter';
-import { FileLogTransporter } from './transporters/file-log-transporter';
 import { GrafanaLogTransporter } from './transporters/grafana-log-transporter';
 
 export type ILogLevel =
@@ -37,7 +36,7 @@ export const LogModule = new ContainerModule(bind => {
 });
 
 const createLogger = (_context: interfaces.Context): ILogService => {
-  const isExpoGo: boolean = Constants.appOwnership === 'expo';
+  const isExpoGo: boolean = Constants.executionEnvironment === 'storeClient';
 
   const grafanaAppId: string = `rnapp_${Platform.OS}_${process.env.EXPO_PUBLIC_ENV_NAME}`;
 
@@ -57,6 +56,8 @@ const createLogger = (_context: interfaces.Context): ILogService => {
   if (!isExpoGo) {
     // expo-file-system/next is not supported in Expo Go
     // https://docs.expo.dev/versions/latest/sdk/filesystem-next
+    const { FileLogTransporter } = require('./transporters/file-log-transporter');
+
     const fileTransporter: ILogTransporter = new FileLogTransporter('app.log');
     transporters.push(fileTransporter);
   }

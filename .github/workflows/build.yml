@@ -5,18 +5,10 @@ on:
     branches:
       - main
 
-  workflow_dispatch:
-    inputs:
-      environment:
-        type: environment
-        description: 'Environment to build. See https://github.com/artyorsh/rnapp/settings/environments.'
-
 jobs:
 
   build:
     runs-on: ubuntu-latest
-
-    environment: ${{ inputs.environment || 'preview' }}
 
     steps:
       - uses: actions/checkout@v4
@@ -33,5 +25,8 @@ jobs:
       - name: Install node modules
         run: yarn
 
-      - name: Trigger EAS build
-        run: eas build --non-interactive
+      - name: Trigger EAS build (Android)
+        run:  eas build --non-interactive --platform android --profile preview
+
+      - name: Trigger EAS build (iOS Simulator)
+        run: eas build --non-interactive --platform ios --profile ios-simulator

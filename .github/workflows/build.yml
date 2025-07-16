@@ -23,11 +23,11 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: ${{ env.NODE_VERSION }}
+          node-version: ${{ vars.NODE_VERSION }}
 
       - uses: expo/expo-github-action@v8
         with:
-          eas-version: ${{ env.EXPO_EAS_VERSION }}
+          eas-version: ${{ vars.EXPO_EAS_VERSION }}
           token: ${{ secrets.EXPO_TOKEN }}
 
       - name: Install node modules

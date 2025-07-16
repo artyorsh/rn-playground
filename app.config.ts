@@ -32,6 +32,7 @@ export default ({ config }: ConfigContext): ExpoConfig => {
     runtimeVersion: {
       policy: 'appVersion',
     },
+    orientation: 'portrait',
     plugins: [
       'expo-secure-store',
       '@react-native-firebase/app',

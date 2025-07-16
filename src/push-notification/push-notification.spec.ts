@@ -1,15 +1,14 @@
 import { ILogService } from '@/log';
-import { IPermissionService } from '@/permission';
 
 import { IPushNotificationService } from '.';
-import { IPushNotificationHandler, IPushServiceProvider, PushNotificationService } from './push-notification.service';
+import { IPushNotificationHandler, IPushPermissionController, IPushServiceProvider, PushNotificationService } from './push-notification.service';
 
 jest.unmock('./push-notification.service');
 
 describe('PushNotificationService', () => {
 
   let pushServiceProvider: IPushServiceProvider;
-  let permissionService: IPermissionService;
+  let permissionController: IPushPermissionController;
   let notificationHandlers: IPushNotificationHandler[] = [];
   let logService: ILogService;
 
@@ -21,7 +20,7 @@ describe('PushNotificationService', () => {
       getToken: jest.fn(() => Promise.resolve({ fcm: 'fcm', apns: 'apns' })),
     };
 
-    permissionService = {
+    permissionController = {
       request: jest.fn(() => Promise.resolve()),
       isGranted: jest.fn(() => Promise.resolve(true)),
     };
@@ -51,8 +50,8 @@ describe('PushNotificationService', () => {
 
     pushNotificationService = new PushNotificationService(
       pushServiceProvider,
+      permissionController,
       notificationHandlers,
-      permissionService,
       logService,
     );
   });
@@ -68,12 +67,12 @@ describe('PushNotificationService', () => {
   });
 
   it('should reject authorize with permission denied error', async () => {
-    permissionService.request = jest.fn(() => Promise.reject(new Error('Permission denied')));
+    permissionController.request = jest.fn(() => Promise.reject(new Error('Permission denied')));
 
     pushNotificationService = new PushNotificationService(
       pushServiceProvider,
+      permissionController,
       notificationHandlers,
-      permissionService,
       logService,
     );
 
@@ -94,8 +93,8 @@ describe('PushNotificationService', () => {
 
     pushNotificationService = new PushNotificationService(
       pushServiceProvider,
+      permissionController,
       notificationHandlers,
-      permissionService,
       logService,
     );
 
@@ -114,8 +113,8 @@ describe('PushNotificationService', () => {
 
     pushNotificationService = new PushNotificationService(
       pushServiceProvider,
+      permissionController,
       notificationHandlers,
-      permissionService,
       logService,
     );
 
@@ -134,8 +133,8 @@ describe('PushNotificationService', () => {
 
     pushNotificationService = new PushNotificationService(
       pushServiceProvider,
+      permissionController,
       notificationHandlers,
-      permissionService,
       logService,
     );
 
@@ -158,8 +157,8 @@ describe('PushNotificationService', () => {
 
     pushNotificationService = new PushNotificationService(
       pushServiceProvider,
+      permissionController,
       notificationHandlers,
-      permissionService,
       logService,
     );
 
@@ -180,8 +179,8 @@ describe('PushNotificationService', () => {
 
     pushNotificationService = new PushNotificationService(
       pushServiceProvider,
+      permissionController,
       [],
-      permissionService,
       logService,
     );
 

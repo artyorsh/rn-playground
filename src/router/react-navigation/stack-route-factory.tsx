@@ -10,7 +10,9 @@ export const StackRouteFactory = (routeMap: IRouteMap): IRouteFactory => {
     const Stack = createNativeStackNavigator();
 
     return (
-      <Stack.Navigator screenOptions={{ headerShown: false, gestureEnabled: false }}>
+      <Stack.Navigator
+        id={undefined}
+        screenOptions={{ headerShown: false, gestureEnabled: false }}>
         {Object.entries(routeMap).map(([route, component]) => (
           <Stack.Screen
             key={route}

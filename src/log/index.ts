@@ -1,5 +1,6 @@
 import { Platform } from 'react-native';
 import * as Application from 'expo-application';
+import Constants from 'expo-constants';
 import * as Device from 'expo-device';
 import { ContainerModule, interfaces } from 'inversify';
 
@@ -8,6 +9,7 @@ import { AppModule } from '@/di/model';
 import { ILogTransporter, LogService } from './log.service';
 import { ConsoleLogTransporter } from './transporters/console-log-transporter';
 import { FileLogTransporter } from './transporters/file-log-transporter';
+import { GrafanaLogTransporter } from './transporters/grafana-log-transporter';
 
 export type ILogLevel =
  | 'debug'
@@ -35,6 +37,8 @@ export const LogModule = new ContainerModule(bind => {
 });
 
 const createLogger = (_context: interfaces.Context): ILogService => {
+  const isExpoGo: boolean = Constants.appOwnership === 'expo';
+
   const grafanaAppId: string = `rnapp_${Platform.OS}_${process.env.EXPO_PUBLIC_ENV_NAME}`;
 
   const deviceName: string = Device.deviceName;
@@ -43,11 +47,21 @@ const createLogger = (_context: interfaces.Context): ILogService => {
   const systemVersion: string = Device.osVersion;
   const appVersion: string = `${Application.nativeApplicationVersion} (${Application.nativeBuildVersion})`;
 
+  const transporters: ILogTransporter[] = [];
+
   const consoleTransporter: ILogTransporter = new ConsoleLogTransporter();
-  // const fileTransporter: ILogTransporter = new FileLogTransporter('app-1.log');
-  // const grafanaTransporter: ILogTransporter = new GrafanaLogTransporter({
-  //   hostUrl: process.env.EXPO_PUBLIC_GRAFANA_HOST || '',
-  // });
+  const grafanaTransporter: ILogTransporter = new GrafanaLogTransporter({
+    hostUrl: process.env.EXPO_PUBLIC_GRAFANA_HOST || '',
+  });
+
+  if (!isExpoGo) {
+    // expo-file-system/next is not supported in Expo Go
+    // https://docs.expo.dev/versions/latest/sdk/filesystem-next
+    const fileTransporter: ILogTransporter = new FileLogTransporter('app.log');
+    transporters.push(fileTransporter);
+  }
+
+  transporters.push(consoleTransporter, grafanaTransporter);
 
   return new LogService({
     flushInterval: 10_000,
@@ -56,10 +70,6 @@ const createLogger = (_context: interfaces.Context): ILogService => {
       version: appVersion,
       runtime: `${deviceName}/${Platform.OS}/${systemVersion}/${deviceBrand}/${deviceModel}`,
     },
-    transporters: [
-      consoleTransporter,
-      // fileTransporter,
-      // grafanaTransporter,
-    ],
+    transporters: transporters,
   });
 };

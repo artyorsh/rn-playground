@@ -25,6 +25,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Get Head Commit Message
+        id: get_head_commit_message
+        run: echo "HEAD_COMMIT_MESSAGE=$(git show -s --format=%s)" >> "$GITHUB_OUTPUT"
+
       - uses: actions/setup-node@v4
         with:
           node-version: 22
@@ -44,4 +48,4 @@ jobs:
       - name: Create preview
         uses: expo/expo-github-action/preview@v8
         with:
-          command: eas update --auto --branch ${{ github.event.pull_request.head.ref }}
+          command: eas update --auto --branch ${{ github.event.pull_request.head.ref }} --message "${{ steps.get_head_commit_message.outputs.HEAD_COMMIT_MESSAGE }}"

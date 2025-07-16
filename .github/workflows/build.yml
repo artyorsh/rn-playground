@@ -10,6 +10,12 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
+    strategy:
+      matrix:
+        platform:
+          - { name: "android", profile: "preview" }
+          - { name: "ios", profile: "ios-simulator" }
+
     steps:
       - uses: actions/checkout@v4
 
@@ -25,8 +31,5 @@ jobs:
       - name: Install node modules
         run: yarn
 
-      - name: Trigger EAS build (Android)
-        run:  eas build --non-interactive --platform android --profile preview
-
-      - name: Trigger EAS build (iOS Simulator)
-        run: eas build --non-interactive --platform ios --profile ios-simulator
+      - name: Trigger EAS build
+        run:  eas build --non-interactive --platform ${{ matrix.platform.name }} --profile ${{ matrix.platform.profile }}

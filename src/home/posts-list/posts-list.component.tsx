@@ -2,6 +2,8 @@ import React from 'react';
 import { FlatList, ListRenderItemInfo, StyleSheet } from 'react-native';
 import { observer } from 'mobx-react';
 
+import { getBottomSpace } from '@/components/safe-area.component';
+
 import { IPostVM, PostItem } from './post-item.component';
 
 interface Props {
@@ -34,6 +36,7 @@ export const PostsList: React.FC<Props> = observer(({ vm }) => {
 const styles = StyleSheet.create({
   contentContainer: {
     paddingHorizontal: 16,
+    paddingBottom: getBottomSpace(16),
   },
   item: {
     marginTop: 16,
